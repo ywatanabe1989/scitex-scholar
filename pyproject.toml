@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-scholar"
-version = "0.3.0"
+version = "1.0.1"
 description = "Scientific paper search, enrichment, download, and management for the SciTeX ecosystem"
 readme = "README.md"
 license = "AGPL-3.0"
@@ -38,6 +38,7 @@ classifiers = [
 ]
 dependencies = [
     "scitex-io>=0.2.0",
+    "scitex-browser>=0.1.0",
     "bibtexparser>=1.4.0",
     "feedparser>=6.0.0",
     "httpx>=0.24.0",
