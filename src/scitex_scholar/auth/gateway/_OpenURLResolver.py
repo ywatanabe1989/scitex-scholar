@@ -16,12 +16,12 @@ __FILE__ = __file__
 from typing import Optional
 from urllib.parse import quote
 
-from playwright.async_api import Locator, Page
+from playwright.async_api import Page
+from scitex_browser.debugging import browser_logger
 
 from scitex import logging
-from scitex.browser.debugging import browser_logger
-from scitex_scholar.config import ScholarConfig
 from scitex_scholar.browser.utils import click_and_wait
+from scitex_scholar.config import ScholarConfig
 
 from ._OpenURLLinkFinder import OpenURLLinkFinder
 

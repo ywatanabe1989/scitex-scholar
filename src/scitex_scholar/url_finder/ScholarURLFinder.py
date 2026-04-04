@@ -21,11 +21,11 @@ from contextlib import asynccontextmanager
 from typing import Dict, List, Optional, Union
 
 from playwright.async_api import BrowserContext, Page
+from scitex_browser.debugging import browser_logger
 
 from scitex import logging
-from scitex.browser.debugging import browser_logger
 from scitex_scholar.auth.gateway import OpenURLResolver
-from scitex_scholar.config import PublisherRules, ScholarConfig
+from scitex_scholar.config import ScholarConfig
 
 # Import strategies
 from .strategies import (

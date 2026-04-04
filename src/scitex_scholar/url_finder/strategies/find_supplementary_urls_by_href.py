@@ -16,9 +16,9 @@ __FILE__ = __file__
 from typing import Dict, List
 
 from playwright.async_api import Page
+from scitex_browser import browser_logger
 
 from scitex import logging
-from scitex.browser import browser_logger
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)

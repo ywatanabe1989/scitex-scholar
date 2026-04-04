@@ -26,9 +26,9 @@ import asyncio
 from typing import Optional
 
 from playwright.async_api import Page
+from scitex_browser.debugging import browser_logger
 
 from scitex import logging
-from scitex.browser.debugging import browser_logger
 
 from ._OpenURLResolver import OpenURLResolver
 

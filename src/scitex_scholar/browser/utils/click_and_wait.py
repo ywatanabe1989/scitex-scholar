@@ -56,7 +56,7 @@ async def click_and_wait(
             'timed_out': bool,
         }
     """
-    from scitex.browser.debugging import browser_logger, highlight_element_async
+    from scitex_browser.debugging import browser_logger, highlight_element_async
 
     from .wait_redirects import wait_redirects
 

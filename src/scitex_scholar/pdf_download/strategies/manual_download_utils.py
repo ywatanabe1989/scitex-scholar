@@ -27,7 +27,7 @@ from typing import Optional
 
 from playwright.async_api import Page
 
-from scitex.browser.debugging import browser_logger
+from scitex_browser.debugging import browser_logger
 
 
 class FlexibleFilenameGenerator:
