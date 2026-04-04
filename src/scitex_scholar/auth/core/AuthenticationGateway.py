@@ -28,7 +28,7 @@ This keeps URL finders and PDF downloaders free of authentication logic.
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
-from playwright.async_api import BrowserContext, Page
+from playwright.async_api import BrowserContext
 
 from scitex import logging
 from scitex_scholar.config import ScholarConfig
@@ -340,7 +340,8 @@ class AuthenticationGateway:
 
         # Visit OpenURL and click through to publisher
         # This uses the existing OpenURLResolver flow
-        from scitex.browser import browser_logger
+        from scitex_browser import browser_logger
+
         from scitex_scholar.auth.gateway._OpenURLResolver import OpenURLResolver
 
         resolver = OpenURLResolver(config=self.config)

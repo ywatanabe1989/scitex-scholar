@@ -9,7 +9,6 @@ from typing import List
 from playwright.async_api import Page
 
 from scitex import logging
-from scitex.browser.debugging import browser_logger
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)

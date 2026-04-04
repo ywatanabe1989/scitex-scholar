@@ -22,10 +22,10 @@ from typing import List, Optional
 from urllib.parse import urljoin
 
 from playwright.async_api import Page
+from scitex_browser.debugging import browser_logger
 
-from scitex.browser.debugging import browser_logger
-from scitex_scholar.config import ScholarConfig
 from scitex_scholar.browser.utils import wait_redirects
+from scitex_scholar.config import ScholarConfig
 
 
 async def find_pdf_urls_by_navigation(

@@ -15,9 +15,8 @@ import asyncio
 
 __FILE__ = __file__
 
-from playwright.async_api import BrowserContext, Page
-
-from scitex.browser.debugging import browser_logger
+from playwright.async_api import BrowserContext
+from scitex_browser.debugging import browser_logger
 
 
 async def close_unwanted_pages(
@@ -115,7 +114,7 @@ async def close_unwanted_pages(
                 try:
                     await page.close()
                     closed_count += 1
-                except Exception as e:
+                except Exception:
                     if valid_page:
                         await browser_logger.warning(
                             valid_page, f"{func_name}: Failed to close page"
@@ -127,7 +126,7 @@ async def close_unwanted_pages(
                     f"{func_name}: Closed {closed_count} page(s) (attempt {attempts + 1})",
                 )
 
-        except Exception as e:
+        except Exception:
             if valid_page:
                 await browser_logger.warning(
                     valid_page,
