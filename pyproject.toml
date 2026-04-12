@@ -37,14 +37,22 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+    "scitex>=2.0.0",
     "scitex-io>=0.2.0",
     "scitex-browser>=0.1.0",
+    "beautifulsoup4>=4.12.0",
     "bibtexparser>=1.4.0",
     "feedparser>=6.0.0",
     "httpx>=0.24.0",
+    "nest-asyncio>=1.5.0",
+    "pandas>=1.5.0",
     "pydantic>=2.0.0",
+    "pyyaml>=6.0.0",
     "requests>=2.28.0",
+    "sql-manager>=1.0.0",
+    "sqlalchemy>=2.0.0",
     "tenacity>=8.0.0",
+    "tqdm>=4.64.0",
 ]
 
 [project.optional-dependencies]
@@ -54,6 +62,19 @@ pdf = [
 mcp = [
     "fastmcp>=2.0.0",
 ]
+browser = [
+    "playwright>=1.40.0",
+]
+export = [
+    "openpyxl>=3.1.0",
+]
+server = [
+    "aiohttp>=3.8.0",
+    "flask>=2.3.0",
+]
+watch = [
+    "watchdog>=3.0.0",
+]
 dev = [
     "scitex-dev",
     "pytest>=7.0.0",
@@ -61,7 +82,7 @@ dev = [
     "numpy>=1.21.0",
 ]
 all = [
-    "scitex-scholar[pdf,mcp,dev]",
+    "scitex-scholar[pdf,mcp,browser,export,server,watch,dev]",
 ]
 
 [project.urls]
