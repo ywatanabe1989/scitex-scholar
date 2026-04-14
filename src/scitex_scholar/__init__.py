@@ -35,6 +35,11 @@ except ImportError:
     ScholarAuthManager = None
 
 try:
+    from .browser import ScholarBrowserManager
+except ImportError:
+    ScholarBrowserManager = None
+
+try:
     from .citation_graph import CitationGraphBuilder, plot_citation_graph
 except ImportError:
     CitationGraphBuilder = None
