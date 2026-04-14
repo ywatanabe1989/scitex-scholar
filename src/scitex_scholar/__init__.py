@@ -30,6 +30,11 @@ from .formatting import (
 )
 
 try:
+    from .auth import ScholarAuthManager
+except ImportError:
+    ScholarAuthManager = None
+
+try:
     from .citation_graph import CitationGraphBuilder, plot_citation_graph
 except ImportError:
     CitationGraphBuilder = None
@@ -48,6 +53,7 @@ __all__ = [
     "Paper",
     "Papers",
     "ScholarConfig",
+    "ScholarAuthManager",
     "CitationGraphBuilder",
     "plot_citation_graph",
     "to_bibtex",

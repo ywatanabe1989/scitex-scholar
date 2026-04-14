@@ -85,6 +85,9 @@ all = [
     "scitex-scholar[pdf,mcp,browser,export,server,watch,dev]",
 ]
 
+[project.scripts]
+scitex-scholar = "scitex_scholar.__main__:main"
+
 [project.urls]
 Homepage = "https://github.com/ywatanabe1989/scitex-scholar"
 Documentation = "https://scitex-scholar.readthedocs.io"
