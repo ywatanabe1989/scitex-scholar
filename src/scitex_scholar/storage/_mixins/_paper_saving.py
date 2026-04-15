@@ -210,7 +210,7 @@ class PaperSavingMixin:
                     project=self.project,
                     readable_name=readable_name,
                 )
-                # {project_dir}/scitex/scholar/library/{project}/ view
+                # {project_dir}/.scitex/scholar/library/{project}/ view
                 self._create_project_local_symlink(
                     master_storage_path=master_storage_path,
                     readable_name=readable_name,

@@ -15,7 +15,7 @@ SCHOLAR_SUBDIRS = ["bib_files", "library", "prompts"]
 
 
 def ensure_workspace(project_dir: Union[str, Path]) -> Path:
-    """Ensure scholar workspace exists at {project_dir}/scitex/scholar/.
+    """Ensure scholar workspace exists at {project_dir}/.scitex/scholar/.
 
     Creates the directory scaffold with subdirectories for bibliography
     files, library storage, and prompt templates.
@@ -24,14 +24,14 @@ def ensure_workspace(project_dir: Union[str, Path]) -> Path:
     ----------
     project_dir : str or Path
         Root project directory. Scholar workspace will be at
-        ``{project_dir}/scitex/scholar/``.
+        ``{project_dir}/.scitex/scholar/`` (hidden, dotfile convention).
 
     Returns
     -------
     pathlib.Path
         Path to the scholar workspace directory.
     """
-    scholar_path = Path(project_dir) / "scitex" / "scholar"
+    scholar_path = Path(project_dir) / ".scitex" / "scholar"
     if scholar_path.exists() and any(scholar_path.iterdir()):
         return scholar_path
 

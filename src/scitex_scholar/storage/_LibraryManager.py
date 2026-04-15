@@ -121,7 +121,7 @@ class LibraryManager(
         project_dir : str or Path, optional
             Root of the user's code project (e.g. ``~/my-project``).
             When provided, project-local symlinks are also created at
-            ``{project_dir}/scitex/scholar/library/{project}/``.
+            ``{project_dir}/.scitex/scholar/library/{project}/``.
         """
         self.config = config or ScholarConfig()
         self.project = self.config.resolve("project", project)
