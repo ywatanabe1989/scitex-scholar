@@ -7,7 +7,7 @@ name = "scitex-scholar"
 version = "1.0.1"
 description = "Scientific paper search, enrichment, download, and management for the SciTeX ecosystem"
 readme = "README.md"
-license = "AGPL-3.0"
+license = "AGPL-3.0-only"
 requires-python = ">=3.10"
 authors = [
     { name = "Yusuke Watanabe", email = "ywatanabe@scitex.ai" },
