@@ -516,8 +516,11 @@ class BibTeXValidator:
                             if key in all_keys:
                                 cross_file_duplicates.append(entry.get("key", ""))
                             all_keys.add(key)
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logger.debug(
+                        f"Cross-file dup check: failed reading "
+                        f"{result.file_path} ({type(exc).__name__}: {exc})"
+                    )
 
         if cross_file_duplicates:
             can_merge = False
