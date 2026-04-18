@@ -40,7 +40,11 @@ class StorageHelpersMixin:
 
             urls = data.get("metadata", {}).get("url", {}).get("pdfs", [])
             return len(urls) > 0
-        except Exception:
+        except Exception as exc:
+            logger.debug(
+                f"has_urls: failed reading {metadata_file} "
+                f"({type(exc).__name__}: {exc})"
+            )
             return False
 
     def has_pdf(self, paper_id: str) -> bool:
@@ -84,8 +88,12 @@ class StorageHelpersMixin:
             try:
                 with open(metadata_file) as f:
                     existing_data = json.load(f)
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.warning(
+                    f"save_paper_incremental: unreadable existing metadata "
+                    f"at {metadata_file}; merging onto empty dict "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         new_data = paper.model_dump()
         merged_data = self._merge_metadata(existing_data, new_data)

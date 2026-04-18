@@ -233,8 +233,14 @@ class SymlinkHandlersMixin:
                         and existing.name != readable_name
                     ):
                         existing.unlink()
-                except Exception:
-                    pass
+                except Exception as exc:
+                    # Stale-symlink cleanup is best-effort; failure just
+                    # leaves the old entry in place. Log at debug so real
+                    # issues (permissions, symlink loop) are diagnosable.
+                    logger.debug(
+                        f"Stale symlink cleanup skipped ({existing}): "
+                        f"{type(exc).__name__}: {exc}"
+                    )
 
             if not symlink_path.exists():
                 # Use absolute path — relative would break across project moves
