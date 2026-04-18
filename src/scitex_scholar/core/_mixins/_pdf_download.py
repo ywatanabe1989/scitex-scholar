@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.auth.core.AuthenticationGateway import AuthenticationGateway
 from scitex_scholar.pdf_download.ScholarPDFDownloader import ScholarPDFDownloader
 
@@ -274,8 +275,11 @@ class PDFDownloadMixin:
                     journal_clean = "Unknown"
 
             readable_name = f"{first_author}-{year_str}-{journal_clean}"
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug(
+                f"readable_name generation failed, falling back to DOI form "
+                f"({type(exc).__name__}: {exc})"
+            )
 
         if not readable_name:
             readable_name = f"DOI_{doi.replace('/', '_').replace(':', '_')}"

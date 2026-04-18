@@ -443,8 +443,11 @@ class PipelineHelpersMixin:
                 section_obj = getattr(paper.metadata, section)
                 setattr(section_obj, field_name, value)
                 setattr(section_obj, f"{field_name}_engines", engines)
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug(
+                    f"_assign_field: failed setting {section}.{field_name} "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         # ID section
         if "id" in metadata_dict:

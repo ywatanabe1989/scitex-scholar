@@ -26,9 +26,8 @@ import asyncio
 from typing import Dict, List
 from urllib.parse import urlparse
 
-from playwright.async_api import Page, Response
-
 import scitex_logging as logging
+from playwright.async_api import Page, Response
 
 logger = logging.getLogger(__name__)
 
@@ -199,8 +198,11 @@ async def detect_captcha_on_page(
             title = await page.title()
             if "challenge" in title.lower() or "captcha" in title.lower():
                 return True
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug(
+                f"challenge detection: page.title() failed "
+                f"({type(exc).__name__}: {exc})"
+            )
 
         return False
 
