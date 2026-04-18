@@ -120,11 +120,21 @@ class OpenURLResolver:
                         f"Clicking {publisher} link for {doi[:20]}...",
                     )
 
-                    if result.get("success"):
-                        final_url = result.get("final_url")
+                    final_url = result.get("final_url") or page.url
+                    # Partial success: wait_redirects may time out during a slow
+                    # OpenAthens SSO chain (Elsevier commonly 25–35s) yet still
+                    # land on the publisher. Accept the URL if it navigated away
+                    # from the OpenURL resolver, regardless of the strict
+                    # redirect-settled success flag.
+                    left_resolver = (
+                        final_url
+                        and "sfxlcl" not in final_url
+                        and "exlibrisgroup" not in final_url
+                    )
+                    if result.get("success") or left_resolver:
                         await browser_logger.info(
                             page,
-                            f"{self.name}: ✓ Landed at {final_url[:60]}",
+                            f"{self.name}: ✓ Landed at {str(final_url)[:60]}",
                         )
                         await page.wait_for_timeout(2000)
                         return final_url
