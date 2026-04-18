@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import scitex_logging as logging
+
 from scitex_scholar.core import Paper
 
 if TYPE_CHECKING:
@@ -253,7 +254,10 @@ class PipelineStepsMixin:
                 f"{self.name}: Auth gateway failed before download: {e}",
                 exc_info=True,
             )
-        temp_pdf_path = io.paper_dir / "temp.pdf"
+        # Unique temp path so concurrent runs on the same paper don't collide.
+        import uuid
+
+        temp_pdf_path = io.paper_dir / f"temp-{uuid.uuid4().hex[:8]}.pdf"
         downloaded_file = await downloader.download_from_url(
             pdf_url, output_path=temp_pdf_path, doi=paper.metadata.id.doi
         )

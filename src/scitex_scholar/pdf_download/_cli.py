@@ -99,10 +99,18 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="DOI of the paper (e.g., 10.1088/1741-2552/aaf92e)",
     )
+    # Default output resolved from ScholarConfig so the path honours
+    # SCITEX_DIR overrides instead of hardcoding ~/.scitex/scholar/.
+    from scitex_scholar.config import ScholarConfig
+
+    _default_output = str(
+        ScholarConfig().path_manager.get_library_downloads_dir()
+        / "downloaded_paper.pdf"
+    )
     parser.add_argument(
         "--output",
         type=str,
-        default="~/.scitex/scholar/library/downloads/downloaded_paper.pdf",
+        default=_default_output,
         help="Output path for the PDF",
     )
     parser.add_argument(
