@@ -17,11 +17,11 @@ import asyncio
 import re
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Optional
 
 import aiohttp
-
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -137,24 +137,20 @@ def is_open_access_journal(journal_name: str, use_cache: bool = True) -> bool:
 
     # Tier 2: Check OpenAlex cache (62K+ OA sources)
     if use_cache:
-        try:
-            from .oa_cache import is_oa_journal_cached
+        # oa_cache and journal_normalizer are same-package siblings; they
+        # always import. No defensive try/except needed.
+        from .oa_cache import is_oa_journal_cached
 
-            if is_oa_journal_cached(journal_name):
-                return True
-        except ImportError:
-            pass  # Cache module not available
+        if is_oa_journal_cached(journal_name):
+            return True
 
     # Tier 3: Use journal normalizer (handles abbreviations, variants)
     if use_cache:
-        try:
-            from .journal_normalizer import get_journal_normalizer
+        from .journal_normalizer import get_journal_normalizer
 
-            normalizer = get_journal_normalizer()
-            if normalizer.is_open_access(journal_name):
-                return True
-        except ImportError:
-            pass  # Normalizer module not available
+        normalizer = get_journal_normalizer()
+        if normalizer.is_open_access(journal_name):
+            return True
 
     return False
 
