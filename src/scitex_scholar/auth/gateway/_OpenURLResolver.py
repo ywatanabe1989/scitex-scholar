@@ -19,7 +19,7 @@ from urllib.parse import quote
 from playwright.async_api import Page
 from scitex_browser.debugging import browser_logger
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.browser.utils import click_and_wait
 from scitex_scholar.config import ScholarConfig
 

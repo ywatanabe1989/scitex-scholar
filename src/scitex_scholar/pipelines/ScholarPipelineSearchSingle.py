@@ -28,9 +28,10 @@ IO:
 
 import asyncio
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
-from scitex import logging
+import scitex_logging as logging
+
 from scitex_scholar.core import Paper
 from scitex_scholar.search_engines.individual.ArXivSearchEngine import ArXivSearchEngine
 from scitex_scholar.search_engines.individual.CrossRefSearchEngine import (
@@ -445,8 +446,11 @@ class ScholarPipelineSearchSingle:
                             metrics.get("source", "ImpactFactorEngine")
                         )
                         enriched += 1
-                except Exception:
-                    pass  # Skip on error
+                except Exception as exc:
+                    logger.debug(
+                        f"{self.name}: impact-factor enrich skipped for paper "
+                        f"({type(exc).__name__}: {exc})"
+                    )
 
         if enriched > 0:
             logger.info(f"{self.name}: Enriched {enriched} papers with impact factors")

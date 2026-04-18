@@ -8,7 +8,7 @@ from typing import List
 
 from playwright.async_api import Page
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.config import PublisherRules, ScholarConfig
 
 logger = logging.getLogger(__name__)

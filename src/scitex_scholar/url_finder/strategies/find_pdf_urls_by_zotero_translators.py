@@ -40,7 +40,7 @@ from typing import List
 from playwright.async_api import Page
 from scitex_browser import browser_logger
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.url_finder.translators._core.registry import TranslatorRegistry
 
 logger = logging.getLogger(__name__)

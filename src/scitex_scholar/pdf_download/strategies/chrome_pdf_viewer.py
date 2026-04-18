@@ -18,7 +18,7 @@ from typing import Optional
 from playwright.async_api import BrowserContext
 from scitex_browser.stealth import HumanBehavior
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.browser import (
     browser_logger,
     click_center_async,

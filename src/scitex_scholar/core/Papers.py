@@ -23,7 +23,8 @@ Business logic has been moved to Scholar and utility functions.
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterator, List, Optional, Union
 
-from scitex import logging
+import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 from scitex_scholar.core.Paper import Paper
 
@@ -104,7 +105,7 @@ class Papers:
         if len(self) == 0:
             return "Empty Papers collection"
         elif len(self) == 1:
-            return f"Papers collection with 1 paper"
+            return "Papers collection with 1 paper"
         else:
             return f"Papers collection with {len(self)} papers"
 
@@ -268,7 +269,7 @@ class Papers:
             return Papers(filtered, project=self.project, config=self.config)
 
         # Otherwise use criteria-based filtering
-        from scitex_scholar.utils.papers_utils import filter_papers_advanced
+        from scitex_scholar._utils.papers_utils import filter_papers_advanced
 
         result = filter_papers_advanced(
             self,
@@ -360,7 +361,7 @@ class Papers:
             return Papers(sorted_papers, project=self.project, config=self.config)
 
         # Handle field names
-        from scitex_scholar.utils.papers_utils import sort_papers_multi
+        from scitex_scholar._utils.papers_utils import sort_papers_multi
 
         return sort_papers_multi(self, list(criteria), reverse=reverse)
 
@@ -574,7 +575,7 @@ class Papers:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         if format.lower() == "bibtex":
-            from scitex_scholar.utils.papers_utils import papers_to_bibtex
+            from scitex_scholar._utils.papers_utils import papers_to_bibtex
 
             bibtex_content = papers_to_bibtex(self, output_path=None)
             output_path.write_text(bibtex_content)
@@ -583,14 +584,14 @@ class Papers:
         elif format.lower() == "json":
             import json
 
-            from scitex_scholar.utils.papers_utils import papers_to_dict
+            from scitex_scholar._utils.papers_utils import papers_to_dict
 
             with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(papers_to_dict(self), f, indent=2, ensure_ascii=False)
             logger.success(f"Saved {len(self)} papers to {output_path}")
 
         elif format.lower() == "csv":
-            from scitex_scholar.utils.papers_utils import papers_to_dataframe
+            from scitex_scholar._utils.papers_utils import papers_to_dataframe
 
             df = papers_to_dataframe(self)
             df.to_csv(output_path, index=False)
@@ -607,7 +608,7 @@ class Papers:
         Returns:
             Dictionary representation
         """
-        from scitex_scholar.utils.papers_utils import papers_to_dict
+        from scitex_scholar._utils.papers_utils import papers_to_dict
 
         return papers_to_dict(self)
 
@@ -620,7 +621,7 @@ class Papers:
             DataFrame with papers data
         """
         try:
-            from scitex_scholar.utils.papers_utils import papers_to_dataframe
+            from scitex_scholar._utils.papers_utils import papers_to_dataframe
 
             return papers_to_dataframe(self)
         except ImportError:
@@ -635,7 +636,7 @@ class Papers:
         Returns:
             Dictionary with statistics
         """
-        from scitex_scholar.utils.papers_utils import papers_statistics
+        from scitex_scholar._utils.papers_utils import papers_statistics
 
         return papers_statistics(self)
 
@@ -698,7 +699,7 @@ if __name__ == "__main__":
 
         # Test sorting
         sorted_papers = papers.sort_by(lambda p: p.metadata.basic.year or 0)
-        print(f"\n3. Sorted by year:")
+        print("\n3. Sorted by year:")
         for p in sorted_papers:
             print(f"   {p.metadata.basic.year}: {p.metadata.basic.title}")
 

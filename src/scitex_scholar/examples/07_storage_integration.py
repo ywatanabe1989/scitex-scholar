@@ -50,7 +50,6 @@ import scitex as stx
 
 async def demonstrate_paper_storage() -> None:
     """Demonstrate individual Paper storage capabilities."""
-    from pathlib import Path
 
     from scitex_scholar.core.Paper import Paper
     from scitex_scholar.storage import ScholarLibrary
@@ -83,7 +82,9 @@ async def demonstrate_paper_storage() -> None:
     print(f"✓ Saved to library with ID: {library_id}")
 
     # Verify saved location
-    master_dir = Path.home() / ".scitex/scholar/library/MASTER" / library_id
+    from scitex_scholar.config import ScholarConfig
+
+    master_dir = ScholarConfig().path_manager.get_library_master_paper_dir(library_id)
     if master_dir.exists():
         print(f"✓ Paper stored at: {master_dir}")
         metadata_file = master_dir / "metadata.json"
@@ -95,7 +96,6 @@ async def demonstrate_paper_storage() -> None:
 
 async def demonstrate_papers_collection() -> None:
     """Demonstrate Papers collection project management."""
-    from pathlib import Path
 
     from scitex_scholar.core.Paper import Paper
     from scitex_scholar.core.Papers import Papers
@@ -142,7 +142,11 @@ async def demonstrate_papers_collection() -> None:
     print(f"Created collection with {len(collection)} papers")
 
     # Save to library - using Path is also supported
-    library_dir = Path.home() / ".scitex/scholar/library"
+    from scitex_scholar.config import ScholarConfig
+
+    # "library_dir" is the parent of MASTER, downloads, and all project dirs;
+    # exposed via the dirs dict since there's no dedicated accessor method.
+    library_dir = ScholarConfig().path_manager.dirs["library_dir"]
     library = ScholarLibrary(library_dir)
     saved_ids = []
     for paper in collection:
@@ -156,11 +160,14 @@ async def demonstrate_papers_collection() -> None:
 
 async def demonstrate_scholar_global() -> None:
     """Demonstrate Scholar global library management."""
-    from pathlib import Path
 
     print("=== Scholar Global Management Demo ===")
 
-    library_dir = Path.home() / ".scitex/scholar/library"
+    from scitex_scholar.config import ScholarConfig
+
+    # "library_dir" is the parent of MASTER, downloads, and all project dirs;
+    # exposed via the dirs dict since there's no dedicated accessor method.
+    library_dir = ScholarConfig().path_manager.dirs["library_dir"]
 
     # List projects by checking library directory structure
     if library_dir.exists():

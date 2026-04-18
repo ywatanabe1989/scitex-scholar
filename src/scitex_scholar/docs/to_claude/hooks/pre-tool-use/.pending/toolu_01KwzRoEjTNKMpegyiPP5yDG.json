@@ -1,0 +1,4 @@
+{
+  "stage": "until grep -E \"Processing",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

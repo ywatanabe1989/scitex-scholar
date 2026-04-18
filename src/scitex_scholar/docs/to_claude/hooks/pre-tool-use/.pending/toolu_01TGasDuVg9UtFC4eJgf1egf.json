@@ -1,0 +1,4 @@
+{
+  "stage": "for link in ~/.scitex/scholar/library/neurovista/*Kuhlmann* ~/.scitex/scholar/library/neurovista/*Karoly_The-Lancet* ~/.scitex/scholar/library/neurovista/*Cook_The-Lancet* ~/.scitex/scholar/library/neurovista/*Kiral*",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

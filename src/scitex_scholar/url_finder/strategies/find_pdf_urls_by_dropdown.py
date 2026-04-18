@@ -6,9 +6,9 @@
 
 from typing import List
 
+import scitex_logging as logging
 from playwright.async_api import Page
 
-from scitex import logging
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ async def find_pdf_urls_by_dropdown(
                     href = await element.get_attribute("href")
                     if href and "pdf" in href.lower():
                         pdf_urls.append(href)
-            except:
+            except Exception:
                 continue
 
         if pdf_urls:

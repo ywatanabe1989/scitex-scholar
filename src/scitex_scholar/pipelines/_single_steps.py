@@ -9,7 +9,8 @@ import hashlib
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from scitex import logging
+import scitex_logging as logging
+
 from scitex_scholar.core import Paper
 
 if TYPE_CHECKING:
@@ -238,8 +239,25 @@ class PipelineStepsMixin:
                 doi=paper.metadata.id.doi, context=context
             )
         except Exception as e:
-            logger.warn(str(e))
-        temp_pdf_path = io.paper_dir / "temp.pdf"
+            # Record auth failure in metadata so downstream consumers can
+            # distinguish "download failed" from "auth never established".
+            from datetime import datetime, timezone
+
+            paper.metadata.access.pdf_download_attempted_at = datetime.now(
+                timezone.utc
+            ).isoformat()
+            paper.metadata.access.pdf_download_status = "auth_failed"
+            paper.metadata.access.pdf_download_error = (
+                f"auth_gateway.prepare_context_async: {type(e).__name__}: {e}"
+            )
+            logger.warning(
+                f"{self.name}: Auth gateway failed before download: {e}",
+                exc_info=True,
+            )
+        # Unique temp path so concurrent runs on the same paper don't collide.
+        import uuid
+
+        temp_pdf_path = io.paper_dir / f"temp-{uuid.uuid4().hex[:8]}.pdf"
         downloaded_file = await downloader.download_from_url(
             pdf_url, output_path=temp_pdf_path, doi=paper.metadata.id.doi
         )
@@ -425,8 +443,11 @@ class PipelineHelpersMixin:
                 section_obj = getattr(paper.metadata, section)
                 setattr(section_obj, field_name, value)
                 setattr(section_obj, f"{field_name}_engines", engines)
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug(
+                    f"_assign_field: failed setting {section}.{field_name} "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         # ID section
         if "id" in metadata_dict:

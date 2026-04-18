@@ -34,7 +34,11 @@ Output:
 from functools import lru_cache
 from typing import Dict, Optional
 
+from scitex_logging import getLogger
+
 from .jcr.ImpactFactorJCREngine import ImpactFactorJCREngine
+
+logger = getLogger(__name__)
 
 """Parameters"""
 
@@ -55,14 +59,18 @@ class ImpactFactorEngine:
         self.get_metrics = lru_cache(maxsize=cache_size)(self._get_metrics_uncached)
 
     def _get_jcr_year(self) -> str:
-        """Extract JCR year from database or package metadata."""
+        """Extract JCR year from database or package metadata.
+
+        Returns "Source Unknown" if the year can't be determined. Any
+        underlying error is logged at debug level so callers can distinguish
+        a truly unknown year from a misconfigured DB.
+        """
         try:
             import sqlite3
 
             with sqlite3.connect(self.jcr_engine.dbfile) as conn:
                 cursor = conn.cursor()
 
-                # Check if there's a metadata table with year info
                 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
                 tables = [row[0] for row in cursor.fetchall()]
 
@@ -74,19 +82,18 @@ class ImpactFactorEngine:
                     if year_result:
                         return f"JCR {year_result[0]}"
 
-                # Try to extract year from database filename
-                try:
-                    import re
+                import re
 
-                    db_path = str(self.jcr_engine.dbfile)
-                    year_match = re.search(r"20\d{2}", db_path)
-                    if year_match:
-                        return f"JCR {year_match.group()}"
-                except:
-                    pass
+                db_path = str(self.jcr_engine.dbfile)
+                year_match = re.search(r"20\d{2}", db_path)
+                if year_match:
+                    return f"JCR {year_match.group()}"
 
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug(
+                f"ImpactFactorEngine: JCR year lookup failed "
+                f"({type(exc).__name__}: {exc}); returning 'Source Unknown'"
+            )
 
         return "Source Unknown"
 

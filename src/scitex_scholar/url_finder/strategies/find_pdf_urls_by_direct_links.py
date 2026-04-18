@@ -250,7 +250,7 @@ async def _find_from_dropdowns(
                     href = await element.get_attribute("href")
                     if href and "pdf" in href.lower():
                         pdf_urls.append(href)
-            except:
+            except Exception:
                 continue
 
         return pdf_urls

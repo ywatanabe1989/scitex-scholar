@@ -25,10 +25,9 @@ No classes, just functions that do one thing well.
 import asyncio
 from typing import Optional
 
+import scitex_logging as logging
 from playwright.async_api import Page
 from scitex_browser.debugging import browser_logger
-
-from scitex import logging
 
 from ._OpenURLResolver import OpenURLResolver
 
@@ -61,9 +60,13 @@ async def resolve_publisher_url_by_navigating_to_doi_page(
         logger.error(
             f"{func_name}: Publisher URL not resolved by navigating to {doi}: {e}"
         )
-        from pathlib import Path
+        from scitex_scholar.config import ScholarConfig
 
-        screenshot_dir = Path.home() / ".scitex/scholar/workspace/screenshots"
+        screenshot_dir = (
+            ScholarConfig().path_manager.get_cache_engine_dir()
+            / "workspace"
+            / "screenshots"
+        )
         await browser_logger.info(
             page,
             f"{func_name}: {doi} - Publisher URL not resolved by navigating",

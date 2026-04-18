@@ -19,7 +19,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from scitex import logging
+import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -659,7 +660,11 @@ class LibraryCacheManager:
                                     resolved_papers += 1
                                 else:
                                     unresolved_papers += 1
-                        except:
+                        except Exception as exc:
+                            logger.debug(
+                                f"DOI-resolution scan: unreadable metadata "
+                                f"{metadata_file} ({type(exc).__name__}: {exc})"
+                            )
                             unresolved_papers += 1
                     else:
                         unresolved_papers += 1

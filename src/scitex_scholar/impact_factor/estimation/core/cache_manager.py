@@ -17,10 +17,11 @@ import pickle
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
-from scitex.config import get_paths
-from scitex.logging import getLogger
+from scitex_logging import getLogger
+
+from scitex_scholar.config import ScholarConfig
 
 logger = getLogger(__name__)
 
@@ -54,7 +55,11 @@ class CacheManager:
             max_cache_size_mb: Maximum cache size in MB
             cleanup_on_start: Whether to cleanup expired entries on initialization
         """
-        self.cache_dir = get_paths().resolve("impact_factor_cache", cache_dir)
+        if cache_dir is not None:
+            self.cache_dir = Path(cache_dir)
+        else:
+            _cfg = ScholarConfig()
+            self.cache_dir = _cfg.path_manager.get_cache_engine_dir() / "impact_factor"
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         self.default_ttl = default_ttl

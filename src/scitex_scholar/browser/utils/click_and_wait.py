@@ -15,9 +15,8 @@ __FILE__ = __file__
 
 from typing import Dict, Optional
 
+import scitex_logging as logging
 from playwright.async_api import Locator
-
-from scitex import logging
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +81,11 @@ async def click_and_wait(
                 page = new_page
                 new_page_opened = True
                 logger.debug(f"{func_name} New page opened, switching context")
-        except:
+        except Exception as exc:
+            logger.debug(
+                f"{func_name}: expect_page timed out, falling back to direct click "
+                f"({type(exc).__name__}: {exc})"
+            )
             await link.click()
 
         # Use standalone wait_redirects function

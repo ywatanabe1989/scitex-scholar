@@ -29,7 +29,8 @@ import asyncio
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
 
-from scitex import logging
+import scitex_logging as logging
+
 from scitex_scholar.core import Paper, normalize_journal_name
 from scitex_scholar.search_engines.individual.ArXivSearchEngine import ArXivSearchEngine
 from scitex_scholar.search_engines.individual.CrossRefSearchEngine import (
@@ -412,8 +413,11 @@ class ScholarPipelineSearchParallel:
             if on_progress:
                 try:
                     on_progress(engine_name, "error", 0)
-                except Exception:
-                    pass
+                except Exception as cb_exc:
+                    logger.debug(
+                        f"{self.name}: on_progress callback raised "
+                        f"({type(cb_exc).__name__}: {cb_exc})"
+                    )
             return []
         except Exception as e:
             logger.error(f"{self.name}: {engine_name} search failed: {e}")
@@ -426,8 +430,11 @@ class ScholarPipelineSearchParallel:
             if on_progress:
                 try:
                     on_progress(engine_name, "error", 0)
-                except Exception:
-                    pass
+                except Exception as cb_exc:
+                    logger.debug(
+                        f"{self.name}: on_progress callback raised "
+                        f"({type(cb_exc).__name__}: {cb_exc})"
+                    )
             return []
 
     async def _enrich_citations(self, papers: List[Paper]) -> List[Paper]:
@@ -473,9 +480,12 @@ class ScholarPipelineSearchParallel:
                         enriched += 1
 
                 except asyncio.TimeoutError:
-                    pass  # Skip on timeout
-                except Exception:
-                    pass  # Skip on error
+                    logger.debug(f"{self.name}: citation enrich timeout for {doi}")
+                except Exception as exc:
+                    logger.debug(
+                        f"{self.name}: citation enrich failed for {doi} "
+                        f"({type(exc).__name__}: {exc})"
+                    )
 
         if enriched > 0:
             logger.info(f"{self.name}: Enriched {enriched} papers with citation counts")
@@ -527,8 +537,11 @@ class ScholarPipelineSearchParallel:
                             metrics.get("source", "ImpactFactorEngine")
                         )
                         enriched += 1
-                except Exception:
-                    pass  # Skip on error
+                except Exception as exc:
+                    logger.debug(
+                        f"{self.name}: impact-factor enrich skipped for paper "
+                        f"({type(exc).__name__}: {exc})"
+                    )
 
         if enriched > 0:
             logger.info(f"{self.name}: Enriched {enriched} papers with impact factors")

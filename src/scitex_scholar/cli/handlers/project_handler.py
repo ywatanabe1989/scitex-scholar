@@ -6,7 +6,7 @@
 
 from pathlib import Path
 
-from scitex import logging
+import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 
@@ -86,13 +86,13 @@ async def handle_project_operations(args, scholar):
 
                     title = paper.metadata.basic.title or "Unknown"
                     with open(download_log, "w") as f:
-                        f.write(f"Download Log\n")
+                        f.write("Download Log\n")
                         f.write(f"{'=' * 60}\n")
                         f.write(f"Paper: {title}\n")
                         f.write(f"Paper ID: {paper_id}\n")
                         f.write(f"Started at: {datetime.now().isoformat()}\n")
-                        f.write(f"\nSTATUS: NO DOI AVAILABLE\n")
-                        f.write(f"Cannot download PDF without a DOI.\n")
+                        f.write("\nSTATUS: NO DOI AVAILABLE\n")
+                        f.write("Cannot download PDF without a DOI.\n")
                         f.write(f"{'=' * 60}\n")
 
                 logger.warning(f"Skipping paper {paper_id}: No DOI available")
@@ -236,14 +236,15 @@ async def handle_project_operations(args, scholar):
         if extension in [".bib", ".bibtex"]:
             scholar.save_papers_as_bibtex(papers, output_path)
         elif extension == ".csv":
-            # TODO: Implement CSV export
-            logger.warning("CSV export not yet implemented")
-            return 1
-        elif extension == ".json":
-            import json
+            import scitex as stx
+            from scitex_scholar._utils.papers_utils import papers_to_dataframe
 
-            with open(output_path, "w") as f:
-                json.dump([p.to_dict() for p in papers], f, indent=2, default=str)
+            stx.io.save(papers_to_dataframe(papers), str(output_path))
+        elif extension == ".json":
+            import scitex as stx
+            from scitex_scholar._utils.papers_utils import papers_to_dict
+
+            stx.io.save(papers_to_dict(papers), str(output_path))
         else:
             logger.error(f"Unsupported export format: {extension}")
             logger.info(

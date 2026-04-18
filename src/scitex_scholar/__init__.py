@@ -16,6 +16,9 @@ __version__ = "0.3.0"
 __author__ = "Yusuke Watanabe"
 __email__ = "ywatanabe@scitex.ai"
 
+from .auth import ScholarAuthManager
+from .browser import ScholarBrowserManager
+from .citation_graph import CitationGraphBuilder, plot_citation_graph
 from .config import ScholarConfig
 from .core.Paper import Paper
 from .core.Papers import Papers
@@ -30,34 +33,12 @@ from .formatting import (
     to_ris,
     to_text_citation,
 )
+from .migration import from_connected_papers, to_connected_papers
+from .url_finder import ScholarURLFinder
 
-try:
-    from .auth import ScholarAuthManager
-except ImportError:
-    ScholarAuthManager = None
-
-try:
-    from .browser import ScholarBrowserManager
-except ImportError:
-    ScholarBrowserManager = None
-
-try:
-    from .url_finder import ScholarURLFinder
-except ImportError:
-    ScholarURLFinder = None
-
-try:
-    from .citation_graph import CitationGraphBuilder, plot_citation_graph
-except ImportError:
-    CitationGraphBuilder = None
-    plot_citation_graph = None
-
-try:
-    from .migration import from_connected_papers, to_connected_papers
-except ImportError:
-    from_connected_papers = None
-    to_connected_papers = None
-
+# Kept as a public flag so downstream shims (scitex.scholar re-export) can
+# advertise availability without reaching into each submodule. Always True:
+# if any of the imports above had failed, this module would not have loaded.
 SCHOLAR_AVAILABLE = True
 
 __all__ = [
