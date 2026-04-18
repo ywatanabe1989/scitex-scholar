@@ -12,8 +12,6 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 import json
 
-import scitex as stx
-
 __FILE__ = __file__
 
 import asyncio
@@ -22,9 +20,9 @@ import re
 import time
 from typing import Dict, List
 
+import scitex_logging as logging
 from tqdm import tqdm
 
-import scitex_logging as logging
 from scitex_scholar.config import ScholarConfig
 
 from .individual import (
@@ -80,7 +78,11 @@ class ScholarEngine:
                 with open(self.cache_file, "r") as f:
                     self._cache = json.load(f)
                 # self._cache = stx.io.load(self.cache_file)
-            except:
+            except Exception as exc:
+                logger.debug(
+                    f"ScholarEngine cache unreadable at {self.cache_file}, "
+                    f"resetting ({type(exc).__name__}: {exc})"
+                )
                 self._cache = {}
         else:
             self._cache = {}
@@ -116,7 +118,9 @@ class ScholarEngine:
             query_str = (
                 f"title: {title}"
                 if title
-                else f"doi: {doi}" if doi else "unknown query"
+                else f"doi: {doi}"
+                if doi
+                else "unknown query"
             )
             N_PRINT = 50
             if len(query_str) < N_PRINT:
@@ -127,7 +131,7 @@ class ScholarEngine:
         # Check cache first
         cache_key = self._get_cache_key(title, doi, **kwargs)
         if self.use_cache and cache_key in self._cache:
-            logger.debug(f"Using cached search result")
+            logger.debug("Using cached search result")
             return self._cache[cache_key]
 
         self._last_query_title = title

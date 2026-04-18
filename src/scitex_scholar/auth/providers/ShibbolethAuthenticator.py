@@ -298,9 +298,12 @@ class ShibbolethAuthenticator(BaseAuthenticator):
                         }""",
                         timeout=30000,
                     )
-                except:
+                except Exception as exc:
                     # Continue anyway - might still be authenticate_async
-                    pass
+                    logger.debug(
+                        f"Shibboleth redirect wait timed out "
+                        f"({type(exc).__name__}: {exc})"
+                    )
 
                 # Extract cookies and SAML attributes
                 cookies = await context.cookies()

@@ -21,8 +21,11 @@ through redirect chains to reach the actual PDF URL.
 from typing import List, Optional
 from urllib.parse import urljoin
 
+import scitex_logging as _slog
 from playwright.async_api import Page
 from scitex_browser.debugging import browser_logger
+
+_logger = _slog.getLogger(__name__)
 
 from scitex_scholar.browser.utils import wait_redirects
 from scitex_scholar.config import ScholarConfig
@@ -177,8 +180,10 @@ async def find_pdf_urls_by_navigation(
             if new_page:
                 try:
                     await new_page.close()
-                except:
-                    pass
+                except Exception as exc:
+                    _logger.debug(
+                        f"new_page.close() failed ({type(exc).__name__}: {exc})"
+                    )
 
         return pdf_urls
 
