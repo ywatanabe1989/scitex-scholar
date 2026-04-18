@@ -1,0 +1,4 @@
+{
+  "stage": "DISPLAY=:99 scitex-scholar parallel --titles \\",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

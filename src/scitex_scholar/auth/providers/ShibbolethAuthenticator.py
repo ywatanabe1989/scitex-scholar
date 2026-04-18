@@ -16,10 +16,10 @@ import json
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import parse_qs, urljoin, urlparse
+from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
 
-from scitex import logging
+import scitex_logging as logging
 
 try:
     from playwright.async_api import Browser, Page, async_playwright
@@ -28,7 +28,7 @@ except ImportError:
     Page = None
     Browser = None
 
-from scitex.logging import ScholarError
+from scitex_logging import ScholarError
 
 from .BaseAuthenticator import BaseAuthenticator
 
@@ -98,10 +98,15 @@ class ShibbolethAuthenticator(BaseAuthenticator):
         self.timeout = timeout
         self.debug_mode = debug_mode
 
-        # Session cache directory
-        self.cache_dir = (
-            cache_dir or Path.home() / ".scitex" / "scholar" / "shibboleth_sessions"
-        )
+        # Session cache directory (honours SCITEX_DIR via ScholarConfig).
+        if cache_dir is None:
+            from scitex_scholar.config import ScholarConfig
+
+            cache_dir = (
+                ScholarConfig().path_manager.get_cache_auth_dir()
+                / "shibboleth_sessions"
+            )
+        self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         # Session file path
@@ -286,16 +291,19 @@ class ShibbolethAuthenticator(BaseAuthenticator):
                 # Step 5: Wait for redirect back to resource
                 try:
                     await page.wait_for_function(
-                        f"""() => {{
+                        """() => {
                             return !window.location.href.includes('idp') &&
                                    !window.location.href.includes('wayf') &&
                                    !window.location.href.includes('discovery');
-                        }}""",
+                        }""",
                         timeout=30000,
                     )
-                except:
+                except Exception as exc:
                     # Continue anyway - might still be authenticate_async
-                    pass
+                    logger.debug(
+                        f"Shibboleth redirect wait timed out "
+                        f"({type(exc).__name__}: {exc})"
+                    )
 
                 # Extract cookies and SAML attributes
                 cookies = await context.cookies()

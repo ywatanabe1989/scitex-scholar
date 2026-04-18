@@ -18,9 +18,10 @@ from ._Job import Job, JobStatus, JobType
 
 
 def _get_jobs_dir() -> Path:
-    """Get the jobs directory path."""
-    base_dir = Path(os.getenv("SCITEX_DIR", Path.home() / ".scitex"))
-    jobs_dir = base_dir / "scholar" / "jobs"
+    """Get the jobs directory path (honours SCITEX_DIR via ScholarConfig)."""
+    from scitex_scholar.config import ScholarConfig
+
+    jobs_dir = ScholarConfig().path_manager.get_cache_engine_dir() / "jobs"
     jobs_dir.mkdir(parents=True, exist_ok=True)
     return jobs_dir
 

@@ -18,9 +18,9 @@ __FILE__ = __file__
 import asyncio
 from typing import Optional
 
-from playwright.async_api import BrowserContext, Page
+from playwright.async_api import Page
+from scitex_browser.interaction import click_with_fallbacks_async
 
-from scitex.browser.interaction import click_with_fallbacks_async
 from scitex_scholar.config import ScholarConfig
 
 from .BaseSSOAutomator import BaseSSOAutomator

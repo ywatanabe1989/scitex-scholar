@@ -1,0 +1,4 @@
+{
+  "stage": "from docx import Document",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

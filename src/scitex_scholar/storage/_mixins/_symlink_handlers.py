@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from scitex import logging
+import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 
@@ -195,7 +195,7 @@ class SymlinkHandlersMixin:
     ) -> Optional[Path]:
         """Create symlink inside the project's own directory tree.
 
-        Target location: ``{project_dir}/scitex/scholar/library/{project}/{readable_name}``
+        Target location: ``{project_dir}/.scitex/scholar/library/{project}/{readable_name}``
         Target of symlink: absolute path to master storage entry.
 
         This mirrors the ``~/.scitex/scholar/library/{project}/`` view directly
@@ -216,7 +216,7 @@ class SymlinkHandlersMixin:
 
         try:
             local_lib = (
-                Path(self.project_dir) / "scitex" / "scholar" / "library" / self.project
+                Path(self.project_dir) / ".scitex" / "scholar" / "library" / self.project
             )
             local_lib.mkdir(parents=True, exist_ok=True)
 
@@ -233,8 +233,14 @@ class SymlinkHandlersMixin:
                         and existing.name != readable_name
                     ):
                         existing.unlink()
-                except Exception:
-                    pass
+                except Exception as exc:
+                    # Stale-symlink cleanup is best-effort; failure just
+                    # leaves the old entry in place. Log at debug so real
+                    # issues (permissions, symlink loop) are diagnosable.
+                    logger.debug(
+                        f"Stale symlink cleanup skipped ({existing}): "
+                        f"{type(exc).__name__}: {exc}"
+                    )
 
             if not symlink_path.exists():
                 # Use absolute path — relative would break across project moves

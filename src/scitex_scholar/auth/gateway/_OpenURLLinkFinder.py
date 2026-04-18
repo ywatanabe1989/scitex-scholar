@@ -17,11 +17,11 @@ import asyncio
 from typing import List
 
 from playwright.async_api import Locator, Page
+from scitex_browser.debugging import highlight_element_async
 
-from scitex import logging
-from scitex.browser.debugging import highlight_element_async
-from scitex_scholar.config import ScholarConfig
+import scitex_logging as logging
 from scitex_scholar.browser.utils import click_and_wait
+from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +81,6 @@ if __name__ == "__main__":
         from scitex_scholar import (
             ScholarAuthManager,
             ScholarBrowserManager,
-            ScholarURLFinder,
         )
 
         auth_manager = ScholarAuthManager()

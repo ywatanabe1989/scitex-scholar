@@ -1,0 +1,4 @@
+{
+  "stage": "until [ -d ~/.scitex/scholar/library/MASTER/0F9573A8/screenshots ]",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

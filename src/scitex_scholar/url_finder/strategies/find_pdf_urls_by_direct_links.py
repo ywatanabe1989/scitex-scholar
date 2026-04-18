@@ -13,8 +13,8 @@ This strategy combines:
 from typing import List
 
 from playwright.async_api import Page
+from scitex_browser.debugging import browser_logger
 
-from scitex.browser.debugging import browser_logger
 from scitex_scholar.config import PublisherRules, ScholarConfig
 
 
@@ -168,7 +168,7 @@ async def _find_from_href_attributes(
                                 if (elem.textContent.includes(text) && !shouldDenyElement(elem)) {
                                     const href = elem.href || elem.getAttribute('href');
                                     // Accept if contains .pdf OR path includes /pdf
-                                    if (href && (href.includes('.pdf') || href.match(/\/pdf\/?/))) {
+                                    if (href && (href.includes('.pdf') || href.match(/\\/pdf\\/?/))) {
                                         urls.add(href);
                                     }
                                 }
@@ -181,7 +181,7 @@ async def _find_from_href_attributes(
 
                             const href = elem.href || elem.getAttribute('href');
                             // Accept if contains .pdf OR path includes /pdf
-                            if (href && (href.includes('.pdf') || href.match(/\/pdf\/?/))) {
+                            if (href && (href.includes('.pdf') || href.match(/\\/pdf\\/?/))) {
                                 urls.add(href);
                             }
                         });
@@ -196,7 +196,7 @@ async def _find_from_href_attributes(
             document.querySelectorAll('a[href*=".pdf"], a[href*="/pdf/"], a[href*="/pdf"]').forEach(link => {
                 if (!shouldDenyElement(link) && link.href) {
                     // Accept if contains .pdf OR path includes /pdf
-                    if (link.href.includes('.pdf') || link.href.match(/\/pdf\/?/)) {
+                    if (link.href.includes('.pdf') || link.href.match(/\\/pdf\\/?/)) {
                         urls.add(link.href);
                     }
                 }
@@ -250,7 +250,7 @@ async def _find_from_dropdowns(
                     href = await element.get_attribute("href")
                     if href and "pdf" in href.lower():
                         pdf_urls.append(href)
-            except:
+            except Exception:
                 continue
 
         return pdf_urls

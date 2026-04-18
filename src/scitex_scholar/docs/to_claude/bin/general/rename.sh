@@ -1,0 +1,1 @@
+/home/ywatanabe/.bin/utils/rename.sh

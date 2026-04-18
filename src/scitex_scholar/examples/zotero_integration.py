@@ -13,7 +13,7 @@ Demonstrates:
 import os
 from pathlib import Path
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.core import Papers
 from scitex_scholar.zotero import ZoteroExporter, ZoteroImporter, ZoteroLinker
 

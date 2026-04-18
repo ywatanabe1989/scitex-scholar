@@ -4,7 +4,10 @@ import os
 from pathlib import Path
 from typing import Optional
 
+import scitex_logging as _slog
 from flask import Flask
+
+_logger = _slog.getLogger(__name__)
 
 
 def _find_crossref_db(db_path: Optional[str] = None) -> Optional[str]:
@@ -17,9 +20,12 @@ def _find_crossref_db(db_path: Optional[str] = None) -> Optional[str]:
     if env_path and Path(env_path).exists():
         return env_path
 
-    # Static candidates
+    # Candidates: first the config-resolved location (honours SCITEX_DIR),
+    # then common dev-local checkout paths as fallback.
+    from scitex_scholar.config import ScholarConfig
+
     candidates = [
-        Path.home() / ".scitex" / "scholar" / "crossref.db",
+        ScholarConfig().path_manager.dirs["scholar_dir"] / "crossref.db",
         Path.home() / "proj" / "crossref_local" / "data" / "crossref.db",
         Path.home() / "proj" / "crossref-local" / "data" / "crossref.db",
         Path.home() / ".proj" / "crossref_local" / "data" / "crossref.db",
@@ -36,8 +42,10 @@ def _find_crossref_db(db_path: Optional[str] = None) -> Optional[str]:
         p = info.get("db_path")
         if p and Path(p).exists():
             return str(p)
-    except Exception:
-        pass
+    except Exception as exc:
+        _logger.debug(
+            f"crossref_local.info() probe failed ({type(exc).__name__}: {exc})"
+        )
 
     return None
 

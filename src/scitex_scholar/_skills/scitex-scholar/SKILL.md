@@ -1,0 +1,168 @@
+---
+name: scitex-scholar
+description: Scientific-paper search, metadata enrichment, PDF download, and BibTeX library management for the SciTeX ecosystem. Use when searching the literature, resolving DOIs, enriching citations, downloading PDFs through institutional access, or managing a reproducible paper library.
+type: reference
+allowed-tools: mcp__scitex__scholar_*
+---
+
+# scitex-scholar
+
+Unified toolkit for scientific literature workflows: search across multiple academic databases, resolve DOIs, enrich BibTeX with impact factors and citation counts, download PDFs (including paywalled papers via OpenAthens browser automation), and organise papers in a deduplicated, project-based library at `~/.scitex/scholar/library/`.
+
+## Python API
+
+```python
+from scitex_scholar import Scholar, Paper, Papers, ScholarConfig
+
+scholar = Scholar()
+papers = scholar.search("deep learning EEG", year_min=2020)   # auto-enriched
+papers.save("results.bib")
+
+# Filter + export
+from scitex_scholar import apply_filters, to_bibtex, to_ris, to_endnote
+top = apply_filters(papers, min_citations=50, min_impact_factor=5.0)
+print(to_bibtex(top))
+```
+
+Top-level re-exports (`src/scitex_scholar/__init__.py`):
+
+| Symbol | Purpose |
+|--------|---------|
+| `Scholar` | Main entry point; search, enrich, download, save (mixin-composed) |
+| `Paper`, `Papers` | Single paper / collection with filter/sort/export methods |
+| `ScholarConfig` | Paths, API keys, auto-enrich toggle, browser settings |
+| `apply_filters` | Filter `Papers` by year, citations, impact factor, PDF presence |
+| `to_bibtex`, `to_ris`, `to_endnote`, `to_text_citation`, `papers_to_format` | Export formats |
+| `generate_cite_key`, `make_citation_key` | Deterministic BibTeX keys |
+| `CitationGraphBuilder`, `plot_citation_graph` | Optional citation graph (if deps present) |
+| `from_connected_papers`, `to_connected_papers` | Optional Connected Papers bridge |
+
+Core subpackages:
+
+* `core/` — `Scholar`, `Paper`, `Papers`, open-access detection, journal normalisation
+* `search_engines/` — `ArXiv`, `CrossRef`, `OpenAlex`, `PubMed`, `SemanticScholar`
+* `metadata_engines/` — same sources for DOI resolution + metadata enrichment; `impact_factor` integration (JCR 2024)
+* `pdf_download/` — `ScholarPDFDownloader` with multiple strategies
+* `pipelines/` — `ScholarPipelineSingle`, `ScholarPipelineParallel`, `ScholarPipelineBibTeX`, metadata/search variants
+* `browser/`, `auth/` — Playwright-based browser automation with OpenAthens / institutional SSO
+* `storage/`, `local_dbs/` — MASTER-hash storage with project symlinks, local DB indexes
+* `filters.py`, `formatting.py` — filtering and BibTeX/RIS/EndNote export
+* `citation_graph/`, `migration/`, `zotero/`, `integration/` — optional adapters
+
+## CLI
+
+Entry point: `python -m scitex_scholar <subcommand> [options]` (`src/scitex_scholar/__main__.py`).
+
+```bash
+# Single paper by DOI or title
+python -m scitex_scholar single --doi 10.1038/nature12373 --project demo
+
+# Batch via titles or DOIs, in parallel
+python -m scitex_scholar parallel --dois 10.1038/xxx 10.1126/yyy --num-workers 4 --project demo
+
+# Whole BibTeX file
+python -m scitex_scholar bibtex --bibtex refs.bib --project demo --output refs.enriched.bib
+
+# Start the legacy MCP server
+python -m scitex_scholar mcp
+```
+
+Common flags: `--browser-mode {stealth,interactive}`, `--chrome-profile NAME`, `--force`.
+
+Auxiliary scripts under `src/scitex_scholar/cli/` (`chrome.py`, `open_browser.py`, `download_pdf.py`, etc.) support ad-hoc browser and download workflows.
+
+## MCP tools
+
+`scitex_scholar/mcp_server.py` provides a stand-alone MCP server (marked deprecated in favour of the unified `scitex serve` server, which re-exports the same handlers via `_mcp/all_handlers.py`).
+
+Standard handlers (`_mcp/handlers.py`):
+
+| Tool | Purpose |
+|------|---------|
+| `search_papers` | Search local library + external databases (crossref, semantic_scholar, pubmed, arxiv, openalex) |
+| `resolve_dois` | DOI resolution from titles or BibTeX, resumable |
+| `enrich_bibtex` | Add DOIs, abstracts, citation counts, impact factors, PMIDs, arXiv IDs |
+| `download_pdf` / `download_pdfs_batch` | PDF retrieval via institutional access (OpenAthens) |
+| `get_library_status` | Library statistics (papers, projects, PDFs) |
+| `parse_bibtex` | Parse a BibTeX file into structured paper records |
+| `validate_pdfs` | Validate stored PDFs |
+| `resolve_openurls` | Turn DOIs into institution-specific OpenURLs |
+| `authenticate` / `check_auth_status` / `logout` | Institutional auth state |
+| `export_papers` | Export project papers (bibtex/csv/json) |
+| `create_project` / `list_projects` / `add_papers_to_project` | Project management |
+| `parse_pdf_content` | Extract text from a stored PDF |
+
+Job-management handlers (`_mcp/job_handlers.py`): `fetch_papers`, `list_jobs`, `get_job_status`, `start_job`, `cancel_job`, `get_job_result`.
+
+Provider-scoped tools:
+
+* `openalex_search`, `openalex_get`, `openalex_count`, `openalex_info` (`_mcp/openalex_handlers.py`)
+* `crossref_search`, `crossref_get`, `crossref_count`, `crossref_citations`, `crossref_info` (`_mcp/crossref_handlers.py`)
+
+## Storage layout
+
+```
+~/.scitex/scholar/library/
+├── MASTER/<HASH>/             # Canonical per-paper storage (metadata.json + PDF)
+└── <project>/<human-label> -> ../MASTER/<HASH>   # Per-project symlinks
+```
+
+Cache / state lives under `~/.scitex/scholar/cache/` (URL resolver, Chrome profiles, auth cookies). The root respects `SCITEX_DIR`.
+
+## Installation
+
+```bash
+pip install scitex-scholar               # core
+pip install "scitex-scholar[pdf]"        # pdfplumber for PDF text extraction
+pip install "scitex-scholar[mcp]"        # fastmcp MCP server deps
+pip install "scitex-scholar[browser]"    # Playwright browser automation
+pip install "scitex-scholar[export]"     # openpyxl (.xlsx export)
+pip install "scitex-scholar[server]"     # aiohttp/flask (HTTP adapters)
+pip install "scitex-scholar[watch]"      # watchdog (library watcher)
+pip install "scitex-scholar[all]"        # everything above + dev tooling
+```
+
+## Status / caveats
+
+* The standalone `scitex_scholar.mcp_server` is deprecated; prefer the unified `scitex serve` server exposing the same handlers with `scholar_*` prefixes.
+* PDF download through institutional proxies requires a one-time interactive login (`python -m scitex_scholar single --browser-mode interactive …` or the `chrome` helper).
+* Some CLI helpers in `src/scitex_scholar/cli/*.py` are experimental / internal and not part of the stable public API — prefer the documented subcommands.
+## Sub-skills
+
+| Skill | Description |
+|-------|-------------|
+| [quick-start.md](quick-start.md) | Single-paper and BibTeX-batch workflows; project organization |
+| [authentication.md](authentication.md) | OpenAthens SSO login (Unimelb, etc.); session caching; cookie storage |
+| [search.md](search.md) | Multi-source search (CrossRef, OpenAlex, Semantic Scholar, PubMed, arXiv); local library search |
+| [doi-resolution.md](doi-resolution.md) | Resolve DOIs from titles; resumable batch resolution; rate-limit handling |
+| [bibtex-enrichment.md](bibtex-enrichment.md) | Add metadata (abstract, citations, IF) to BibTeX entries; per-field provenance |
+| [pdf-download.md](pdf-download.md) | OpenURL → publisher → PDF; Zotero translators; stealth/interactive browser modes |
+| [library-management.md](library-management.md) | MASTER/8DIGIT-ID storage; project symlinks; metadata.json; screenshots |
+| [cli-reference.md](cli-reference.md) | `scitex-scholar` and `scitex scholar` CLI commands |
+| [mcp-tools.md](mcp-tools.md) | MCP tools for AI agents |
+| [python-api.md](python-api.md) | `Scholar`, `Paper`, `Papers`, `ScholarConfig`, `ScholarAuthManager` |
+| [semantic-highlight.md](semantic-highlight.md) | Overlay claim / method / limitation / supportive / contradictive highlights on a PDF |
+
+## MCP Tools
+
+| Tool | Description |
+|------|-------------|
+| `scholar_authenticate` | Start SSO login (OpenAthens, Shibboleth) |
+| `scholar_check_auth_status` | Check whether a valid session exists |
+| `scholar_logout` | Clear cached authentication |
+| `scholar_search_papers` | Search local library or external databases |
+| `scholar_resolve_dois` | Resolve DOIs from titles (resumable) |
+| `scholar_enrich_bibtex` | Enrich BibTeX with metadata |
+| `scholar_resolve_openurls` | Resolve publisher URLs via OpenURL |
+| `scholar_download_pdfs_batch` | Download PDFs in parallel (resumable) |
+| `scholar_validate_pdfs` | Verify downloaded PDFs are real content |
+| `scholar_parse_pdf_content` | Extract sections/text from PDF |
+| `scholar_parse_bibtex` | Parse BibTeX file to structured records |
+| `scholar_export_papers` | Export to BibTeX/RIS/EndNote/CSV |
+| `scholar_highlight_pdf` | Overlay semantic-role highlights on a PDF |
+| `scholar_create_project` | Create a new project |
+| `scholar_list_projects` | List projects in the library |
+| `scholar_add_papers_to_project` | Attach papers (DOIs / BibTeX) to a project |
+| `scholar_get_library_status` | Library size, project counts, paper counts |
+| `scholar_fetch_papers` | One-shot resolve + enrich + download |
+| `scholar_start_job` / `scholar_get_job_status` / `scholar_get_job_result` / `scholar_list_jobs` / `scholar_cancel_job` | Background job management |

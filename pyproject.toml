@@ -4,10 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-scholar"
-version = "0.3.0"
+version = "1.0.1"
 description = "Scientific paper search, enrichment, download, and management for the SciTeX ecosystem"
 readme = "README.md"
-license = "AGPL-3.0"
+license = "AGPL-3.0-only"
 requires-python = ">=3.10"
 authors = [
     { name = "Yusuke Watanabe", email = "ywatanabe@scitex.ai" },
@@ -37,13 +37,35 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+    # scitex[session] provides @stx.session decorator (+ matplotlib, PyYAML)
+    # used in pipelines/, metadata_engines/, impact_factor/jcr/.
+    # Using the [session] extra keeps the dep minimal vs. the full scitex.
+    "scitex[session]>=2.0.0",
     "scitex-io>=0.2.0",
+    "scitex-browser>=0.1.6",
+    "scitex-logging>=0.1.0",
+    # playwright is reached at top-level import (ScholarBrowserManager →
+    # scitex_browser.debugging → playwright.async_api). Keep it as a core
+    # dep so `pip install scitex-scholar` yields an importable package.
+    "playwright>=1.40.0",
+    # aiohttp is imported at module level in core/journal_normalizer,
+    # core/open_access, core/oa_cache, and several metadata engines.
+    "aiohttp>=3.8.0",
+    # pymupdf is imported at module level in pdf_highlight/*.
+    "pymupdf>=1.24.0",
+    "beautifulsoup4>=4.12.0",
     "bibtexparser>=1.4.0",
     "feedparser>=6.0.0",
     "httpx>=0.24.0",
+    "nest-asyncio>=1.5.0",
+    "pandas>=1.5.0",
     "pydantic>=2.0.0",
+    "pyyaml>=6.0.0",
     "requests>=2.28.0",
+    "sql-manager>=1.0.0",
+    "sqlalchemy>=2.0.0",
     "tenacity>=8.0.0",
+    "tqdm>=4.64.0",
 ]
 
 [project.optional-dependencies]
@@ -53,6 +75,22 @@ pdf = [
 mcp = [
     "fastmcp>=2.0.0",
 ]
+browser = [
+    "playwright>=1.40.0",
+]
+export = [
+    "openpyxl>=3.1.0",
+]
+server = [
+    "aiohttp>=3.8.0",
+    "flask>=2.3.0",
+]
+watch = [
+    "watchdog>=3.0.0",
+]
+clew = [
+    "scitex-clew>=0.1.0",
+]
 dev = [
     "scitex-dev",
     "pytest>=7.0.0",
@@ -60,8 +98,11 @@ dev = [
     "numpy>=1.21.0",
 ]
 all = [
-    "scitex-scholar[pdf,mcp,dev]",
+    "scitex-scholar[pdf,mcp,browser,export,server,watch,clew,dev]",
 ]
+
+[project.scripts]
+scitex-scholar = "scitex_scholar.__main__:main"
 
 [project.urls]
 Homepage = "https://github.com/ywatanabe1989/scitex-scholar"

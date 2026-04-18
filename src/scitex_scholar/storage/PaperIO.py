@@ -45,7 +45,7 @@ import shutil
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.core import Paper
 
 logger = logging.getLogger(__name__)
@@ -236,9 +236,29 @@ class PaperIO:
         dest = self.get_pdf_path()
         shutil.copy2(pdf_path, dest)
 
-        # Update paper object
         self.paper.metadata.path.pdfs = [str(dest)]
         self.paper.container.pdf_size_bytes = dest.stat().st_size
+
+        # Optional scitex-clew provenance (silent fallback if not installed).
+        # Optional scitex-clew provenance. Missing clew is silently fine
+        # (it is an optional extra); but a hashing failure when clew IS
+        # installed is a real problem and must be visible, not swallowed.
+        try:
+            import scitex_clew as _clew
+        except ImportError:
+            _clew = None
+        if _clew is not None:
+            try:
+                pdf_sha256 = _clew.hash_file(dest)
+                if hasattr(self.paper.container, "pdf_sha256"):
+                    self.paper.container.pdf_sha256 = pdf_sha256
+                logger.debug(f"{self.name}: clew hash: {pdf_sha256[:12]}")
+            except Exception as exc:
+                logger.warning(
+                    f"{self.name}: clew hashing failed for {dest.name}: "
+                    f"{type(exc).__name__}: {exc}",
+                    exc_info=True,
+                )
 
         logger.debug(f"{self.name}: Saved PDF: {dest}")
         return dest

@@ -1,0 +1,4 @@
+{
+  "stage": "print(list(d.keys())[:20])\"",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

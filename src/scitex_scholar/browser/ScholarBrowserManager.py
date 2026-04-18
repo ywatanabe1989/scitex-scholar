@@ -21,11 +21,11 @@ from pathlib import Path
 from typing import Union
 
 from playwright.async_api import Browser, BrowserContext, async_playwright
+from scitex_browser.automation import CookieAutoAcceptor
+from scitex_browser.core import BrowserMixin, ChromeProfileManager
+from scitex_browser.stealth import StealthManager
 
-from scitex import logging
-from scitex.browser.automation import CookieAutoAcceptor
-from scitex.browser.core import BrowserMixin, ChromeProfileManager
-from scitex.browser.stealth import StealthManager
+import scitex_logging as logging
 from scitex_scholar.browser.utils.close_unwanted_pages import close_unwanted_pages
 from scitex_scholar.config import ScholarConfig
 
@@ -118,7 +118,10 @@ class ScholarBrowserManager(BrowserMixin):
 
         # Chrome Extension
         self.chrome_profile_manager = ChromeProfileManager(
-            chrome_profile_name, config=self.config
+            chrome_profile_name,
+            chrome_cache_dir=self.config.get_cache_chrome_dir(
+                chrome_profile_name
+            ).parent,
         )
 
         # Stealth
@@ -309,8 +312,8 @@ class ScholarBrowserManager(BrowserMixin):
         await self._load_auth_cookies_to_persistent_context_async()
         self._persistent_browser = self._persistent_context.browser
 
-    def _verify_xvfb_running(self):
-        """Verify Xvfb virtual display is running"""
+    def _verify_xvfb_running(self, _recursed=False):
+        """Verify Xvfb virtual display is running; auto-start if absent."""
         try:
             result = subprocess.run(
                 ["xdpyinfo", "-display", f":{self.display}"],
@@ -318,42 +321,42 @@ class ScholarBrowserManager(BrowserMixin):
                 text=True,
                 timeout=5,
             )
-            if result.returncode == 0:
-                logger.debug(f"{self.name}: Xvfb display :{self.display} is running")
-                return True
-            else:
-                logger.debug(f"{self.name}: Starting Xvfb display :{self.display}")
-                # Kill any existing Xvfb on this display first
-                subprocess.run(
-                    ["pkill", "-f", f"Xvfb.*:{self.display}"],
-                    capture_output=True,
-                )
-                time.sleep(0.5)
-
-                subprocess.Popen(
-                    [
-                        "Xvfb",
-                        f":{self.display}",
-                        "-screen",
-                        "0",
-                        "1920x1080x24",  # 24-bit color depth for better rendering
-                        "-ac",  # Disable access control
-                        "+extension",
-                        "GLX",  # OpenGL support
-                        "+extension",
-                        "RANDR",  # Screen resize support
-                        "+render",  # Render extension for better graphics
-                        "-noreset",  # Don't reset after last client exits
-                        "-dpi",
-                        "96",  # Standard DPI
-                    ],
-                    env={**os.environ, "DISPLAY": f":{self.display}"},
-                )
-                time.sleep(3)  # Give Xvfb more time to initialize properly
-                return self._verify_xvfb_running()
+            running = result.returncode == 0
         except Exception as e:
-            logger.error(f"{self.name}: Cannot verify Xvfb: {e}")
+            logger.debug(f"{self.name}: xdpyinfo failed ({e}); assuming display absent")
+            running = False
+
+        if running:
+            logger.debug(f"{self.name}: Xvfb display :{self.display} is running")
+            return True
+        if _recursed:
+            logger.error(f"{self.name}: Xvfb :{self.display} failed to start")
             return False
+
+        logger.debug(f"{self.name}: Starting Xvfb display :{self.display}")
+        subprocess.run(["pkill", "-f", f"Xvfb.*:{self.display}"], capture_output=True)
+        time.sleep(0.5)
+        subprocess.Popen(
+            [
+                "Xvfb",
+                f":{self.display}",
+                "-screen",
+                "0",
+                "1920x1080x24",
+                "-ac",
+                "+extension",
+                "GLX",
+                "+extension",
+                "RANDR",
+                "+render",
+                "-noreset",
+                "-dpi",
+                "96",
+            ],
+            env={**os.environ, "DISPLAY": f":{self.display}"},
+        )
+        time.sleep(3)
+        return self._verify_xvfb_running(_recursed=True)
 
     def _build_persistent_context_launch_options(self):
         stealth_args = self.stealth_manager.get_stealth_options_additional()

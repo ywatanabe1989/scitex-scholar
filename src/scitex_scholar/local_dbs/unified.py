@@ -23,6 +23,10 @@ import json
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
 
+import scitex_logging as _slog
+
+_logger = _slog.getLogger(__name__)
+
 __all__ = [
     "search",
     "search_async",
@@ -358,16 +362,20 @@ def get(doi: str, sources: Optional[List[str]] = None) -> Optional[UnifiedWork]:
             result = cr_get(doi)
             if result:
                 cr_work = _crossref_work_to_unified(result)
-        except Exception:
-            pass
+        except Exception as exc:
+            _logger.debug(
+                f"local db lookup for {doi} failed ({type(exc).__name__}: {exc})"
+            )
 
     if "openalex" in sources and _openalex_available:
         try:
             result = oa_get(doi)
             if result:
                 oa_work = _openalex_work_to_unified(result)
-        except Exception:
-            pass
+        except Exception as exc:
+            _logger.debug(
+                f"local db lookup for {doi} failed ({type(exc).__name__}: {exc})"
+            )
 
     if cr_work and oa_work:
         return _merge_works(cr_work, oa_work)

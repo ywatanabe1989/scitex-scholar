@@ -20,7 +20,7 @@ from typing import Dict, List, Optional
 import pandas as pd
 
 import scitex as stx
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar import ScholarAuthManager, ScholarBrowserManager, ScholarURLFinder
 
 logger = logging.getLogger(__name__)

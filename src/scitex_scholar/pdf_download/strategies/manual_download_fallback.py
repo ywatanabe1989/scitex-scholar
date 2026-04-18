@@ -14,11 +14,11 @@ __DIR__ = os.path.dirname(__FILE__)
 from pathlib import Path
 from typing import Optional
 
+import scitex_logging as logging
 from playwright.async_api import BrowserContext
 
-from scitex import logging
-from scitex_scholar.config import ScholarConfig
 from scitex_scholar.browser import browser_logger
+from scitex_scholar.config import ScholarConfig
 from scitex_scholar.pdf_download.strategies.manual_download_utils import (
     DownloadMonitorAndSync,
 )
@@ -159,8 +159,11 @@ async def try_download_manual_async(
                     f"{func_name}: Error: {type(e).__name__}",
                 )
                 await page.close()
-            except Exception:
-                pass
+            except Exception as close_exc:
+                logger.debug(
+                    f"{func_name}: page cleanup after error failed "
+                    f"({type(close_exc).__name__}: {close_exc})"
+                )
         return None
 
 

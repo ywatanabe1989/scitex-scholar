@@ -9,7 +9,8 @@ import hashlib
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from scitex import logging
+import scitex_logging as logging
+
 from scitex_scholar.core import Paper
 
 if TYPE_CHECKING:
@@ -139,11 +140,20 @@ class PipelineStepsMixin:
             urls = await url_finder.find_pdf_urls(publisher_url)
             paper.metadata.url.pdfs = urls
             paper.metadata.url.pdfs_engines = ["ScholarURLFinder"]
-            io.save_metadata()
             if not urls:
+                from datetime import datetime, timezone
+
+                paper.metadata.access.pdf_download_attempted_at = datetime.now(
+                    timezone.utc
+                ).isoformat()
+                paper.metadata.access.pdf_download_status = "no_urls"
+                paper.metadata.access.pdf_download_error = (
+                    f"No PDF URLs found at {publisher_url}"
+                )
                 await self._capture_screenshot(
                     browser_manager, context, io, "no_pdf_urls_found"
                 )
+            io.save_metadata()
             logger.info(f"{self.name}: Found {len(urls)} PDF URL(s)")
         else:
             logger.info(f"{self.name}: PDF URLs exist ({len(paper.metadata.url.pdfs)})")
@@ -155,6 +165,13 @@ class PipelineStepsMixin:
             logger.info(f"{self.name}: Downloading PDF...")
             from scitex_scholar.pdf_download import ScholarPDFDownloader
 
+            # Pre-download landing page capture. The Chrome PDF Viewer
+            # strategy can close the browser context on Cloudflare
+            # challenges, so capturing BEFORE the risky step guarantees
+            # we keep a visual record even when the page is later lost.
+            await self._capture_screenshot(
+                browser_manager, context, io, "pre_download_landing"
+            )
             downloader = ScholarPDFDownloader(context)
             downloaded, temp_path, download_method = await self._download_pdf_from_url(
                 paper, io, context, auth_gateway, downloader
@@ -222,8 +239,25 @@ class PipelineStepsMixin:
                 doi=paper.metadata.id.doi, context=context
             )
         except Exception as e:
-            logger.warn(str(e))
-        temp_pdf_path = io.paper_dir / "temp.pdf"
+            # Record auth failure in metadata so downstream consumers can
+            # distinguish "download failed" from "auth never established".
+            from datetime import datetime, timezone
+
+            paper.metadata.access.pdf_download_attempted_at = datetime.now(
+                timezone.utc
+            ).isoformat()
+            paper.metadata.access.pdf_download_status = "auth_failed"
+            paper.metadata.access.pdf_download_error = (
+                f"auth_gateway.prepare_context_async: {type(e).__name__}: {e}"
+            )
+            logger.warning(
+                f"{self.name}: Auth gateway failed before download: {e}",
+                exc_info=True,
+            )
+        # Unique temp path so concurrent runs on the same paper don't collide.
+        import uuid
+
+        temp_pdf_path = io.paper_dir / f"temp-{uuid.uuid4().hex[:8]}.pdf"
         downloaded_file = await downloader.download_from_url(
             pdf_url, output_path=temp_pdf_path, doi=paper.metadata.id.doi
         )
@@ -238,6 +272,12 @@ class PipelineStepsMixin:
         self, paper, io, downloaded_file, temp_pdf_path, download_method="unknown"
     ):
         import shutil
+        from datetime import datetime, timezone
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        paper.metadata.access.pdf_download_attempted_at = now_iso
+        paper.metadata.access.pdf_download_status = "success"
+        paper.metadata.access.pdf_download_error = None
 
         if downloaded_file == temp_pdf_path and temp_pdf_path.exists():
             main_pdf = io.get_pdf_path()
@@ -271,25 +311,37 @@ class PipelineStepsMixin:
             and p.stat().st_size > 100_000
             and (current_time - p.stat().st_mtime) < 600
         ]
+        from datetime import datetime, timezone
+
+        now_iso = datetime.now(timezone.utc).isoformat()
         if recent_pdfs:
             recent_pdfs.sort(key=lambda x: x[1])
             latest_pdf = recent_pdfs[0][0]
             logger.info(f"{self.name}: Found recent PDF: {latest_pdf.name}")
             io.save_pdf(latest_pdf)
-            # Track as manual download
             if paper:
                 paper.metadata.path.pdfs_engines = ["manual_download"]
+                paper.metadata.access.pdf_download_attempted_at = now_iso
+                paper.metadata.access.pdf_download_status = "success"
+                paper.metadata.access.pdf_download_error = None
             io.save_metadata()
             logger.success(f"{self.name}: Manual PDF saved to MASTER")
         else:
             logger.warning(f"{self.name}: No recent PDFs found")
+            if paper:
+                paper.metadata.access.pdf_download_attempted_at = now_iso
+                paper.metadata.access.pdf_download_status = "download_failed"
+                paper.metadata.access.pdf_download_error = "Automated download returned None and no fallback PDF in downloads dir"
+                io.save_metadata()
 
 
 class PipelineHelpersMixin:
     """Mixin containing helper methods for single paper pipeline."""
 
     async def _capture_screenshot(self, browser_manager, context, io, description):
-        """Capture screenshot for debugging when issues occur."""
+        """Capture screenshot for debugging. Iterates all surviving pages so
+        that a closed primary page (common after Cloudflare interstitials)
+        still yields a useful artifact."""
         if not browser_manager or not context:
             return
         try:
@@ -298,14 +350,30 @@ class PipelineHelpersMixin:
             screenshots_dir = io.paper_dir / "screenshots"
             screenshots_dir.mkdir(parents=True, exist_ok=True)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            screenshot_path = screenshots_dir / f"{timestamp}_{description}.png"
-            pages = context.pages
-            if pages:
-                page = pages[0]
-                await browser_manager.take_screenshot_async(
-                    page, str(screenshot_path), full_page=True
-                )
-                logger.info(f"{self.name}: Screenshot saved: {screenshot_path.name}")
+            try:
+                pages = list(context.pages)
+            except Exception as e:
+                logger.debug(f"{self.name}: cannot enumerate pages: {e}")
+                return
+            if not pages:
+                logger.debug(f"{self.name}: no surviving pages for screenshot")
+                return
+
+            saved_any = False
+            for idx, page in enumerate(pages):
+                suffix = "" if len(pages) == 1 else f"_page{idx}"
+                path = screenshots_dir / f"{timestamp}_{description}{suffix}.png"
+                try:
+                    await browser_manager.take_screenshot_async(
+                        page, str(path), full_page=True
+                    )
+                    logger.info(f"{self.name}: Screenshot saved: {path.name}")
+                    saved_any = True
+                except Exception as inner:
+                    logger.debug(f"{self.name}: screenshot page {idx} failed: {inner}")
+                    continue
+            if not saved_any:
+                logger.debug(f"{self.name}: all pages unreachable for '{description}'")
         except Exception as e:
             logger.debug(f"{self.name}: Screenshot capture failed: {e}")
 
@@ -375,8 +443,11 @@ class PipelineHelpersMixin:
                 section_obj = getattr(paper.metadata, section)
                 setattr(section_obj, field_name, value)
                 setattr(section_obj, f"{field_name}_engines", engines)
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug(
+                    f"_assign_field: failed setting {section}.{field_name} "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         # ID section
         if "id" in metadata_dict:

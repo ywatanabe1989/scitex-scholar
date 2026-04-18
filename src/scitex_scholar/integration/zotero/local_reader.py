@@ -20,9 +20,13 @@ import sqlite3
 from pathlib import Path
 from typing import Dict, List, Optional
 
+import scitex_logging as _slog
+
 from scitex_scholar.core.Papers import Papers
 
 from .mapper import ZoteroMapper
+
+_logger = _slog.getLogger(__name__)
 
 # ── Known Zotero DB paths ─────────────────────────────────────────────────────
 
@@ -294,8 +298,11 @@ class ZoteroLocalReader:
             try:
                 paper = self._mapper.zotero_to_paper(api_dict)
                 paper_list.append(paper)
-            except Exception:
-                pass  # Skip malformed items silently
+            except Exception as exc:
+                _logger.debug(
+                    f"Skipping malformed Zotero item {item_id} "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         return Papers(paper_list, project=self.project)
 

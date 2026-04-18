@@ -28,9 +28,9 @@ This keeps URL finders and PDF downloaders free of authentication logic.
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
-from playwright.async_api import BrowserContext, Page
+import scitex_logging as logging
+from playwright.async_api import BrowserContext
 
-from scitex import logging
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -340,7 +340,8 @@ class AuthenticationGateway:
 
         # Visit OpenURL and click through to publisher
         # This uses the existing OpenURLResolver flow
-        from scitex.browser import browser_logger
+        from scitex_browser import browser_logger
+
         from scitex_scholar.auth.gateway._OpenURLResolver import OpenURLResolver
 
         resolver = OpenURLResolver(config=self.config)
@@ -375,8 +376,11 @@ class AuthenticationGateway:
                     page, f"{self.name}: ✗ EXCEPTION: {str(e)[:80]}"
                 )
                 await page.wait_for_timeout(2000)
-            except:
-                pass
+            except Exception as ui_exc:
+                logger.debug(
+                    f"{self.name}: in-page error banner failed "
+                    f"({type(ui_exc).__name__}: {ui_exc})"
+                )
             # Don't raise - allow downstream to try anyway
             return None
         finally:

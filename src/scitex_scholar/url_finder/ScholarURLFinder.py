@@ -20,12 +20,12 @@ Simple, focused responsibility: Given a page or URL, find PDF URLs.
 from contextlib import asynccontextmanager
 from typing import Dict, List, Optional, Union
 
+import scitex_logging as logging
 from playwright.async_api import BrowserContext, Page
+from scitex_browser.debugging import browser_logger
 
-from scitex import logging
-from scitex.browser.debugging import browser_logger
 from scitex_scholar.auth.gateway import OpenURLResolver
-from scitex_scholar.config import PublisherRules, ScholarConfig
+from scitex_scholar.config import ScholarConfig
 
 # Import strategies
 from .strategies import (
@@ -270,8 +270,10 @@ class ScholarURLFinder:
         finally:
             try:
                 await page.close()
-            except:
-                pass
+            except Exception as exc:
+                logger.debug(
+                    f"_managed_page: page.close() failed ({type(exc).__name__}: {exc})"
+                )
 
     def _as_pdf_dicts(self, urls: List[str], source: str) -> List[Dict]:
         """Convert URL strings to dict format with source."""

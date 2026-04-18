@@ -1,0 +1,4 @@
+{
+  "stage": "fix: decouple from scitex-browser, add failure records, clew hashing",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

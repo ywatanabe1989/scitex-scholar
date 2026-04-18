@@ -26,9 +26,8 @@ import asyncio
 from typing import Dict, List
 from urllib.parse import urlparse
 
+import scitex_logging as logging
 from playwright.async_api import Page, Response
-
-from scitex import logging
 
 logger = logging.getLogger(__name__)
 
@@ -199,8 +198,11 @@ async def detect_captcha_on_page(
             title = await page.title()
             if "challenge" in title.lower() or "captcha" in title.lower():
                 return True
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug(
+                f"challenge detection: page.title() failed "
+                f"({type(exc).__name__}: {exc})"
+            )
 
         return False
 
@@ -235,7 +237,7 @@ async def wait_redirects(
         dict with redirect information
     """
     if show_progress:
-        from scitex.browser import browser_logger
+        from scitex_browser import browser_logger
 
     start_time = asyncio.get_event_loop().time()
     start_url = page.url
@@ -409,7 +411,7 @@ async def wait_redirects(
                             f"{func_name}: CAPTCHA detected on page: {current_url[:80]}"
                         )
                         if show_progress:
-                            from scitex.browser import browser_logger
+                            from scitex_browser import browser_logger
 
                             asyncio.create_task(
                                 browser_logger.info(
@@ -423,7 +425,11 @@ async def wait_redirects(
                 try:
                     load_state = await page.evaluate("() => document.readyState")
                     page_loaded = load_state == "complete"
-                except:
+                except Exception as exc:
+                    logger.debug(
+                        f"{func_name}: readyState probe failed "
+                        f"({type(exc).__name__}: {exc})"
+                    )
                     page_loaded = False
 
                 # Check DOM stability (body exists and has content)
@@ -445,7 +451,11 @@ async def wait_redirects(
                     else:
                         dom_stable_count = 0
                     last_dom_state = dom_state
-                except:
+                except Exception as exc:
+                    logger.debug(
+                        f"{func_name}: DOM-stability probe failed "
+                        f"({type(exc).__name__}: {exc})"
+                    )
                     dom_state = None
                     dom_stable_count = 0
 
@@ -486,7 +496,7 @@ async def wait_redirects(
                             f"{func_name}: CAPTCHA appears to be solved, waiting for redirect..."
                         )
                         if show_progress:
-                            from scitex.browser import browser_logger
+                            from scitex_browser import browser_logger
 
                             asyncio.create_task(
                                 browser_logger.info(
@@ -514,7 +524,7 @@ async def wait_redirects(
                             f"{func_name}: CAPTCHA solver timeout (60s) - continuing anyway"
                         )
                         if show_progress:
-                            from scitex.browser import browser_logger
+                            from scitex_browser import browser_logger
 
                             asyncio.create_task(
                                 browser_logger.info(
@@ -605,8 +615,11 @@ async def wait_redirects(
             try:
                 idle_timeout = min(5000, timeout // 4)
                 await page.wait_for_load_state("networkidle", timeout=idle_timeout)
-            except:
-                logger.debug(f"{func_name}: Network idle wait failed")
+            except Exception as exc:
+                logger.debug(
+                    f"{func_name}: Network idle wait failed "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         # Calculate results
         end_time = asyncio.get_event_loop().time()
@@ -670,8 +683,10 @@ async def wait_redirects(
             page.remove_listener("response", track_response)
             stability_task.cancel()
             countdown_task.cancel()
-        except:
-            pass
+        except Exception as exc:
+            logger.debug(
+                f"{func_name}: finally-cleanup failed ({type(exc).__name__}: {exc})"
+            )
 
 
 # INFO:     BrowserLogger - OpenURLResolver: Navigating to resolver for 10.1016/j.clinph.2024.09.017...

@@ -1,0 +1,4 @@
+{
+  "stage": "fix: use scitex_stats._utils._normalizers after stats standalonization",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

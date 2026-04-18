@@ -14,7 +14,7 @@ from collections import OrderedDict
 from datetime import datetime
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar._utils import TextNormalizer
 
 if TYPE_CHECKING:
@@ -210,7 +210,7 @@ class PaperSavingMixin:
                     project=self.project,
                     readable_name=readable_name,
                 )
-                # {project_dir}/scitex/scholar/library/{project}/ view
+                # {project_dir}/.scitex/scholar/library/{project}/ view
                 self._create_project_local_symlink(
                     master_storage_path=master_storage_path,
                     readable_name=readable_name,
