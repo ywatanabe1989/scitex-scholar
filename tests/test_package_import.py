@@ -15,12 +15,13 @@ import unittest
 
 class TestPackageImport(unittest.TestCase):
     """Test suite for package import functionality."""
-    
+
     def test_package_import(self):
         """Test that the scitex_scholar package can be imported."""
         try:
             import sys
-            sys.path.insert(0, './src')
+
+            sys.path.insert(0, "./src")
             import scitex_scholar
         except ImportError:
             self.fail("Failed to import scitex_scholar package")
@@ -28,24 +29,26 @@ class TestPackageImport(unittest.TestCase):
     def test_package_version(self):
         """Test that package version is accessible."""
         import sys
-        sys.path.insert(0, './src')
+
+        sys.path.insert(0, "./src")
         import scitex_scholar
-        
-        self.assertTrue(hasattr(scitex_scholar, '__version__'))
+
+        self.assertTrue(hasattr(scitex_scholar, "__version__"))
         self.assertIsInstance(scitex_scholar.__version__, str)
         self.assertGreater(len(scitex_scholar.__version__), 0)
 
     def test_package_metadata(self):
         """Test that package metadata is properly set."""
         import sys
-        sys.path.insert(0, './src')
+
+        sys.path.insert(0, "./src")
         import scitex_scholar
-        
+
         # Test required metadata attributes
-        self.assertTrue(hasattr(scitex_scholar, '__author__'))
-        self.assertTrue(hasattr(scitex_scholar, '__email__'))
+        self.assertTrue(hasattr(scitex_scholar, "__author__"))
+        self.assertTrue(hasattr(scitex_scholar, "__email__"))
         self.assertEqual(scitex_scholar.__author__, "Yusuke Watanabe")
-        self.assertEqual(scitex_scholar.__email__, "ywatanabe@alumni.u-tokyo.ac.jp")
+        self.assertEqual(scitex_scholar.__email__, "ywatanabe@scitex.ai")
 
 
 if __name__ == "__main__":

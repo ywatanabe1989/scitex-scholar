@@ -13,6 +13,8 @@ Installation:
 """
 
 __version__ = "0.3.0"
+__author__ = "Yusuke Watanabe"
+__email__ = "ywatanabe@scitex.ai"
 
 from .config import ScholarConfig
 from .core.Paper import Paper

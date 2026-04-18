@@ -254,6 +254,12 @@ class PipelineStepsMixin:
         self, paper, io, downloaded_file, temp_pdf_path, download_method="unknown"
     ):
         import shutil
+        from datetime import datetime, timezone
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        paper.metadata.access.pdf_download_attempted_at = now_iso
+        paper.metadata.access.pdf_download_status = "success"
+        paper.metadata.access.pdf_download_error = None
 
         if downloaded_file == temp_pdf_path and temp_pdf_path.exists():
             main_pdf = io.get_pdf_path()
