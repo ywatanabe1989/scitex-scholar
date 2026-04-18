@@ -48,6 +48,9 @@ dependencies = [
     # scitex_browser.debugging → playwright.async_api). Keep it as a core
     # dep so `pip install scitex-scholar` yields an importable package.
     "playwright>=1.40.0",
+    # aiohttp is imported at module level in core/journal_normalizer,
+    # core/open_access, core/oa_cache, and several metadata engines.
+    "aiohttp>=3.8.0",
     "beautifulsoup4>=4.12.0",
     "bibtexparser>=1.4.0",
     "feedparser>=6.0.0",
