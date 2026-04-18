@@ -1,0 +1,4 @@
+{
+  "stage": "fix(auth): accept OpenURL resolution when page leaves resolver domain",
+  "cwd": "/home/ywatanabe/proj/scitex-scholar/src/scitex_scholar"
+}

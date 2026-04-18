@@ -25,7 +25,7 @@ from scitex_browser.automation import CookieAutoAcceptor
 from scitex_browser.core import BrowserMixin, ChromeProfileManager
 from scitex_browser.stealth import StealthManager
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.browser.utils.close_unwanted_pages import close_unwanted_pages
 from scitex_scholar.config import ScholarConfig
 

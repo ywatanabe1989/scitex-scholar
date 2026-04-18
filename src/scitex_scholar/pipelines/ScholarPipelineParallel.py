@@ -32,7 +32,7 @@ from typing import List, Optional
 from scitex_browser.core import ChromeProfileManager
 
 import scitex as stx
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.auth import ScholarAuthManager
 from scitex_scholar.core import Paper
 from scitex_scholar.pipelines.ScholarPipelineSingle import ScholarPipelineSingle

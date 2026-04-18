@@ -30,7 +30,7 @@ from typing import Dict, List, Optional
 
 from playwright.async_api import BrowserContext
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)

@@ -27,7 +27,7 @@ import asyncio
 from pathlib import Path
 
 import scitex as stx
-from scitex import logging
+import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 

@@ -26,7 +26,7 @@ from scitex_browser.interaction import (
     fill_with_fallbacks_async,
 )
 
-from scitex import logging
+import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 

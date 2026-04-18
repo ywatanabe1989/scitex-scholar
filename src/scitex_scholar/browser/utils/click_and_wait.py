@@ -17,7 +17,7 @@ from typing import Dict, Optional
 
 from playwright.async_api import Locator
 
-from scitex import logging
+import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 

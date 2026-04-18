@@ -28,7 +28,7 @@ from typing import Optional
 from playwright.async_api import Page
 from scitex_browser.debugging import browser_logger
 
-from scitex import logging
+import scitex_logging as logging
 
 from ._OpenURLResolver import OpenURLResolver
 

@@ -9,7 +9,7 @@ import hashlib
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.core import Paper
 
 if TYPE_CHECKING:
@@ -238,7 +238,21 @@ class PipelineStepsMixin:
                 doi=paper.metadata.id.doi, context=context
             )
         except Exception as e:
-            logger.warn(str(e))
+            # Record auth failure in metadata so downstream consumers can
+            # distinguish "download failed" from "auth never established".
+            from datetime import datetime, timezone
+
+            paper.metadata.access.pdf_download_attempted_at = datetime.now(
+                timezone.utc
+            ).isoformat()
+            paper.metadata.access.pdf_download_status = "auth_failed"
+            paper.metadata.access.pdf_download_error = (
+                f"auth_gateway.prepare_context_async: {type(e).__name__}: {e}"
+            )
+            logger.warning(
+                f"{self.name}: Auth gateway failed before download: {e}",
+                exc_info=True,
+            )
         temp_pdf_path = io.paper_dir / "temp.pdf"
         downloaded_file = await downloader.download_from_url(
             pdf_url, output_path=temp_pdf_path, doi=paper.metadata.id.doi

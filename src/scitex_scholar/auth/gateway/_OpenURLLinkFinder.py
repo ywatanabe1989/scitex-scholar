@@ -19,7 +19,7 @@ from typing import List
 from playwright.async_api import Locator, Page
 from scitex_browser.debugging import highlight_element_async
 
-from scitex import logging
+import scitex_logging as logging
 from scitex_scholar.browser.utils import click_and_wait
 from scitex_scholar.config import ScholarConfig
 
