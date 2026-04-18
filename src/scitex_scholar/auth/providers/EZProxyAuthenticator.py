@@ -102,10 +102,14 @@ class EZProxyAuthenticator(BaseAuthenticator):
         self.timeout = timeout
         self.debug_mode = debug_mode
 
-        # Session cache directory
-        self.cache_dir = (
-            cache_dir or Path.home() / ".scitex" / "scholar" / "ezproxy_sessions"
-        )
+        # Session cache directory (honours SCITEX_DIR via ScholarConfig).
+        if cache_dir is None:
+            from scitex_scholar.config import ScholarConfig
+
+            cache_dir = (
+                ScholarConfig().path_manager.get_cache_auth_dir() / "ezproxy_sessions"
+            )
+        self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         # Session file path

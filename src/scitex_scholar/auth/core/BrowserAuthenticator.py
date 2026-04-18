@@ -19,14 +19,13 @@ including login detection, navigation, and session verification.
 import asyncio
 from typing import Any, Dict, List, Optional
 
+import scitex_logging as logging
 from playwright.async_api import Page, async_playwright
 from scitex_browser.core import BrowserMixin
 from scitex_browser.interaction import (
     click_with_fallbacks_async,
     fill_with_fallbacks_async,
 )
-
-import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 
@@ -390,12 +389,15 @@ class BrowserAuthenticator(BrowserMixin):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"auth_{description}_{timestamp}.png"
 
-        # Determine save directory
+        # Determine save directory (honours SCITEX_DIR via ScholarConfig).
         if save_dir:
             save_path = Path(save_dir)
         else:
-            save_path = Path(os.environ.get("SCITEX_DIR", "~/.scitex")).expanduser()
-            save_path = save_path / "scholar" / "screenshots"
+            from scitex_scholar.config import ScholarConfig
+
+            save_path = (
+                ScholarConfig().path_manager.get_cache_engine_dir() / "screenshots"
+            )
         save_path.mkdir(parents=True, exist_ok=True)
 
         filepath = save_path / filename

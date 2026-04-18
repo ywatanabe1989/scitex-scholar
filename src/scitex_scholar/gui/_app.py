@@ -17,9 +17,12 @@ def _find_crossref_db(db_path: Optional[str] = None) -> Optional[str]:
     if env_path and Path(env_path).exists():
         return env_path
 
-    # Static candidates
+    # Candidates: first the config-resolved location (honours SCITEX_DIR),
+    # then common dev-local checkout paths as fallback.
+    from scitex_scholar.config import ScholarConfig
+
     candidates = [
-        Path.home() / ".scitex" / "scholar" / "crossref.db",
+        ScholarConfig().path_manager.dirs["scholar_dir"] / "crossref.db",
         Path.home() / "proj" / "crossref_local" / "data" / "crossref.db",
         Path.home() / "proj" / "crossref-local" / "data" / "crossref.db",
         Path.home() / ".proj" / "crossref_local" / "data" / "crossref.db",

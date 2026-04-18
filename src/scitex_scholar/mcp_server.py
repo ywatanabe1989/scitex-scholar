@@ -35,7 +35,6 @@ warnings.warn(
 )
 
 import asyncio
-import os
 from datetime import datetime
 from pathlib import Path
 
@@ -57,15 +56,16 @@ except ImportError:
 
 __all__ = ["ScholarServer", "main", "MCP_AVAILABLE"]
 
-# Directory configuration
-SCITEX_BASE_DIR = Path(os.getenv("SCITEX_DIR", Path.home() / ".scitex"))
-SCITEX_SCHOLAR_DIR = SCITEX_BASE_DIR / "scholar"
 
-
+# Directory configuration — resolved via ScholarConfig/path_manager so
+# SCITEX_DIR and other env overrides go through a single source of truth.
 def get_scholar_dir() -> Path:
     """Get the scholar data directory."""
-    SCITEX_SCHOLAR_DIR.mkdir(parents=True, exist_ok=True)
-    return SCITEX_SCHOLAR_DIR
+    from scitex_scholar.config import ScholarConfig
+
+    path = ScholarConfig().path_manager.dirs["scholar_dir"]
+    path.mkdir(parents=True, exist_ok=True)
+    return path
 
 
 class ScholarServer:

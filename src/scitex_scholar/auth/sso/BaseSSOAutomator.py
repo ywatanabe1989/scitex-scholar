@@ -15,12 +15,11 @@ __DIR__ = os.path.dirname(__FILE__)
 import json
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
-from pathlib import Path
 from typing import Optional
 
 from playwright.async_api import BrowserContext, Page
-
 from scitex_logging import getLogger
+
 from scitex_scholar.config import ScholarConfig
 
 logger = getLogger(__name__)
@@ -92,8 +91,12 @@ class BaseSSOAutomator(ABC):
             default=None,
         )
 
-        # Session management
-        self._session_dir = Path.home() / ".scitex" / "scholar" / "sso_sessions"
+        # Session management: resolve via ScholarConfig so SCITEX_DIR is honoured.
+        from scitex_scholar.config import ScholarConfig
+
+        self._session_dir = (
+            ScholarConfig().path_manager.get_cache_auth_dir() / "sso_sessions"
+        )
         self._session_dir.mkdir(parents=True, exist_ok=True)
 
         self.logger = logger

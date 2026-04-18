@@ -36,9 +36,10 @@ __all__ = [
 
 
 def _get_scholar_dir() -> Path:
-    """Get the scholar data directory."""
-    base_dir = Path(os.getenv("SCITEX_DIR", Path.home() / ".scitex"))
-    scholar_dir = base_dir / "scholar"
+    """Get the scholar data directory (honours SCITEX_DIR via ScholarConfig)."""
+    from scitex_scholar.config import ScholarConfig
+
+    scholar_dir = ScholarConfig().path_manager.dirs["scholar_dir"]
     scholar_dir.mkdir(parents=True, exist_ok=True)
     return scholar_dir
 
