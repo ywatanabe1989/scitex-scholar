@@ -37,7 +37,10 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "scitex>=2.0.0",  # still required: @stx.session decorator in pipelines/
+    # scitex[session] provides @stx.session decorator (+ matplotlib, PyYAML)
+    # used in pipelines/, metadata_engines/, impact_factor/jcr/.
+    # Using the [session] extra keeps the dep minimal vs. the full scitex.
+    "scitex[session]>=2.0.0",
     "scitex-io>=0.2.0",
     "scitex-browser>=0.1.0",
     "scitex-logging>=0.1.0",
