@@ -425,7 +425,11 @@ async def wait_redirects(
                 try:
                     load_state = await page.evaluate("() => document.readyState")
                     page_loaded = load_state == "complete"
-                except:
+                except Exception as exc:
+                    logger.debug(
+                        f"{func_name}: readyState probe failed "
+                        f"({type(exc).__name__}: {exc})"
+                    )
                     page_loaded = False
 
                 # Check DOM stability (body exists and has content)
@@ -447,7 +451,11 @@ async def wait_redirects(
                     else:
                         dom_stable_count = 0
                     last_dom_state = dom_state
-                except:
+                except Exception as exc:
+                    logger.debug(
+                        f"{func_name}: DOM-stability probe failed "
+                        f"({type(exc).__name__}: {exc})"
+                    )
                     dom_state = None
                     dom_stable_count = 0
 
@@ -607,8 +615,11 @@ async def wait_redirects(
             try:
                 idle_timeout = min(5000, timeout // 4)
                 await page.wait_for_load_state("networkidle", timeout=idle_timeout)
-            except:
-                logger.debug(f"{func_name}: Network idle wait failed")
+            except Exception as exc:
+                logger.debug(
+                    f"{func_name}: Network idle wait failed "
+                    f"({type(exc).__name__}: {exc})"
+                )
 
         # Calculate results
         end_time = asyncio.get_event_loop().time()
@@ -672,8 +683,10 @@ async def wait_redirects(
             page.remove_listener("response", track_response)
             stability_task.cancel()
             countdown_task.cancel()
-        except:
-            pass
+        except Exception as exc:
+            logger.debug(
+                f"{func_name}: finally-cleanup failed ({type(exc).__name__}: {exc})"
+            )
 
 
 # INFO:     BrowserLogger - OpenURLResolver: Navigating to resolver for 10.1016/j.clinph.2024.09.017...
