@@ -36,6 +36,11 @@ from .formatting import (
 from .migration import from_connected_papers, to_connected_papers
 from .url_finder import ScholarURLFinder
 
+# Kept as a public flag so downstream shims (scitex.scholar re-export) can
+# advertise availability without reaching into each submodule. Always True:
+# if any of the imports above had failed, this module would not have loaded.
+SCHOLAR_AVAILABLE = True
+
 __all__ = [
     "Scholar",
     "Paper",
@@ -56,6 +61,7 @@ __all__ = [
     "from_connected_papers",
     "to_connected_papers",
     "apply_filters",
+    "SCHOLAR_AVAILABLE",
 ]
 
 # EOF
