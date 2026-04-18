@@ -195,7 +195,7 @@ class SymlinkHandlersMixin:
     ) -> Optional[Path]:
         """Create symlink inside the project's own directory tree.
 
-        Target location: ``{project_dir}/scitex/scholar/library/{project}/{readable_name}``
+        Target location: ``{project_dir}/.scitex/scholar/library/{project}/{readable_name}``
         Target of symlink: absolute path to master storage entry.
 
         This mirrors the ``~/.scitex/scholar/library/{project}/`` view directly
@@ -216,7 +216,7 @@ class SymlinkHandlersMixin:
 
         try:
             local_lib = (
-                Path(self.project_dir) / "scitex" / "scholar" / "library" / self.project
+                Path(self.project_dir) / ".scitex" / "scholar" / "library" / self.project
             )
             local_lib.mkdir(parents=True, exist_ok=True)
 
