@@ -11,9 +11,12 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 import scitex_logging as logging
+
+if TYPE_CHECKING:
+    from scitex_scholar.core.Paper import Paper
 
 logger = logging.getLogger(__name__)
 
@@ -200,10 +203,10 @@ class BibTeXHandler:
         # Parse citation count
         citation_count_data = None
         if "citation_count" in fields:
+            import json
+
             try:
                 # Try parsing as JSON first (for enriched BibTeX files)
-                import json
-
                 cc_raw = fields["citation_count"]
                 if isinstance(cc_raw, str) and cc_raw.strip().startswith("{"):
                     citation_count_data = json.loads(cc_raw)
