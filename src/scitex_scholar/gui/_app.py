@@ -4,7 +4,10 @@ import os
 from pathlib import Path
 from typing import Optional
 
+import scitex_logging as _slog
 from flask import Flask
+
+_logger = _slog.getLogger(__name__)
 
 
 def _find_crossref_db(db_path: Optional[str] = None) -> Optional[str]:
@@ -39,8 +42,10 @@ def _find_crossref_db(db_path: Optional[str] = None) -> Optional[str]:
         p = info.get("db_path")
         if p and Path(p).exists():
             return str(p)
-    except Exception:
-        pass
+    except Exception as exc:
+        _logger.debug(
+            f"crossref_local.info() probe failed ({type(exc).__name__}: {exc})"
+        )
 
     return None
 

@@ -14,6 +14,10 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+import scitex_logging as _slog
+
+_logger = _slog.getLogger(__name__)
+
 __all__ = [
     "search_papers_handler",
     "resolve_dois_handler",
@@ -623,8 +627,11 @@ async def get_library_status_handler(
                             "has_pdf": pdf_exists,
                         }
                     )
-                except Exception:
-                    pass
+                except Exception as exc:
+                    _logger.debug(
+                        f"library entry scan skipped {meta_file} "
+                        f"({type(exc).__name__}: {exc})"
+                    )
 
             status["entries"] = entries
 
