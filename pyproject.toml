@@ -51,6 +51,8 @@ dependencies = [
     # aiohttp is imported at module level in core/journal_normalizer,
     # core/open_access, core/oa_cache, and several metadata engines.
     "aiohttp>=3.8.0",
+    # pymupdf is imported at module level in pdf_highlight/*.
+    "pymupdf>=1.24.0",
     "beautifulsoup4>=4.12.0",
     "bibtexparser>=1.4.0",
     "feedparser>=6.0.0",
