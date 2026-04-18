@@ -44,6 +44,10 @@ dependencies = [
     "scitex-io>=0.2.0",
     "scitex-browser>=0.1.0",
     "scitex-logging>=0.1.0",
+    # playwright is reached at top-level import (ScholarBrowserManager →
+    # scitex_browser.debugging → playwright.async_api). Keep it as a core
+    # dep so `pip install scitex-scholar` yields an importable package.
+    "playwright>=1.40.0",
     "beautifulsoup4>=4.12.0",
     "bibtexparser>=1.4.0",
     "feedparser>=6.0.0",
