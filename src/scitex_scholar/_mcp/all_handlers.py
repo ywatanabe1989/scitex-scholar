@@ -42,6 +42,9 @@ from .job_handlers import (
     start_job_handler,
 )
 
+# Re-export PDF semantic-highlight handler
+from .pdf_highlight_handlers import highlight_pdf_handler  # noqa: F401
+
 __all__ = [
     # Standard handlers
     "search_papers_handler",
@@ -68,6 +71,8 @@ __all__ = [
     "start_job_handler",
     "cancel_job_handler",
     "get_job_result_handler",
+    # Semantic highlighter
+    "highlight_pdf_handler",
 ]
 
 
