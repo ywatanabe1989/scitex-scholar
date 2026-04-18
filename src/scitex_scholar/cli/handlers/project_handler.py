@@ -236,34 +236,15 @@ async def handle_project_operations(args, scholar):
         if extension in [".bib", ".bibtex"]:
             scholar.save_papers_as_bibtex(papers, output_path)
         elif extension == ".csv":
-            import pandas as pd
-
             import scitex as stx
+            from scitex_scholar._utils.papers_utils import papers_to_dataframe
 
-            rows = []
-            for p in papers:
-                d = p.to_dict() if hasattr(p, "to_dict") else {}
-                meta = d.get("metadata", {}) if isinstance(d, dict) else {}
-                basic = meta.get("basic", {}) if isinstance(meta, dict) else {}
-                pub = meta.get("publication", {}) if isinstance(meta, dict) else {}
-                ids = meta.get("id", {}) if isinstance(meta, dict) else {}
-                authors = basic.get("authors") or []
-                if isinstance(authors, list):
-                    authors = "; ".join(str(a) for a in authors)
-                rows.append(
-                    {
-                        "title": basic.get("title"),
-                        "authors": authors,
-                        "year": basic.get("year"),
-                        "journal": pub.get("journal"),
-                        "doi": ids.get("doi"),
-                    }
-                )
-            stx.io.save(pd.DataFrame(rows), str(output_path))
+            stx.io.save(papers_to_dataframe(papers), str(output_path))
         elif extension == ".json":
             import scitex as stx
+            from scitex_scholar._utils.papers_utils import papers_to_dict
 
-            stx.io.save([p.to_dict() for p in papers], str(output_path))
+            stx.io.save(papers_to_dict(papers), str(output_path))
         else:
             logger.error(f"Unsupported export format: {extension}")
             logger.info(
