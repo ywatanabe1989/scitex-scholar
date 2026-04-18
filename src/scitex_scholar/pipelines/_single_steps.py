@@ -139,11 +139,20 @@ class PipelineStepsMixin:
             urls = await url_finder.find_pdf_urls(publisher_url)
             paper.metadata.url.pdfs = urls
             paper.metadata.url.pdfs_engines = ["ScholarURLFinder"]
-            io.save_metadata()
             if not urls:
+                from datetime import datetime, timezone
+
+                paper.metadata.access.pdf_download_attempted_at = datetime.now(
+                    timezone.utc
+                ).isoformat()
+                paper.metadata.access.pdf_download_status = "no_urls"
+                paper.metadata.access.pdf_download_error = (
+                    f"No PDF URLs found at {publisher_url}"
+                )
                 await self._capture_screenshot(
                     browser_manager, context, io, "no_pdf_urls_found"
                 )
+            io.save_metadata()
             logger.info(f"{self.name}: Found {len(urls)} PDF URL(s)")
         else:
             logger.info(f"{self.name}: PDF URLs exist ({len(paper.metadata.url.pdfs)})")
@@ -155,6 +164,13 @@ class PipelineStepsMixin:
             logger.info(f"{self.name}: Downloading PDF...")
             from scitex_scholar.pdf_download import ScholarPDFDownloader
 
+            # Pre-download landing page capture. The Chrome PDF Viewer
+            # strategy can close the browser context on Cloudflare
+            # challenges, so capturing BEFORE the risky step guarantees
+            # we keep a visual record even when the page is later lost.
+            await self._capture_screenshot(
+                browser_manager, context, io, "pre_download_landing"
+            )
             downloader = ScholarPDFDownloader(context)
             downloaded, temp_path, download_method = await self._download_pdf_from_url(
                 paper, io, context, auth_gateway, downloader
@@ -271,25 +287,37 @@ class PipelineStepsMixin:
             and p.stat().st_size > 100_000
             and (current_time - p.stat().st_mtime) < 600
         ]
+        from datetime import datetime, timezone
+
+        now_iso = datetime.now(timezone.utc).isoformat()
         if recent_pdfs:
             recent_pdfs.sort(key=lambda x: x[1])
             latest_pdf = recent_pdfs[0][0]
             logger.info(f"{self.name}: Found recent PDF: {latest_pdf.name}")
             io.save_pdf(latest_pdf)
-            # Track as manual download
             if paper:
                 paper.metadata.path.pdfs_engines = ["manual_download"]
+                paper.metadata.access.pdf_download_attempted_at = now_iso
+                paper.metadata.access.pdf_download_status = "success"
+                paper.metadata.access.pdf_download_error = None
             io.save_metadata()
             logger.success(f"{self.name}: Manual PDF saved to MASTER")
         else:
             logger.warning(f"{self.name}: No recent PDFs found")
+            if paper:
+                paper.metadata.access.pdf_download_attempted_at = now_iso
+                paper.metadata.access.pdf_download_status = "download_failed"
+                paper.metadata.access.pdf_download_error = "Automated download returned None and no fallback PDF in downloads dir"
+                io.save_metadata()
 
 
 class PipelineHelpersMixin:
     """Mixin containing helper methods for single paper pipeline."""
 
     async def _capture_screenshot(self, browser_manager, context, io, description):
-        """Capture screenshot for debugging when issues occur."""
+        """Capture screenshot for debugging. Iterates all surviving pages so
+        that a closed primary page (common after Cloudflare interstitials)
+        still yields a useful artifact."""
         if not browser_manager or not context:
             return
         try:
@@ -298,14 +326,30 @@ class PipelineHelpersMixin:
             screenshots_dir = io.paper_dir / "screenshots"
             screenshots_dir.mkdir(parents=True, exist_ok=True)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            screenshot_path = screenshots_dir / f"{timestamp}_{description}.png"
-            pages = context.pages
-            if pages:
-                page = pages[0]
-                await browser_manager.take_screenshot_async(
-                    page, str(screenshot_path), full_page=True
-                )
-                logger.info(f"{self.name}: Screenshot saved: {screenshot_path.name}")
+            try:
+                pages = list(context.pages)
+            except Exception as e:
+                logger.debug(f"{self.name}: cannot enumerate pages: {e}")
+                return
+            if not pages:
+                logger.debug(f"{self.name}: no surviving pages for screenshot")
+                return
+
+            saved_any = False
+            for idx, page in enumerate(pages):
+                suffix = "" if len(pages) == 1 else f"_page{idx}"
+                path = screenshots_dir / f"{timestamp}_{description}{suffix}.png"
+                try:
+                    await browser_manager.take_screenshot_async(
+                        page, str(path), full_page=True
+                    )
+                    logger.info(f"{self.name}: Screenshot saved: {path.name}")
+                    saved_any = True
+                except Exception as inner:
+                    logger.debug(f"{self.name}: screenshot page {idx} failed: {inner}")
+                    continue
+            if not saved_any:
+                logger.debug(f"{self.name}: all pages unreachable for '{description}'")
         except Exception as e:
             logger.debug(f"{self.name}: Screenshot capture failed: {e}")
 

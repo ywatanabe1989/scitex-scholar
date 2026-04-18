@@ -119,8 +119,18 @@ class ScholarPipelineParallel:
             worker_profile_name = f"{self.base_chrome_profile}_worker_{i}"
             worker_profiles.append(worker_profile_name)
 
-            # Sync from base profile using ChromeProfileManager
-            profile_manager = ChromeProfileManager(worker_profile_name)
+            # Sync from base profile using ChromeProfileManager.
+            # Resolve chrome_cache_dir lazily from ScholarConfig so that
+            # scitex_browser stays oblivious to scholar (one-way dep).
+            from scitex_scholar.config import ScholarConfig
+
+            _scholar_cfg = ScholarConfig()
+            profile_manager = ChromeProfileManager(
+                worker_profile_name,
+                chrome_cache_dir=_scholar_cfg.get_cache_chrome_dir(
+                    worker_profile_name
+                ).parent,
+            )
             success = profile_manager.sync_from_profile(self.base_chrome_profile)
 
             if success:

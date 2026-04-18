@@ -75,6 +75,9 @@ server = [
 watch = [
     "watchdog>=3.0.0",
 ]
+clew = [
+    "scitex-clew>=0.1.0",
+]
 dev = [
     "scitex-dev",
     "pytest>=7.0.0",
@@ -82,7 +85,7 @@ dev = [
     "numpy>=1.21.0",
 ]
 all = [
-    "scitex-scholar[pdf,mcp,browser,export,server,watch,dev]",
+    "scitex-scholar[pdf,mcp,browser,export,server,watch,clew,dev]",
 ]
 
 [project.scripts]

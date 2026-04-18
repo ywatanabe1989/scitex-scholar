@@ -40,6 +40,11 @@ except ImportError:
     ScholarBrowserManager = None
 
 try:
+    from .url_finder import ScholarURLFinder
+except ImportError:
+    ScholarURLFinder = None
+
+try:
     from .citation_graph import CitationGraphBuilder, plot_citation_graph
 except ImportError:
     CitationGraphBuilder = None
@@ -59,6 +64,8 @@ __all__ = [
     "Papers",
     "ScholarConfig",
     "ScholarAuthManager",
+    "ScholarBrowserManager",
+    "ScholarURLFinder",
     "CitationGraphBuilder",
     "plot_citation_graph",
     "to_bibtex",

@@ -273,6 +273,11 @@ class AccessMetadata(BaseModel):
     paywall_bypass_attempted: Optional[bool] = None
     paywall_bypass_success: Optional[bool] = None
 
+    # Last-attempt PDF download outcome
+    pdf_download_attempted_at: Optional[str] = None
+    pdf_download_status: Optional[str] = None
+    pdf_download_error: Optional[str] = None
+
     model_config = ConfigDict(populate_by_name=True, validate_assignment=True)
 
 
@@ -460,6 +465,7 @@ class ContainerMetadata(BaseModel):
     metadata_file: Optional[str] = None
     pdf_downloaded_at: Optional[str] = None
     pdf_size_bytes: Optional[int] = None
+    pdf_sha256: Optional[str] = None  # optional scitex-clew provenance hash
 
     @field_validator("pdf_size_bytes")
     @classmethod

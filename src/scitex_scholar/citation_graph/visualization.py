@@ -24,12 +24,11 @@ try:
 except ImportError:
     _FIGRECIPE_AVAILABLE = False
 
-try:
-    from scitex.plt._figrecipe_integration import draw_graph as _stx_draw_graph
-
-    _SCITEX_PLT_AVAILABLE = True
-except ImportError:
-    _SCITEX_PLT_AVAILABLE = False
+# scitex-plt is a thin re-export of figrecipe, so the _figrecipe_integration
+# shim is redundant; the figrecipe branch above covers both. Kept as an alias
+# flag so CLI help / list_backends() still advertise both names consistently.
+_SCITEX_PLT_AVAILABLE = _FIGRECIPE_AVAILABLE
+_stx_draw_graph = _fr_draw_graph if _FIGRECIPE_AVAILABLE else None
 
 try:
     from pyvis.network import Network as _PyvisNetwork
