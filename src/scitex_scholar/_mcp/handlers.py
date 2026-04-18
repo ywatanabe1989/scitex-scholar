@@ -1378,9 +1378,9 @@ async def parse_pdf_content_handler(
                     "searched_library": bool(doi),
                 }
 
-            # Use scitex.io PDF loader
+            # Use scitex_io PDF loader
             try:
-                from scitex.io import load
+                from scitex_io import load
 
                 result = load(str(target_path), mode=mode)
 

@@ -93,7 +93,7 @@ class BibTeXHandler:
                 for warning in result.warnings:
                     logger.warning(f"BibTeX: {warning}")
 
-        from scitex.io import load
+        from scitex_io import load
 
         entries = load(str(bibtex_path))
 
@@ -113,7 +113,7 @@ class BibTeXHandler:
             temp_path = f.name
 
         try:
-            from scitex.io import load
+            from scitex_io import load
 
             entries = load(temp_path)
         finally:
