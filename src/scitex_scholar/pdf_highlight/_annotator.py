@@ -85,76 +85,146 @@ def apply_highlights(doc: pymupdf.Document, blocks: list[Block]) -> int:
     return added
 
 
-def add_legend_page(
-    doc: pymupdf.Document,
+# Compact legend block sized for a corner overlay. Width is chosen so the
+# category labels fit at 7pt; height covers 5 swatch rows + 2 signature lines.
+_LEGEND_W = 210
+_LEGEND_H = 112
+_MARGIN = 24
+
+
+def _corner_rect(
+    page: pymupdf.Page, corner: str, w: float = _LEGEND_W, h: float = _LEGEND_H
+) -> pymupdf.Rect:
+    """Return a rect anchored to ``corner`` of ``page`` ("lr", "ll", "lc")."""
+    pw, ph = page.rect.width, page.rect.height
+    y0 = ph - _MARGIN - h
+    y1 = ph - _MARGIN
+    if corner == "ll":
+        x0, x1 = _MARGIN, _MARGIN + w
+    elif corner == "lc":
+        x0 = (pw - w) / 2
+        x1 = x0 + w
+    else:  # "lr" default — lower-right
+        x0, x1 = pw - _MARGIN - w, pw - _MARGIN
+    return pymupdf.Rect(x0, y0, x1, y1)
+
+
+def _draw_legend_overlay(
+    page: pymupdf.Page,
+    rect: pymupdf.Rect,
     *,
     signature: str,
     model_label: Optional[str],
     source_name: str,
 ) -> None:
-    """Prepend a legend + signature page describing the 5-colour scheme."""
-    first = doc[0]
-    w, h = first.rect.width, first.rect.height
-    page = doc.new_page(pno=0, width=w, height=h)
+    """Paint a small opaque legend panel into ``rect`` on ``page``.
+
+    Opaque white background so the panel remains readable even if it
+    overlays text underneath. Kept intentionally small — the
+    information density is high and the goal is unobtrusive reference.
+    """
+    page.draw_rect(
+        rect,
+        color=(0.6, 0.6, 0.6),
+        fill=(1.0, 1.0, 1.0),
+        fill_opacity=0.92,
+        width=0.4,
+    )
+
+    x0, y0 = rect.x0, rect.y0
+    pad = 6
 
     page.insert_text(
-        (48, 72),
+        (x0 + pad, y0 + pad + 7),
         "Semantic highlights",
         fontname="helv",
-        fontsize=20,
-    )
-    page.insert_text(
-        (48, 96),
-        f"source: {source_name}",
-        fontname="helv",
-        fontsize=10,
-        color=(0.3, 0.3, 0.3),
+        fontsize=7.5,
+        color=(0.2, 0.2, 0.2),
     )
 
-    sig_y = 118
-    page.insert_text(
-        (48, sig_y),
-        signature,
-        fontname="helv",
-        fontsize=9,
-        color=(0.4, 0.4, 0.4),
-    )
-    if model_label:
-        page.insert_text(
-            (48, sig_y + 14),
-            f"classifier: {model_label}",
-            fontname="helv",
-            fontsize=9,
-            color=(0.4, 0.4, 0.4),
-        )
-
-    legend_top = sig_y + 52
-    page.insert_text(
-        (48, legend_top),
-        "Legend",
-        fontname="helv",
-        fontsize=14,
-    )
-    y = legend_top + 24
-    row_h = 28
-    swatch_w, swatch_h = 36, 16
+    swatch_w, swatch_h = 10, 7
+    row_h = 10
+    row_y = y0 + pad + 19
+    short_labels = {
+        "focal_claim": "claim / finding",
+        "focal_method": "novel method",
+        "focal_limitation": "limitation",
+        "related_supportive": "related (supportive)",
+        "related_contradictive": "related (contradictive)",
+    }
     for cat in CATEGORIES:
         rgb = COLOR_RGB[cat]
-        swatch = pymupdf.Rect(48, y, 48 + swatch_w, y + swatch_h)
-        page.draw_rect(swatch, color=rgb, fill=rgb, fill_opacity=0.4, width=0.5)
-        page.insert_text(
-            (48 + swatch_w + 12, y + swatch_h - 3),
-            CATEGORY_LABELS[cat],
-            fontname="helv",
-            fontsize=11,
+        sw = pymupdf.Rect(
+            x0 + pad, row_y - swatch_h + 2, x0 + pad + swatch_w, row_y + 2
         )
-        y += row_h
+        page.draw_rect(sw, color=rgb, fill=rgb, fill_opacity=0.4, width=0.25)
+        page.insert_text(
+            (x0 + pad + swatch_w + 5, row_y),
+            short_labels[cat],
+            fontname="helv",
+            fontsize=6.5,
+            color=(0.2, 0.2, 0.2),
+        )
+        row_y += row_h
 
+    # Two-line signature in 5pt — line 1: source, line 2: model + timestamp.
+    # signature string looks like
+    #   "Highlighted by scitex-scholar v1.0.1 (pdf_highlight) — 2026-04-18 20:27"
+    ts = signature.rsplit("—", 1)[-1].strip() if "—" in signature else ""
+    line1 = f"scitex-scholar · {source_name}"
+    line2_bits = []
+    if model_label:
+        line2_bits.append(model_label)
+    if ts:
+        line2_bits.append(ts)
+    line2 = "  ·  ".join(line2_bits)
     page.insert_text(
-        (48, h - 48),
-        "Highlights are PDF annotations on a copy of the source document. "
-        "The original text and layout are unchanged.",
+        (x0 + pad, row_y + 4),
+        line1,
         fontname="helv",
-        fontsize=8,
-        color=(0.4, 0.4, 0.4),
+        fontsize=5.5,
+        color=(0.45, 0.45, 0.45),
     )
+    if line2:
+        page.insert_text(
+            (x0 + pad, row_y + 11),
+            line2,
+            fontname="helv",
+            fontsize=5.5,
+            color=(0.45, 0.45, 0.45),
+        )
+    # CATEGORY_LABELS kept in import for future full-form rendering (e.g.
+    # --legend-verbose) even though short_labels is used here.
+    _ = CATEGORY_LABELS
+
+
+def add_legend(
+    doc: pymupdf.Document,
+    *,
+    signature: str,
+    model_label: Optional[str],
+    source_name: str,
+    corner: str = "lr",
+) -> None:
+    """Stamp a compact legend overlay in a corner of the last page.
+
+    Default corner is lower-right ("lr"); valid alternatives are
+    lower-left ("ll") and lower-centre ("lc"). No new pages are added —
+    the overlay sits on top of any existing content (opaque background).
+    """
+    page = doc[-1]
+    rect = _corner_rect(page, corner)
+    _draw_legend_overlay(
+        page,
+        rect,
+        signature=signature,
+        model_label=model_label,
+        source_name=source_name,
+    )
+
+
+# Back-compat aliases — older callers referenced add_legend_page and
+# add_legend_footer; both now collapse to the corner overlay on the
+# last page, which is what the user confirmed they want.
+add_legend_page = add_legend
+add_legend_footer = add_legend
