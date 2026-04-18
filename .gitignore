@@ -29,6 +29,8 @@ docs/sphinx/_build/
 
 ### Source: /home/ywatanabe/.git-templates/.gitignore-templates/Custom/Claude.gitignore ###
 docs/to_claude
+**/docs/to_claude/
+**/.pending/
 docs/from_agents
 docs/from_user
 CLAUDE.md
