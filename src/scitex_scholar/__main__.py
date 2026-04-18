@@ -204,6 +204,23 @@ STORAGE: ~/.scitex/scholar/library/
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
+    # ========================================
+    # Subcommand: highlight
+    # ========================================
+    from .pdf_highlight._cli import build_parser as _build_highlight_parser
+
+    highlight_parser = subparsers.add_parser(
+        "highlight",
+        help="Overlay semantic highlights on a PDF",
+        description=(
+            "Tag each paragraph of a PDF with a rhetorical role "
+            "(claim/method/limitation/supportive/contradictive) via Claude, "
+            "then write a copy with colour-coded highlight annotations."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    _build_highlight_parser(highlight_parser)
+
     return parser
 
 
@@ -322,6 +339,10 @@ async def main_async():
         return await run_bibtex_pipeline(args)
     elif args.command == "mcp":
         return await run_mcp_server()
+    elif args.command == "highlight":
+        from .pdf_highlight._cli import run as run_highlight
+
+        return run_highlight(args)
     else:
         logger.error(f"Unknown command: {args.command}")
         return 1
