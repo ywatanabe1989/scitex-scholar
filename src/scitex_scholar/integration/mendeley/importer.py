@@ -60,7 +60,7 @@ class MendeleyImporter(BaseImporter):
         """Get or create Mendeley client."""
         if self._client is None:
             try:
-                from mendeley import Mendeley
+                from mendeley import Mendeley  # type: ignore[import-not-found]
 
                 mendeley = Mendeley(
                     client_id=self.credentials["app_id"],

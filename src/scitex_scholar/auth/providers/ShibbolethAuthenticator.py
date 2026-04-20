@@ -11,22 +11,25 @@ This module provides authentication through Shibboleth single sign-on
 to enable legal PDF downloads via institutional subscriptions.
 """
 
+from __future__ import annotations
+
 import asyncio
 import json
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from urllib.parse import urlparse
 
 import scitex_logging as logging
 
+if TYPE_CHECKING:
+    from playwright.async_api import Browser, Page
+
 try:
-    from playwright.async_api import Browser, Page, async_playwright
+    from playwright.async_api import async_playwright
 except ImportError:
     async_playwright = None
-    Page = None
-    Browser = None
 
 from scitex_logging import ScholarError
 
@@ -312,7 +315,7 @@ class ShibbolethAuthenticator(BaseAuthenticator):
                 self._saml_attributes = await self._extract_saml_attributes_async(page)
 
                 # Convert cookies
-                self._cookies = {c["name"]: c["value"] for c in cookies}
+                self._cookies = {c.get("name", ""): c.get("value", "") for c in cookies}
                 self._full_cookies = cookies
 
                 # Set session expiry (typically 8-12 hours for Shibboleth)

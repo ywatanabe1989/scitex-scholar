@@ -81,7 +81,7 @@ class ScholarLibrary:
         # Return primitive types as-is
         return value
 
-    def save_paper(self, paper: "Paper", force: bool = False) -> str:
+    def save_paper(self, paper: "Paper", force: bool = False) -> Optional[str]:
         """Save paper to library with explicit parameters.
 
         Supports both old flat Paper and new Pydantic Paper structures.

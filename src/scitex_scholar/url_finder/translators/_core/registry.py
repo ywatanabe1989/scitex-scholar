@@ -293,7 +293,7 @@ class TranslatorRegistry:
             pattern, _ = detect_pattern(url)
             if pattern == AccessPattern.DIRECT_PDF:
                 # Signal that we can handle it (patterns.py will extract)
-                return type("DirectPDFTranslator", (), {"LABEL": "Direct PDF"})
+                return type("DirectPDFTranslator", (), {"LABEL": "Direct PDF"})  # type: ignore[return-value]
         except Exception:
             pass
 

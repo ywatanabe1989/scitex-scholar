@@ -49,8 +49,10 @@ class UniversityOfMelbourneSSOAutomator(BaseSSOAutomator):
         if config is None:
             config = ScholarConfig()
 
-        username = config.resolve("sso_username", username, default="")
-        password = config.resolve("sso_password", password, default="")
+        _u = config.resolve("sso_username", username, default="")
+        _p = config.resolve("sso_password", password, default="")
+        username = _u if isinstance(_u, str) else ""
+        password = _p if isinstance(_p, str) else ""
 
         super().__init__(username=username, password=password, **kwargs)
 

@@ -341,7 +341,12 @@ async def run_mcp_server():
     from .mcp_server import main as mcp_main
 
     logger.info("Starting Scholar MCP server...")
-    await mcp_main()
+    import inspect
+    from typing import Any, cast
+
+    result: Any = mcp_main()
+    if inspect.isawaitable(result):
+        await cast(Any, result)
     return 0
 
 

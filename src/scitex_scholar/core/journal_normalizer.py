@@ -514,7 +514,7 @@ def get_journal_normalizer(cache_dir: Optional[Path] = None) -> JournalNormalize
     return JournalNormalizer.get_instance(cache_dir)
 
 
-def normalize_journal_name(name: str) -> str:
+def normalize_journal_name(name: str) -> Optional[str]:
     """Normalize journal name to canonical form."""
     return get_journal_normalizer().normalize(name)
 

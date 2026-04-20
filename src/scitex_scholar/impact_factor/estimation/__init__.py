@@ -24,7 +24,11 @@ Example usage:
 from .core.cache_manager import CacheManager
 from .core.calculator import ImpactFactorCalculator
 from .core.journal_matcher import JournalMatcher
-from .fetchers import CrossrefFetcher, OpenAlexFetcher, SemanticScholarFetcher
+from .fetchers import (  # type: ignore[import-not-found]
+    CrossrefFetcher,
+    OpenAlexFetcher,
+    SemanticScholarFetcher,
+)
 
 __author__ = "SciTeX Team"
 __email__ = "contact@scitex.ai"

@@ -18,7 +18,7 @@ import asyncio
 import hashlib
 import re
 import time
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import scitex_logging as logging
 from tqdm import tqdm
@@ -51,7 +51,12 @@ class ScholarEngine:
     ):
         self.name = self.__class__.__name__
         self.config = config if config else ScholarConfig()
-        self.engines = self.config.resolve("engines", engines)
+        _engines_resolved = self.config.resolve("engines", engines)
+        self.engines: List[str] = (
+            list(_engines_resolved)
+            if isinstance(_engines_resolved, (list, tuple))
+            else []
+        )
         self.use_cache = self.config.resolve("use_cache_engine", use_cache)
         self._engine_instances = {}
         self.rotation_manager = None
@@ -110,7 +115,7 @@ class ScholarEngine:
 
     async def search_async(
         self, title: str = None, doi: str = None, **kwargs
-    ) -> Dict[str, Dict]:
+    ) -> Optional[Dict[str, Dict]]:
         """Search all engines and return combined results."""
 
         def _build_readable_query_str(title, doi):
@@ -188,7 +193,7 @@ class ScholarEngine:
         self,
         titles: List[str] = None,
         dois: List[str] = None,
-    ) -> List[Dict[str, Dict]]:
+    ) -> List[Optional[Dict[str, Dict]]]:
         """Search multiple papers in batch with parallel processing."""
 
         def _print_stats(queries, results):
@@ -445,7 +450,7 @@ class ScholarEngine:
         # Require at least 80% of query words in sequence
         return common_seq_len >= len(query_words) * 0.8
 
-    def _combine_metadata(self, engine_results: Dict[str, Dict]) -> Dict:
+    def _combine_metadata(self, engine_results: Dict[str, Dict]) -> Optional[Dict]:
         """Combine metadata with query validation."""
         if not engine_results:
             return None

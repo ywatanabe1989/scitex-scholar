@@ -66,7 +66,7 @@ class ZoteroExporter:
                 )
 
             try:
-                from pyzotero import zotero
+                from pyzotero import zotero  # type: ignore[import-not-found]
 
                 self._zot = zotero.Zotero(
                     library_id=self.library_id,
@@ -184,9 +184,7 @@ class ZoteroExporter:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Use BibTeXHandler to create properly formatted BibTeX
-        self.bibtex_handler.papers_to_bibtex(
-            papers, output_path=output_path
-        )
+        self.bibtex_handler.papers_to_bibtex(papers, output_path=output_path)
 
         logger.success(f"Exported BibTeX file for Zotero import: {output_path}")
 

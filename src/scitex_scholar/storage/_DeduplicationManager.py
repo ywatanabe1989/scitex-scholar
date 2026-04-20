@@ -201,7 +201,7 @@ class DeduplicationManager:
 
     def merge_duplicate_papers(
         self, paper_dirs: List[Path], strategy: str = "best_metadata"
-    ) -> Tuple[Path, List[Path]]:
+    ) -> Tuple[Optional[Path], List[Path]]:
         """Merge duplicate papers into one canonical entry.
 
         Args:

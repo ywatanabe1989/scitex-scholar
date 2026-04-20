@@ -14,10 +14,10 @@ __DIR__ = os.path.dirname(__FILE__)
 __FILE__ = __file__
 
 import asyncio
-from typing import List
+from typing import Any, Dict, List
 
 import scitex_logging as logging
-from playwright.async_api import Locator, Page
+from playwright.async_api import Page
 from scitex_browser.debugging import highlight_element_async
 
 from scitex_scholar.browser.utils import click_and_wait
@@ -33,7 +33,7 @@ class OpenURLLinkFinder:
         self.name = self.__class__.__name__
         self.config = config or ScholarConfig()
 
-    async def find_link_elements(self, page: Page, doi: str) -> List[Locator]:
+    async def find_link_elements(self, page: Page, doi: str) -> List[Dict[str, Any]]:
         """Find and highlight publisher text on the page."""
         try:
             logger.info(f"{self.name}: Finding links from {page.url}")
@@ -41,8 +41,10 @@ class OpenURLLinkFinder:
             openurl_available_from_patterns = self.config.resolve(
                 "openurl_available_from_patterns", None
             )
+            if not isinstance(openurl_available_from_patterns, (list, tuple)):
+                openurl_available_from_patterns = []
             seen_hrefs = set()
-            found_links = []
+            found_links: List[Dict[str, Any]] = []
 
             for pattern in openurl_available_from_patterns:
                 publisher = pattern[len("Available from ") :]
@@ -69,6 +71,7 @@ class OpenURLLinkFinder:
                     f"{self.name}: Found {len(publishers)} link elements for: {', '.join(publishers)}"
                 )
                 return found_links
+            return []
 
         except Exception as e:
             logger.fail(f"{self.name}: Did not find any urls from {page.url}: {e}")

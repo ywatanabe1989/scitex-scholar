@@ -108,7 +108,12 @@ def _plot_scitex_plt(G, output=None, **kwargs):
     preset = _fr_get_preset("citation") if _FIGRECIPE_AVAILABLE else {}
     merged = {**preset, **kwargs}
 
-    fig, ax = stx_plt.subplots()
+    _subplot_result = stx_plt.subplots()
+    fig, ax = _subplot_result  # type: ignore[misc]
+    if _stx_draw_graph is None:
+        raise RuntimeError(
+            "figrecipe is not available; install figrecipe for this backend"
+        )
     result = _stx_draw_graph(ax, G, **merged)
 
     if output:

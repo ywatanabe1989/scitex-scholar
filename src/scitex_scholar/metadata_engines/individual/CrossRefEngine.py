@@ -47,7 +47,7 @@ class CrossRefEngine(BaseDOIEngine):
         max_results=5,
         return_as: Optional[str] = "dict",
         **kwargs,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """When doi is provided, all the information other than doi is ignored"""
         if doi:
             return self._search_by_doi(doi, return_as)
@@ -56,7 +56,7 @@ class CrossRefEngine(BaseDOIEngine):
                 title, year, authors, max_results, return_as
             )
 
-    def _search_by_doi(self, doi: str, return_as: str) -> Optional[Dict]:
+    def _search_by_doi(self, doi: str, return_as: str) -> Dict | str | None:
         """Search by DOI directly"""
         doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
         url = f"{self.base_url}/{doi}"
@@ -86,7 +86,7 @@ class CrossRefEngine(BaseDOIEngine):
         authors: Optional[List[str]] = None,
         max_results: int = 5,
         return_as: str = "dict",
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Search by metadata other than doi"""
         if not title:
             return None
@@ -143,7 +143,7 @@ class CrossRefEngine(BaseDOIEngine):
                 return_as=return_as,
             )
 
-    def _extract_metadata_from_item(self, item, return_as: str) -> Optional[Dict]:
+    def _extract_metadata_from_item(self, item, return_as: str) -> Dict | str | None:
         """Extract metadata from CrossRef item"""
         item_title = " ".join(item.get("title", []))
         if item_title.endswith("."):

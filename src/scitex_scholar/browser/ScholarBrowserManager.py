@@ -105,7 +105,7 @@ class ScholarBrowserManager(BrowserMixin):
         # ZenRows
         self.use_zenrows_proxy = use_zenrows_proxy
         if use_zenrows_proxy:
-            from .remote.ZenRowsProxyManager import ZenRowsProxyManager
+            from .remote.ZenRowsProxyManager import ZenRowsProxyManager  # type: ignore[import-not-found]  # noqa
 
             self.zenrows_proxy_manager = ZenRowsProxyManager(config=config)
 
@@ -221,6 +221,7 @@ class ScholarBrowserManager(BrowserMixin):
             await self._ensure_extensions_installed_async()
             self._verify_xvfb_running()
             await self._launch_persistent_context_async()
+        assert self._persistent_browser is not None
         return self._persistent_browser
 
     async def _ensure_playwright_started_async(self):

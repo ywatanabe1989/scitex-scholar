@@ -60,7 +60,7 @@ class SaverMixin:
         -------
             BibTeX content as string with enrichment metadata included
         """
-        from ..storage.BibTeXHandler import BibTeXHandler
+        from ...storage.BibTeXHandler import BibTeXHandler
 
         bibtex_handler = BibTeXHandler(project=self.project, config=self.config)
         return bibtex_handler.papers_to_bibtex(papers, output_path)

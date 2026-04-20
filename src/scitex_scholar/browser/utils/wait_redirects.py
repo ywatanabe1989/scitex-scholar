@@ -49,8 +49,10 @@ def _load_auth_patterns(
         from ...config import ScholarConfig
 
         config = ScholarConfig()
-        _AUTH_ENDPOINTS = config.resolve("auth_endpoint_patterns", None)
-        _ARTICLE_PATTERNS = config.resolve("article_url_patterns", None)
+        _auth_raw = config.resolve("auth_endpoint_patterns", None)
+        _article_raw = config.resolve("article_url_patterns", None)
+        _AUTH_ENDPOINTS = _auth_raw if isinstance(_auth_raw, list) else None
+        _ARTICLE_PATTERNS = _article_raw if isinstance(_article_raw, list) else None
 
         if not _AUTH_ENDPOINTS:
             logger.warning(

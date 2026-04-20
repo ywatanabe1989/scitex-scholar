@@ -81,9 +81,10 @@ class ScholarNotifier:
 
         # Fall back to config if env var not set
         if not to_email and self.scholar_config:
-            to_email = self.scholar_config.resolve(
+            _resolved = self.scholar_config.resolve(
                 "notification_email", None, None, str
             )
+            to_email = _resolved if isinstance(_resolved, str) else None
 
         return to_email, from_email
 
@@ -95,7 +96,7 @@ class ScholarNotifier:
     ) -> bool:
         """Send alert via scitex.notify with configured backends (excluding email)."""
         try:
-            from scitex.notify import alert_async
+            from scitex.notify import alert_async  # type: ignore[import-not-found]
 
             # Use non-email backends for immediate UI feedback
             ui_backends = [b for b in self._backends if b != "email"]

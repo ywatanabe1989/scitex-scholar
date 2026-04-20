@@ -937,7 +937,7 @@ class BibTeXHandler:
         self,
         project: str,
         bibtex_files: Optional[List[Union[str, Path]]] = None,
-    ) -> Path:
+    ) -> Optional[Path]:
         """Setup info/bibliography directory structure for a project.
 
         Creates:
@@ -985,7 +985,7 @@ class BibTeXHandler:
 
         return combined_path
 
-    def update_combined_bibliography(self, project: str) -> Path:
+    def update_combined_bibliography(self, project: str) -> Optional[Path]:
         """Update combined.bib with all BibTeX files in bibliography directory.
 
         Args:
@@ -1035,7 +1035,7 @@ class BibTeXHandler:
         project: str,
         output_path: Optional[Union[str, Path]] = None,
         include_all_entries: bool = True,
-    ) -> Path:
+    ) -> Optional[Path]:
         """Export all papers from project library to BibTeX file.
 
         This creates a BibTeX file from ALL papers in the project library,
@@ -1149,7 +1149,7 @@ class BibTeXHandler:
         # Update combined.bib to include this export
         self.update_combined_bibliography(project)
 
-        return output_path
+        return Path(output_path) if output_path is not None else None
 
 
 # EOF
