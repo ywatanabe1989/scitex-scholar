@@ -16,6 +16,7 @@ Metadata:
 """
 
 import json
+import re
 from typing import Any, Dict, List, Optional
 
 
@@ -118,7 +119,7 @@ class DPLATranslator:
             List of items
         """
         # Construct API URL
-        api_url = f"http://api.dp.la/v2/items/{','.join(ids)}?api_key={self.API_KEY}"
+        f"http://api.dp.la/v2/items/{','.join(ids)}?api_key={self.API_KEY}"
 
         # In real implementation, would fetch from API
         # For now, return empty list

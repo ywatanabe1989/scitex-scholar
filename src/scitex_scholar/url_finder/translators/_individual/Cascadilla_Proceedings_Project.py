@@ -1,4 +1,4 @@
-"""
+r"""
 Cascadilla Proceedings Project Translator
 
 Translates conference papers from lingref.com to Zotero format.

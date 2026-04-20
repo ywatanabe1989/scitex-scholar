@@ -16,6 +16,7 @@ Features:
 from typing import Any, Dict, List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.metadata_engines.individual.OpenAlexEngine import OpenAlexEngine
 
 from .._BaseSearchEngine import BaseSearchEngine

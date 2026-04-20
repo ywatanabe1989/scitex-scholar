@@ -88,9 +88,6 @@ class DarAlmandumahTranslator:
             return {}
 
         # Construct EndNote export URL
-        export_url = (
-            f"https://search.mandumah.com/Record/{record_id}/Export?style=EndNote"
-        )
 
         # Fetch EndNote data
         # In real implementation, would fetch and parse

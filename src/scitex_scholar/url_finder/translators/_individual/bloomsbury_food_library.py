@@ -1,4 +1,4 @@
-"""
+r"""
 Bloomsbury Food Library Translator
 
 Translates content from Bloomsbury Food Library.
@@ -16,8 +16,7 @@ Metadata:
     lastUpdated: 2021-08-03 01:17:12
 """
 
-import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 

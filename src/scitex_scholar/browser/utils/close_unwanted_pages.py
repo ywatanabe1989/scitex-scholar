@@ -130,7 +130,7 @@ async def close_unwanted_pages(
             if valid_page:
                 await browser_logger.warning(
                     valid_page,
-                    f"{func_name}: Cleanup attempt {attempt + 1} failed",
+                    f"{func_name}: Cleanup attempt {attempts + 1} failed",
                 )
 
 

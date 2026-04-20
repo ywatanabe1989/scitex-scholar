@@ -11,14 +11,13 @@ import time
 from typing import Dict, List, Optional
 
 import requests
+import scitex_logging as logging
 from tenacity import (
     retry,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
 )
-
-import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 

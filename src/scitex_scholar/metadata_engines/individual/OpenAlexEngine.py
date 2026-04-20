@@ -263,9 +263,6 @@ class OpenAlexEngine(BaseDOIEngine):
                 "type": work.get("type") if work.get("type", None) else None,
                 "type_engines": [self.name] if work.get("type") else None,
             },
-            "citation_count": {
-                **citation_counts,
-            },
             "publication": {
                 "journal": journal if journal else None,
                 "journal_engines": [self.name] if journal else None,

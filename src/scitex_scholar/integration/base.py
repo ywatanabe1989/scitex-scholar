@@ -7,11 +7,11 @@ Provides common interface and functionality for all reference managers.
 """
 
 from abc import ABC, abstractmethod
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 from scitex_scholar.core.Papers import Papers
 from scitex_scholar.storage import BibTeXHandler, LibraryManager
@@ -425,7 +425,7 @@ class BaseLinker(ABC):
             if paper.metadata.basic.title:
                 lines.append(f"  title = {{{paper.metadata.basic.title}}},")
             if authors:
-                lines.append(f"  author = {{" + " and ".join(authors) + "},")
+                lines.append("  author = {" + " and ".join(authors) + "},")
             if paper.metadata.basic.year:
                 lines.append(f"  year = {{{paper.metadata.basic.year}}},")
             if paper.metadata.publication.journal:

@@ -6,9 +6,9 @@
 
 from typing import List
 
+import scitex_logging as logging
 from playwright.async_api import Page
 
-import scitex_logging as logging
 from scitex_scholar.config import PublisherRules, ScholarConfig
 
 logger = logging.getLogger(__name__)

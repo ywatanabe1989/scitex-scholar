@@ -26,7 +26,6 @@ from pathlib import Path
 from typing import Optional
 
 from playwright.async_api import Page
-
 from scitex_browser.debugging import browser_logger
 
 
@@ -302,16 +301,16 @@ def get_manual_button_init_script(target_filename: str) -> str:
     Returns:
         JavaScript code to inject the button
     """
-    return f"""
-    (() => {{
+    return """
+    (() => {
         // Wait for DOM to be ready
-        if (document.readyState === 'loading') {{
+        if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', injectManualButton);
-        }} else {{
+        } else {
             injectManualButton();
-        }}
+        }
 
-        function injectManualButton() {{
+        function injectManualButton() {
             // Remove any existing button
             document.getElementById('scitex-manual-button')?.remove();
 
@@ -345,43 +344,43 @@ def get_manual_button_init_script(target_filename: str) -> str:
 
             button.innerHTML = 'PRESS \\'M\\'<br>FOR MANUAL';
 
-            if (document.documentElement) {{
+            if (document.documentElement) {
                 document.documentElement.appendChild(button);
-            }} else if (document.body) {{
+            } else if (document.body) {
                 document.body.appendChild(button);
-            }}
+            }
 
             // Keyboard handler - Press 'M' key
-            document.addEventListener('keydown', (e) => {{
-                if ((e.key === 'm' || e.key === 'M') && !e.ctrlKey && !e.altKey && !e.metaKey) {{
-                    if (button.getAttribute('data-scitex-clicked') !== 'true') {{
+            document.addEventListener('keydown', (e) => {
+                if ((e.key === 'm' || e.key === 'M') && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                    if (button.getAttribute('data-scitex-clicked') !== 'true') {
                         console.log('SciTeX: Key M pressed - Manual mode activated!');
                         button.setAttribute('data-scitex-clicked', 'true');
                         button.innerHTML = 'MANUAL MODE<br>ACTIVATED';
                         button.style.background = 'linear-gradient(135deg, #1a2332 0%, #2d3748 50%, #34495e 100%)';
                         button.style.border = '3px solid #8fa4b0';
                         window._scitexManualModeActivated = true;
-                    }}
-                }}
-            }});
+                    }
+                }
+            });
 
             // Click shows reminder
-            button.addEventListener('click', () => {{
-                if (button.getAttribute('data-scitex-clicked') !== 'true') {{
+            button.addEventListener('click', () => {
+                if (button.getAttribute('data-scitex-clicked') !== 'true') {
                     button.innerHTML = 'PRESS M KEY!';
                     button.style.background = 'linear-gradient(135deg, #6c8ba0 0%, #8fa4b0 100%)';
-                    setTimeout(() => {{
-                        if (button.getAttribute('data-scitex-clicked') !== 'true') {{
+                    setTimeout(() => {
+                        if (button.getAttribute('data-scitex-clicked') !== 'true') {
                             button.innerHTML = 'PRESS \\'M\\'<br>FOR MANUAL';
                             button.style.background = 'linear-gradient(135deg, #506b7a 0%, #6c8ba0 30%, #8fa4b0 60%, #b5c7d1 100%)';
-                        }}
-                    }}, 500);
-                }}
-            }});
+                        }
+                    }, 500);
+                }
+            });
 
             console.log('SciTeX: Manual mode button injected on page!');
-        }}
-    }})();
+        }
+    })();
     """
 
 
@@ -420,7 +419,7 @@ async def wait_for_manual_mode_activation_async(
         """
         )
 
-    except Exception as e:
+    except Exception:
         pass
 
 
@@ -446,7 +445,7 @@ async def show_stop_automation_button_async(
 
         logger = logging.getLogger(__name__)
         logger.info(
-            f"show_stop_automation_button_async: Injecting manual download button on page"
+            "show_stop_automation_button_async: Injecting manual download button on page"
         )
 
         # Wait a moment for page to be ready
@@ -454,15 +453,15 @@ async def show_stop_automation_button_async(
 
         # Inject button overlay - wait for body to be ready first
         await page.evaluate(
-            f"""
-        () => {{
+            """
+        () => {
             console.log('SciTeX: Injecting manual download controls...');
 
             // Wait for body to exist
-            if (!document.body) {{
+            if (!document.body) {
                 console.error('SciTeX: document.body not found!');
                 return;
-            }}
+            }
 
             // Remove any existing button
             document.getElementById('scitex-manual-button')?.remove();
@@ -502,61 +501,61 @@ async def show_stop_automation_button_async(
             document.documentElement.appendChild(button);
 
             // Hover effects
-            button.addEventListener('mouseenter', () => {{
+            button.addEventListener('mouseenter', () => {
                 button.style.background = 'linear-gradient(135deg, #34495e 0%, #506b7a 30%, #6c8ba0 60%, #8fa4b0 100%)';
                 button.style.transform = 'translateY(-50%) scale(1.08)';
                 button.style.boxShadow = '0 12px 32px rgba(26, 35, 50, 0.5)';
-            }});
-            button.addEventListener('mouseleave', () => {{
+            });
+            button.addEventListener('mouseleave', () => {
                 button.style.background = 'linear-gradient(135deg, #506b7a 0%, #6c8ba0 30%, #8fa4b0 60%, #b5c7d1 100%)';
                 button.style.transform = 'translateY(-50%)';
                 button.style.boxShadow = '0 8px 24px rgba(26, 35, 50, 0.4)';
-            }});
+            });
 
             // KEYBOARD handler - Press 'M' key (auto-clickers can't do this!)
-            document.addEventListener('keydown', (e) => {{
-                if (e.key === 'm' || e.key === 'M') {{
-                    if (button.getAttribute('data-scitex-clicked') !== 'true') {{
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'm' || e.key === 'M') {
+                    if (button.getAttribute('data-scitex-clicked') !== 'true') {
                         console.log('SciTeX: Key M pressed - Manual mode activated!');
                         button.setAttribute('data-scitex-clicked', 'true');
                         button.innerHTML = 'MANUAL MODE<br>ACTIVATED';
                         button.style.background = 'linear-gradient(135deg, #1a2332 0%, #2d3748 50%, #34495e 100%)';
                         button.style.border = '3px solid #8fa4b0';
-                    }}
-                }}
-            }}, {{ capture: true }});
+                    }
+                }
+            }, { capture: true });
 
             // Click handler just for feedback (doesn't activate)
-            button.addEventListener('click', (e) => {{
-                if (button.getAttribute('data-scitex-clicked') !== 'true') {{
+            button.addEventListener('click', (e) => {
+                if (button.getAttribute('data-scitex-clicked') !== 'true') {
                     button.innerHTML = 'PRESS M KEY!';
                     button.style.background = 'linear-gradient(135deg, #6c8ba0 0%, #8fa4b0 100%)';
-                    setTimeout(() => {{
-                        if (button.getAttribute('data-scitex-clicked') !== 'true') {{
+                    setTimeout(() => {
+                        if (button.getAttribute('data-scitex-clicked') !== 'true') {
                             button.innerHTML = 'PRESS \\'M\\'<br>FOR MANUAL';
                             button.style.background = 'linear-gradient(135deg, #506b7a 0%, #6c8ba0 30%, #8fa4b0 60%, #b5c7d1 100%)';
-                        }}
-                    }}, 500);
-                }}
-            }}, {{ capture: true }});
+                        }
+                    }, 500);
+                }
+            }, { capture: true });
 
             // Periodically ensure button stays visible and on top
-            setInterval(() => {{
+            setInterval(() => {
                 const existing = document.getElementById('scitex-manual-button');
-                if (!existing) {{
+                if (!existing) {
                     document.documentElement.appendChild(button);
-                }} else if (existing.parentElement) {{
+                } else if (existing.parentElement) {
                     existing.parentElement.appendChild(existing);
-                }}
-            }}, 2000);
+                }
+            }, 2000);
 
             console.log('SciTeX: Manual mode button injected at MIDDLE-RIGHT!');
-        }}
+        }
     """
         )
 
         logger.info(
-            f"show_stop_automation_button_async: Button injected, waiting for user click..."
+            "show_stop_automation_button_async: Button injected, waiting for user click..."
         )
 
         # Show browser notification that button is ready
@@ -600,7 +599,7 @@ async def show_stop_automation_button_async(
         """
         )
 
-    except Exception as e:
+    except Exception:
         # Button was removed or page closed
         pass
 
@@ -816,175 +815,6 @@ async def complete_manual_download_workflow_async(
     )
 
     return final_path
-
-
-def get_manual_button_init_script(target_filename: str) -> str:
-    """Get JavaScript init script to inject manual mode button on ALL pages.
-
-    This script runs on EVERY page load (including redirects) to ensure
-    the manual mode button is always available.
-
-    Args:
-        target_filename: Target filename to display
-
-    Returns:
-        JavaScript code as string
-    """
-    return f"""
-(() => {{
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {{
-        document.addEventListener('DOMContentLoaded', injectManualButton);
-    }} else {{
-        injectManualButton();
-    }}
-
-    function injectManualButton() {{
-        // Remove existing button
-        document.getElementById('scitex-manual-button')?.remove();
-
-        // Create button
-        const button = document.createElement('button');
-        button.id = 'scitex-manual-button';
-        button.setAttribute('data-scitex-no-auto-click', 'true');
-        button.style.cssText = `
-            position: fixed !important;
-            top: 50% !important;
-            left: 20px !important;
-            transform: translateY(-50%) !important;
-            z-index: 2147483647 !important;
-            background: linear-gradient(135deg, #506b7a 0%, #6c8ba0 30%, #8fa4b0 60%, #b5c7d1 100%) !important;
-            color: #1a2332 !important;
-            padding: 24px 36px !important;
-            border: 3px solid #34495e !important;
-            border-radius: 8px !important;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-            font-size: 17px !important;
-            font-weight: 700 !important;
-            cursor: pointer !important;
-            box-shadow: 0 8px 24px rgba(26, 35, 50, 0.4) !important;
-            display: block !important;
-            visibility: visible !important;
-            text-align: center !important;
-            line-height: 1.5 !important;
-            min-width: 220px !important;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5) !important;
-        `;
-
-        button.innerHTML = `SciTeX<br>Press for Manual Mode`;
-
-        (document.documentElement || document.body).appendChild(button);
-
-        // Click handler - ONLY way to activate
-        button.addEventListener('click', (e) => {{
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (button.getAttribute('data-activated') !== 'true') {{
-                console.log('SciTeX: Manual mode activated!');
-                button.setAttribute('data-activated', 'true');
-                button.innerHTML = 'SciTeX<br>Manual Mode Active';
-                button.style.background = 'linear-gradient(135deg, #1a2332 0%, #2d3748 50%, #34495e 100%)';
-                button.style.border = '3px solid #8fa4b0';
-                button.style.cursor = 'default';
-
-                // Close all browser_logger popups
-                const popupContainer = document.getElementById('_scitex_popup_container');
-                if (popupContainer) {{
-                    popupContainer.remove();
-                }}
-            }}
-        }}, {{ capture: true }});
-
-        // Hover effects
-        button.addEventListener('mouseenter', () => {{
-            if (button.getAttribute('data-activated') !== 'true') {{
-                button.style.background = 'linear-gradient(135deg, #34495e 0%, #506b7a 30%, #6c8ba0 60%, #8fa4b0 100%)';
-                button.style.transform = 'translateY(-50%) scale(1.08)';
-            }}
-        }});
-        button.addEventListener('mouseleave', () => {{
-            if (button.getAttribute('data-activated') !== 'true') {{
-                button.style.background = 'linear-gradient(135deg, #506b7a 0%, #6c8ba0 30%, #8fa4b0 60%, #b5c7d1 100%)';
-                button.style.transform = 'translateY(-50%)';
-            }}
-        }});
-
-        console.log('SciTeX: Manual mode button injected via init script (appears on ALL pages)');
-    }}
-}})();
-"""
-
-
-async def wait_for_manual_mode_activation_async(
-    page: Page,
-    stop_event: asyncio.Event,
-    timeout_sec: float = 0,  # 0 = wait forever
-) -> None:
-    """Wait for user to click the manual mode button.
-
-    Monitors the button's data-activated attribute which gets set when
-    user clicks the button.
-
-    Args:
-        page: Playwright page
-        stop_event: Event to set when manual mode is activated
-        timeout_sec: Timeout in seconds (0 = wait forever)
-    """
-    try:
-        from scitex import logging
-
-        logger = logging.getLogger(__name__)
-        logger.info(
-            "wait_for_manual_mode_activation_async: Waiting for button click..."
-        )
-
-        # Wait for button to be activated (clicked)
-        timeout_ms = timeout_sec * 1000 if timeout_sec > 0 else 0
-        await page.wait_for_selector(
-            "#scitex-manual-button[data-activated='true']",
-            timeout=timeout_ms,
-        )
-
-        logger.info(
-            "wait_for_manual_mode_activation_async: Button clicked! Setting stop event..."
-        )
-
-        # Set stop event
-        stop_event.set()
-
-        logger.info(
-            f"wait_for_manual_mode_activation_async: stop_event.is_set() = {stop_event.is_set()}"
-        )
-
-        # Close all browser_logger popups
-        await page.evaluate(
-            """
-            () => {
-                const popupContainer = document.getElementById('_scitex_popup_container');
-                if (popupContainer) {
-                    popupContainer.remove();
-                }
-            }
-        """
-        )
-
-        # Update button to show monitoring
-        await page.evaluate(
-            """
-            () => {
-                const button = document.getElementById('scitex-manual-button');
-                if (button) {
-                    button.innerHTML = 'SciTeX<br>Monitoring Downloads...';
-                    button.style.background = 'linear-gradient(135deg, #6b8fb3 0%, #7a9fc3 100%)';
-                    button.style.border = '3px solid #506b7a';
-                }
-            }
-        """
-        )
-
-    except Exception as e:
-        pass
 
 
 # EOF

@@ -1,4 +1,4 @@
-"""
+r"""
 Central and Eastern European Online Library Journals Translator
 
 Translates journal articles from CEEOL to Zotero format.

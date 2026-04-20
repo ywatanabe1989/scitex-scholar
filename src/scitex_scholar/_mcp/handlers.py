@@ -853,7 +853,6 @@ async def authenticate_handler(
             "shibboleth": "SCITEX_SCHOLAR_SHIBBOLETH_EMAIL",
             "ezproxy": "SCITEX_SCHOLAR_EZPROXY_EMAIL",
         }
-        sso_env_vars = ["UNIMELB_SSO_USERNAME", "UNIMELB_SSO_PASSWORD"]
 
         email_var = email_env_map.get(method)
         email = os.getenv(email_var) if email_var else None

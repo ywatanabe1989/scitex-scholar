@@ -11,6 +11,7 @@ import os
 from typing import List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Papers import Papers
 
 from ..base import BaseImporter
@@ -115,7 +116,6 @@ class MendeleyImporter(BaseImporter):
             for f in folders.items:
                 if f.name == collection_name:
                     folder = f
-                    collection_id = f.id
                     break
 
         # Get documents

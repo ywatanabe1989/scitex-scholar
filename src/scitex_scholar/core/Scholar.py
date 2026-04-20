@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 from ._mixins import (

@@ -218,7 +218,6 @@ class OpenAlexLocalEngine(BaseDOIEngine):
         volume = data.get("volume")
         issue = data.get("issue")
         pages = data.get("pages")
-        publisher = None  # Not directly available in response
 
         # Extract citation count
         cited_by_count = data.get("cited_by_count")

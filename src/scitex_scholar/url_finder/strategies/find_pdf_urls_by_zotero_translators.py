@@ -37,10 +37,10 @@ Usage:
 
 from typing import List
 
+import scitex_logging as logging
 from playwright.async_api import Page
 from scitex_browser import browser_logger
 
-import scitex_logging as logging
 from scitex_scholar.url_finder.translators._core.registry import TranslatorRegistry
 
 logger = logging.getLogger(__name__)

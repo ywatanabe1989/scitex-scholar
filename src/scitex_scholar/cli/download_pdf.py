@@ -24,6 +24,7 @@ import argparse
 import sys
 
 import scitex_logging as logging
+
 from scitex_scholar.core import Paper
 from scitex_scholar.pdf_download.ScholarPDFDownloader import ScholarPDFDownloader
 
@@ -81,7 +82,7 @@ python -m scitex.scholar download info""",
     )
 
     # Info command
-    info_parser = subparsers.add_parser("info", help="Show system information")
+    subparsers.add_parser("info", help="Show system information")
 
     return parser
 
@@ -108,10 +109,10 @@ def main():
             print(f"Error: BibTeX file not found: {bibtex_path}")
             return 1
 
-        print(f"\n🎯 SciTeX Scholar - PDF Downloader")
+        print("\n🎯 SciTeX Scholar - PDF Downloader")
         print(f"📄 Processing: {bibtex_path}")
         print(f"🏢 Project: {args.project}")
-        print(f"🔐 Using institutional authentication")
+        print("🔐 Using institutional authentication")
 
         try:
             # Use Scholar interface
@@ -121,7 +122,7 @@ def main():
             output_dir = Path(f"/tmp/scholar_downloads/{args.project}/")
             output_dir.mkdir(parents=True, exist_ok=True)
 
-            print(f"\n⬇️  Starting downloads...")
+            print("\n⬇️  Starting downloads...")
             print(f"📁 Output directory: {output_dir}")
 
             # Download PDFs using Scholar interface - it handles loading and DOI extraction
@@ -159,11 +160,11 @@ def main():
             if args.url:
                 paper.metadata.url.publisher = args.url
 
-            print(f"\n🎯 SciTeX Scholar - Paywalled PDF Downloader")
+            print("\n🎯 SciTeX Scholar - Paywalled PDF Downloader")
             print(f"📄 Paper: {paper.metadata.basic.title}")
             print(f"🔗 {'DOI' if args.doi else 'URL'}: {args.doi or args.url}")
             print(f"🏢 Project: {args.project}")
-            print(f"🔐 Using institutional authentication")
+            print("🔐 Using institutional authentication")
 
             try:
                 # Set up browser with authentication
@@ -199,7 +200,7 @@ def main():
                 if success and pdf_path:
                     print(f"\n✅ Downloaded successfully: {pdf_path}")
                 else:
-                    print(f"\n❌ Download failed")
+                    print("\n❌ Download failed")
 
                 await browser.close()
                 return 0 if success else 1
@@ -214,17 +215,17 @@ def main():
         return asyncio.run(download_paper_async(args))
 
     elif args.command == "info":
-        print(f"\n🎯 SciTeX Scholar - Paywalled PDF Downloader")
-        print(f"=" * 50)
-        print(f"Strategy: Institutional Authentication + Stealth Browser")
-        print(f"Focus: Paywalled academic content")
-        print(f"Authentication: OpenAthens/University credentials")
-        print(f"Extensions: Accept Cookies, Zotero Connector")
-        print(f"Zotero Translators: Enabled")
-        print(f"=" * 50)
-        print(f"\n💡 This tool specializes in accessing paywalled academic content")
-        print(f"   that requires institutional authentication.")
-        print(f"\n🏆 Competitive Advantage: Access content others can't reach!")
+        print("\n🎯 SciTeX Scholar - Paywalled PDF Downloader")
+        print("=" * 50)
+        print("Strategy: Institutional Authentication + Stealth Browser")
+        print("Focus: Paywalled academic content")
+        print("Authentication: OpenAthens/University credentials")
+        print("Extensions: Accept Cookies, Zotero Connector")
+        print("Zotero Translators: Enabled")
+        print("=" * 50)
+        print("\n💡 This tool specializes in accessing paywalled academic content")
+        print("   that requires institutional authentication.")
+        print("\n🏆 Competitive Advantage: Access content others can't reach!")
     else:
         parser.print_help()
         return 1

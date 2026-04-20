@@ -25,6 +25,7 @@ from typing import Any, Dict, List, Optional
 
 import scitex_logging as logging
 from scitex_logging import AuthenticationError
+
 from scitex_scholar.config import ScholarConfig
 
 from .providers.BaseAuthenticator import BaseAuthenticator
@@ -242,7 +243,7 @@ class ScholarAuthManager:
         if self.active_provider:
             return self.providers.get(self.active_provider)
         else:
-            raise ValueError(f"Active provider not found. Please set active provider")
+            raise ValueError("Active provider not found. Please set active provider")
 
     async def logout_async(self) -> None:
         """Log out from all providers."""
@@ -272,12 +273,12 @@ if __name__ == "__main__":
         auth_manager = ScholarAuthManager(
             email_openathens=os.getenv("SCITEX_SCHOLAR_OPENATHENS_EMAIL"),
         )
-        providers = auth_manager.list_providers()
+        auth_manager.list_providers()
 
-        is_authenticate_async = await auth_manager.ensure_authenticate_async()
+        await auth_manager.ensure_authenticate_async()
 
-        headers = await auth_manager.get_auth_headers_async()
-        cookies = await auth_manager.get_auth_cookies_async()
+        await auth_manager.get_auth_headers_async()
+        await auth_manager.get_auth_cookies_async()
 
     asyncio.run(main())
 

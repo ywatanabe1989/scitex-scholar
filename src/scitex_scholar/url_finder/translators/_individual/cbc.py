@@ -1,4 +1,4 @@
-"""
+r"""
 CBC Translator
 
 Translates CBC (Canadian Broadcasting Corporation) articles to Zotero format.

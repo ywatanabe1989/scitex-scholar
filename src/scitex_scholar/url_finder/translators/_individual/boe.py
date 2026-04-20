@@ -35,9 +35,8 @@ def get_metadata_uri(doc: Any, url: str) -> Optional[str]:
         # Find the XML embodiment
         index = 1
         while True:
-            xpath = f'(//meta[@property="http://data.europa.eu/eli/ontology#is_embodied_by"])[{index}]'
             meta_elem = doc.select_one(
-                f'meta[property="http://data.europa.eu/eli/ontology#is_embodied_by"]'
+                'meta[property="http://data.europa.eu/eli/ontology#is_embodied_by"]'
             )
 
             if not meta_elem:

@@ -102,7 +102,7 @@ if __name__ == "__main__":
                 page
             )
 
-            print(f"\nResults:")
+            print("\nResults:")
             print(f"  Found {len(pdf_urls)} PDF URL(s)")
             for url in pdf_urls:
                 print(f"  - {url}")

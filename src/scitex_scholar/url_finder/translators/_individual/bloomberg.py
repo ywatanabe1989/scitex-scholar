@@ -1,4 +1,4 @@
-"""
+r"""
 Bloomberg Translator
 
 Translates articles from Bloomberg.
@@ -16,8 +16,7 @@ Metadata:
     lastUpdated: 2016-09-08 20:56:54
 """
 
-import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 

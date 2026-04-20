@@ -143,7 +143,7 @@ def do_web(doc: Any, url: str) -> List[Dict[str, Any]]:
     web_type = detect_web(doc, url)
 
     if web_type == "multiple":
-        items = get_search_results(doc, check_only=False)
+        get_search_results(doc, check_only=False)
         # In a real implementation, you would use Zotero.selectItems
         # For now, return empty list as we need user interaction
         return []

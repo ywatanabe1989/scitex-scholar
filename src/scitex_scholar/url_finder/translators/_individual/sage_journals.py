@@ -16,7 +16,6 @@ SAGE uses Atypon platform but has distinct features that warrant a separate tran
 
 import re
 from typing import List
-from urllib.parse import quote
 
 from playwright.async_api import Page
 
@@ -40,7 +39,7 @@ class SAGEJournalsTranslator(BaseTranslator):
 
     @classmethod
     def matches_url(cls, url: str) -> bool:
-        """Check if URL matches SAGE Journals pattern.
+        r"""Check if URL matches SAGE Journals pattern.
 
         Based on JavaScript detectWeb() function (lines 40-49).
 

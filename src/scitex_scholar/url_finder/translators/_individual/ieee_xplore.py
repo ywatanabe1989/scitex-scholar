@@ -21,7 +21,6 @@ and electronics.
 import json
 import re
 from typing import Dict, List, Optional
-from urllib.parse import quote, urljoin
 
 from playwright.async_api import Page
 
@@ -85,7 +84,6 @@ class IEEEXploreTranslator(BaseTranslator):
                 # Try to get the actual PDF URL by checking the stamp page (JS lines 166-180)
                 try:
                     # Navigate to the PDF gateway page
-                    pdf_gateway_url = f"https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber={arnumber}"
 
                     # Look for embedded PDF iframe or redirect
                     # JavaScript uses requestDocument, we use page.goto with a short timeout

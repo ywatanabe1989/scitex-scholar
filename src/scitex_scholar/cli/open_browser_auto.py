@@ -15,16 +15,16 @@ Usage:
 
 import argparse
 import json
-import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from scitex_logging import getLogger
+
 from scitex_scholar.cli._url_utils import get_best_url
 from scitex_scholar.config import ScholarConfig
 
@@ -115,7 +115,7 @@ def handle_download(download, paper_id: str, paper_title: str, config: ScholarCo
             import shutil
 
             shutil.rmtree(screenshot_dir)
-            logger.info(f"  Removed screenshots (download succeeded)")
+            logger.info("  Removed screenshots (download succeeded)")
 
         # Update metadata with download timestamp
         if metadata_file.exists():
@@ -305,7 +305,7 @@ def open_browser_with_auto_tracking(
         except KeyboardInterrupt:
             logger.info("\nShutting down...")
         finally:
-            logger.info(f"\nSession summary:")
+            logger.info("\nSession summary:")
             logger.info(f"  Papers opened: {len(papers_to_open)}")
             logger.info(f"  PDFs downloaded: {download_count}")
 

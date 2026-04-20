@@ -16,10 +16,10 @@ __FILE__ = __file__
 import asyncio
 from typing import List
 
+import scitex_logging as logging
 from playwright.async_api import Locator, Page
 from scitex_browser.debugging import highlight_element_async
 
-import scitex_logging as logging
 from scitex_scholar.browser.utils import click_and_wait
 from scitex_scholar.config import ScholarConfig
 
@@ -101,7 +101,7 @@ if __name__ == "__main__":
         finder = OpenURLLinkFinder()
         links = await finder.find_link_elements(page, "10.1126/science.aao0702")
 
-        result = await click_and_wait(links[0].get("link_element"))
+        await click_and_wait(links[0].get("link_element"))
 
     asyncio.run(main())
 

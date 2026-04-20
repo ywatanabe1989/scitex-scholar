@@ -18,7 +18,6 @@ from pathlib import Path
 from typing import Optional, Union
 
 import yaml
-
 from scitex_logging import ScholarError, getLogger
 
 from .core._CascadeConfig import CascadeConfig
@@ -113,7 +112,7 @@ class ScholarConfig:
             content = re.sub(r"\$\{([^}]+)\}", env_replacer, content)
             # logger.info(f"ScholarConfig object configured with: {path}")
             return yaml.safe_load(content)
-        except Exception as e:
+        except Exception:
             raise ScholarError(
                 f"{path} not loaded and ScholarConfig object not created"
             )

@@ -82,7 +82,7 @@ def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
     import scitex as stx
 
-    script_mode = stx.gen.is_script()
+    stx.gen.is_script()
     parser = argparse.ArgumentParser(description="")
     parser.add_argument(
         "--metadata_json",

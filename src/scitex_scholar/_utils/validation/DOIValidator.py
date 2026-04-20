@@ -21,7 +21,6 @@ import time
 from typing import Optional, Tuple
 
 import requests
-
 import scitex_logging as logging
 
 logger = logging.getLogger(__name__)

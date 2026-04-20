@@ -26,8 +26,9 @@ import argparse
 import asyncio
 from pathlib import Path
 
-import scitex as stx
 import scitex_logging as logging
+
+import scitex as stx
 
 logger = logging.getLogger(__name__)
 

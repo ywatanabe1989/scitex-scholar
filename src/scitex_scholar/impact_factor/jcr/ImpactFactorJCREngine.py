@@ -43,11 +43,11 @@ stdlib_logging.getLogger("sqlalchemy.engine").setLevel(stdlib_logging.WARNING)
 stdlib_logging.getLogger("sqlalchemy.engine.Engine").setLevel(stdlib_logging.WARNING)
 stdlib_logging.getLogger("sqlalchemy.pool").setLevel(stdlib_logging.WARNING)
 
+import scitex_logging as logging
 from sql_manager import DynamicModel, Manager
 from sqlalchemy import Column, Float, String, func
 
 import scitex as stx
-import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 

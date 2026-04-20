@@ -44,7 +44,7 @@ class APSPhysicsTranslator:
 
         # Extract DOI and construct PDF URL (line 82-96)
         urls = await page.evaluate(
-            """
+            r"""
             () => {
                 const pdfUrls = [];
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
             print("Extracting PDF URLs...")
             pdf_urls = await APSPhysicsTranslator.extract_pdf_urls_async(page)
 
-            print(f"\nResults:")
+            print("\nResults:")
             print(f"  Found {len(pdf_urls)} PDF URL(s)")
             for url in pdf_urls:
                 print(f"  - {url}")

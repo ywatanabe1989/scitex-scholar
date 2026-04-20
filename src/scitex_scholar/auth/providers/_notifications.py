@@ -272,7 +272,7 @@ Time: {timestamp}
             timestamp = screenshot_data.get("timestamp", "Unknown")
             url = screenshot_data.get("url", "Unknown")
             b64_data = screenshot_data.get("base64", "")
-            filepath = screenshot_data.get("path", "")
+            screenshot_data.get("path", "")
 
             if not b64_data:
                 logger.warning("No screenshot data available")

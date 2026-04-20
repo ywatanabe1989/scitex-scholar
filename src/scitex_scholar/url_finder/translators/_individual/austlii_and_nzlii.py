@@ -239,12 +239,12 @@ def do_web(doc: Any, url: str) -> List[Dict[str, Any]]:
     web_type = detect_web(doc, url)
 
     if web_type == "multiple":
-        items = get_search_results(doc, check_only=False)
+        get_search_results(doc, check_only=False)
         return []
     else:
         # Handle classic.austlii.edu.au redirect
         if "classic.austlii.edu.au" in url:
-            parsed = urlparse(url)
+            urlparse(url)
             url = url.replace("classic.austlii.edu.au", "www.austlii.edu.au")
 
         return [scrape(doc, url)]

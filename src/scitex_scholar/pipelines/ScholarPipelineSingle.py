@@ -24,8 +24,9 @@ from __future__ import annotations
 import asyncio
 from typing import Optional
 
-import scitex as stx
 import scitex_logging as logging
+
+import scitex as stx
 from scitex_scholar.storage import PaperIO
 
 from ._single_steps import PipelineHelpersMixin, PipelineStepsMixin

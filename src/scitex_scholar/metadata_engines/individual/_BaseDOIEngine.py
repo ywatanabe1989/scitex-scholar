@@ -28,7 +28,6 @@ from abc import ABC, abstractmethod
 from typing import List, Optional
 
 import requests
-
 import scitex_logging as logging
 
 from ..utils import (

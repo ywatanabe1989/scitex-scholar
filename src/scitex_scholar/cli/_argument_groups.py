@@ -8,7 +8,7 @@ Single source of truth for all command-line arguments.
 Separation of concerns: definitions here, parsing in _CentralArgumentParser.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, List, Optional
 
 

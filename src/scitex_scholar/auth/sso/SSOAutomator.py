@@ -16,7 +16,6 @@ __DIR__ = os.path.dirname(__FILE__)
 from typing import Dict, Optional
 
 import scitex_logging as logging
-from scitex_scholar.config import ScholarConfig
 
 from .BaseSSOAutomator import BaseSSOAutomator
 
@@ -143,7 +142,7 @@ if __name__ == "__main__":
 
         from scitex_scholar.auth.sso.SSOAutomator import SSOAutomator
 
-        automator = SSOAutomator(email=os.getenv("SCITEX_SCHOLAR_SSO_EMAIL"))
+        SSOAutomator(email=os.getenv("SCITEX_SCHOLAR_SSO_EMAIL"))
 
         async def test_automator():
             # automator = UniversityOfMelbourneSSOAutomator()

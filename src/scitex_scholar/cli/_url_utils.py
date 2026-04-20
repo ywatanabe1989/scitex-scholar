@@ -6,7 +6,7 @@ Provides URL validation, normalization, and standardization functions.
 """
 
 from typing import Optional
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 
 
 def is_valid_url(url: Optional[str]) -> bool:

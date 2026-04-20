@@ -15,10 +15,9 @@ import json
 import os
 import time
 from pathlib import Path
-from typing import Any, Dict, Optional, Set
+from typing import Dict, Optional, Set
 
 import aiohttp
-
 import scitex_logging as logging
 
 logger = logging.getLogger(__name__)

@@ -16,7 +16,6 @@ but is called programmatically with DOI or query parameters.
 """
 
 import html
-import json
 import re
 from typing import Any, Dict, List, Optional
 from urllib.parse import quote
@@ -586,7 +585,7 @@ if __name__ == "__main__":
 
         if items:
             item = items[0]
-            print(f"\nResults:")
+            print("\nResults:")
             print(f"  Type: {item.get('itemType')}")
             print(f"  Title: {item.get('title')}")
             print(f"  DOI: {item.get('DOI')}")
@@ -607,7 +606,7 @@ if __name__ == "__main__":
         print(f"\nFound {len(items)} results")
 
         if items:
-            print(f"\nFirst result:")
+            print("\nFirst result:")
             item = items[0]
             print(f"  Type: {item.get('itemType')}")
             print(f"  Title: {item.get('title')}")

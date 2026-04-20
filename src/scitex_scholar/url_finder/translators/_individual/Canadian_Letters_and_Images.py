@@ -1,4 +1,4 @@
-"""
+r"""
 Canadian Letters and Images Translator
 
 Translates letters, postcards, photos, and personal items to Zotero format.

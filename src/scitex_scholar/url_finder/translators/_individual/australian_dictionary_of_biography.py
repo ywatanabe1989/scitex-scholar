@@ -117,7 +117,7 @@ def do_web(doc: Any, url: str) -> List[Dict[str, Any]]:
     web_type = detect_web(doc, url)
 
     if web_type == "multiple":
-        items = get_search_results(doc, check_only=False)
+        get_search_results(doc, check_only=False)
         return []
     else:
         return [scrape(doc, url)]

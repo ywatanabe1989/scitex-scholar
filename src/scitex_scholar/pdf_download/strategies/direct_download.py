@@ -15,9 +15,9 @@ __DIR__ = os.path.dirname(__FILE__)
 from pathlib import Path
 from typing import Optional
 
+import scitex_logging as logging
 from playwright.async_api import BrowserContext
 
-import scitex_logging as logging
 from scitex_scholar.browser import browser_logger
 
 logger = logging.getLogger(__name__)

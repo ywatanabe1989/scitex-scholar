@@ -1,4 +1,4 @@
-"""
+r"""
 Canadiana.ca Translator
 
 Translates historical Canadian books from Canadiana to Zotero format.
@@ -79,7 +79,7 @@ class CanadianaCATranslator:
                 header = row.find("th")
                 value = row.find("td")
                 if header and value:
-                    field_title = header.get_text().strip().replace("\s+", "")
+                    field_title = header.get_text().strip().replace(r"\s+", "")
                     field_value = value.get_text().strip()
 
                     # Normalize French to English field names

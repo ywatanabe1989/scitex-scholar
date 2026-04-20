@@ -8,6 +8,7 @@ import os
 from typing import Dict, List, Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 from scitex_scholar.core.Papers import Papers
 
