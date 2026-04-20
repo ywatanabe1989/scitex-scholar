@@ -6,9 +6,10 @@ import re
 import shutil
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -500,7 +501,7 @@ class DeduplicationManager:
                 if item.is_symlink():
                     # Check if symlink target exists
                     try:
-                        target = item.resolve(strict=True)
+                        item.resolve(strict=True)
                     except (OSError, RuntimeError):
                         # Symlink is broken
                         logger.info(

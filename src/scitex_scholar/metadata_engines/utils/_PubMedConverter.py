@@ -26,13 +26,12 @@ import asyncio
 import re
 import time
 from typing import Dict, List, Optional, Union
-from urllib.parse import urlencode
 
 import aiohttp
 import requests
+import scitex_logging as logging
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-import scitex_logging as logging
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)

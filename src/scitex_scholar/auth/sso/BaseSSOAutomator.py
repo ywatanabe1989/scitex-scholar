@@ -92,8 +92,6 @@ class BaseSSOAutomator(ABC):
         )
 
         # Session management: resolve via ScholarConfig so SCITEX_DIR is honoured.
-        from scitex_scholar.config import ScholarConfig
-
         self._session_dir = (
             ScholarConfig().path_manager.get_cache_auth_dir() / "sso_sessions"
         )

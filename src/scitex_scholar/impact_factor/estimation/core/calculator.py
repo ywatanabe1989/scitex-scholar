@@ -12,8 +12,8 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 import time
 from collections import defaultdict
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+from typing import Dict, List, Optional
 
 from scitex_logging import getLogger
 

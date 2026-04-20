@@ -30,6 +30,7 @@ from typing import Dict, List
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from scitex_logging import getLogger
+
 from scitex_scholar.cli._url_utils import get_best_url
 from scitex_scholar.config import ScholarConfig
 

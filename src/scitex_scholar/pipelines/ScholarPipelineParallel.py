@@ -27,14 +27,17 @@ IO:
 from __future__ import annotations
 
 import asyncio
-from typing import List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
+import scitex_logging as logging
 from scitex_browser.core import ChromeProfileManager
 
 import scitex as stx
-import scitex_logging as logging
 from scitex_scholar.auth import ScholarAuthManager
 from scitex_scholar.core import Paper
+
+if TYPE_CHECKING:
+    from scitex_scholar.core.Papers import Papers
 from scitex_scholar.pipelines.ScholarPipelineSingle import ScholarPipelineSingle
 
 logger = logging.getLogger(__name__)

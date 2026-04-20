@@ -15,6 +15,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar._utils import TextNormalizer
 
 if TYPE_CHECKING:

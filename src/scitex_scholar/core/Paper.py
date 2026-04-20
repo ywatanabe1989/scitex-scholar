@@ -20,9 +20,12 @@ This module uses Pydantic for:
 - Clean serialization/deserialization
 """
 
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+if TYPE_CHECKING:
+    from scitex_scholar.core.open_access import OAResult
 
 
 class IDMetadata(BaseModel):

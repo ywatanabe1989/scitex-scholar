@@ -24,10 +24,10 @@ IO:
   - output: Enriched Paper object (metadata only, no PDFs)
 """
 
-import asyncio
 from typing import Optional
 
 import scitex_logging as logging
+
 from scitex_scholar._utils import DOIValidator
 from scitex_scholar.config import ScholarConfig
 from scitex_scholar.core import Paper

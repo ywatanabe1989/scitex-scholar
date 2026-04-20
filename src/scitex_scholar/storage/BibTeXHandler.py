@@ -17,6 +17,7 @@ import scitex_logging as logging
 
 if TYPE_CHECKING:
     from scitex_scholar.core.Paper import Paper
+    from scitex_scholar.core.Papers import Papers
 
 logger = logging.getLogger(__name__)
 
@@ -1053,7 +1054,7 @@ class BibTeXHandler:
             raise ValueError("Config required for project bibliography export")
 
         project_dir = self.config.path_manager.get_library_project_dir(project)
-        master_dir = self.config.path_manager.get_library_master_dir()
+        self.config.path_manager.get_library_master_dir()
 
         # Default output path
         if output_path is None:
@@ -1113,7 +1114,7 @@ class BibTeXHandler:
 
         from ..core.Papers import Papers
 
-        papers_collection = Papers(papers, project=project)
+        Papers(papers, project=project)
 
         # Save with project info header
         bibtex_content = []

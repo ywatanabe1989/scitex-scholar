@@ -24,13 +24,6 @@ import json
 import xml.etree.ElementTree as ET
 from typing import List, Optional
 
-from tenacity import (
-    retry,
-    retry_if_exception_type,
-    stop_after_attempt,
-    wait_exponential,
-)
-
 import scitex_logging as logging
 
 from ..utils import standardize_metadata

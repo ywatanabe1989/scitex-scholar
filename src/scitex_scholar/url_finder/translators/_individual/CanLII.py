@@ -1,4 +1,4 @@
-"""
+r"""
 CanLII Translator
 
 Translates Canadian legal cases from CanLII to Zotero format.
@@ -17,7 +17,7 @@ Metadata:
 """
 
 import re
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from bs4 import BeautifulSoup
 

@@ -27,6 +27,7 @@ from watchdog.observers import Observer
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from scitex_logging import getLogger
+
 from scitex_scholar.config import ScholarConfig
 
 logger = getLogger(__name__)

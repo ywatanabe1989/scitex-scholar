@@ -40,5 +40,6 @@ __all__ = [
     "validate_bibtex_file",
     "validate_bibtex_content",
     "PaperIO",
+    "LibraryCacheManager",
     "normalize_search_filename",
 ]

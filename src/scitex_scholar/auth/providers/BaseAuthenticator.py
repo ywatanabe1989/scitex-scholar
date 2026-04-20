@@ -23,7 +23,6 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
 import scitex_logging as logging
-from scitex_logging import AuthenticationError
 
 """Logger"""
 logger = logging.getLogger(__name__)

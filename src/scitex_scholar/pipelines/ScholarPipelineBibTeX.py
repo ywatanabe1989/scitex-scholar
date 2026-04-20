@@ -31,8 +31,9 @@ import asyncio
 from pathlib import Path
 from typing import Optional, Union
 
-import scitex as stx
 import scitex_logging as logging
+
+import scitex as stx
 from scitex_scholar.core import Papers
 from scitex_scholar.pipelines.ScholarPipelineParallel import ScholarPipelineParallel
 from scitex_scholar.storage import BibTeXHandler

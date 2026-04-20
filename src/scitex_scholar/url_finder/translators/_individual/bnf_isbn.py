@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     # Generate search URL
     search_url = BnFISBNTranslator.search_by_isbn(test_isbn)
-    print(f"BnF SRU API URL:")
+    print("BnF SRU API URL:")
     print(f"  {search_url}\n")
 
     print("Note: This is a search translator.")

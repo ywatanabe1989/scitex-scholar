@@ -16,10 +16,10 @@ __FILE__ = __file__
 from typing import Optional
 from urllib.parse import quote
 
+import scitex_logging as logging
 from playwright.async_api import Page
 from scitex_browser.debugging import browser_logger
 
-import scitex_logging as logging
 from scitex_scholar.browser.utils import click_and_wait
 from scitex_scholar.config import ScholarConfig
 
@@ -201,7 +201,7 @@ if __name__ == "__main__":
         resolver = OpenURLResolver()
         doi = "10.1126/science.aao0702"
 
-        resolved_url = await resolver.resolve_doi(doi, page)
+        await resolver.resolve_doi(doi, page)
 
         await browser.close()
 

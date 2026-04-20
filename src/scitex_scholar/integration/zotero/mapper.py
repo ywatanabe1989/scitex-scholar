@@ -8,9 +8,10 @@ Handles field translations, data normalization, and metadata enrichment.
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 
 logger = logging.getLogger(__name__)

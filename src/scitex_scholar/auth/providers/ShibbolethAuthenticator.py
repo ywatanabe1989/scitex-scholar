@@ -518,7 +518,7 @@ class ShibbolethAuthenticator(BaseAuthenticator):
 
                     # Try to access a protected resource
                     test_url = "https://www.nature.com/nature"
-                    response = await page.goto(test_url, wait_until="networkidle")
+                    await page.goto(test_url, wait_until="networkidle")
 
                     # Check if we're redirected to login
                     is_valid = not any(
@@ -620,14 +620,6 @@ class ShibbolethAuthenticator(BaseAuthenticator):
         domain = parsed.netloc
 
         # Common Shibboleth SP paths
-        shibboleth_paths = [
-            "/Shibboleth.sso",
-            "/shibboleth",
-            "/saml",
-            "/idp",
-            "/wayf",
-            "/ds",  # Discovery Service
-        ]
 
         # Check for common Shibboleth indicators
         indicators = {

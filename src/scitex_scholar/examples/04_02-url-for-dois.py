@@ -18,9 +18,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import pandas as pd
-
-import scitex as stx
 import scitex_logging as logging
+
 from scitex_scholar import ScholarAuthManager, ScholarBrowserManager, ScholarURLFinder
 
 logger = logging.getLogger(__name__)
@@ -92,7 +91,7 @@ async def process_dois_batch(
         # Process batch sequentially (to avoid multiple tabs)
         for doi in batch:
             if not doi or pd.isna(doi):
-                logger.warning(f"Skipping empty DOI")
+                logger.warning("Skipping empty DOI")
                 continue
 
             result = await test_doi_url_finding(doi, url_finder, use_cache)
@@ -191,7 +190,7 @@ def generate_report(results: List[Dict], output_dir: Path):
     print(f"Stopped at auth: {stopped_at_auth}")
     print(f"Errors: {errors}")
     print(f"Average time: {avg_time:.2f} seconds")
-    print(f"\nReports saved to:")
+    print("\nReports saved to:")
     print(f"  - {report_path}")
     print(f"  - {csv_path}")
 
@@ -280,7 +279,7 @@ async def main():
     )
 
     # Generate report
-    report = generate_report(results, output_dir)
+    generate_report(results, output_dir)
 
     # Show problematic DOIs
     print("\n⚠️ DOIs that stopped at authentication:")

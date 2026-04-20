@@ -138,11 +138,10 @@ class OxfordTranslator(BaseTranslator):
             )
             isbn_match = re.search(r"ISBN:\s*(\d{10,13})", isbn_text)
             if isbn_match:
-                isbn = isbn_match.group(1)
+                isbn_match.group(1)
                 # Some academic publishers provide PDFs via ISBN
                 # This is speculative and may not work
                 base_url = await page.evaluate("window.location.origin")
-                potential_pdf = f"{base_url}/academic/pdf/{isbn}.pdf"
                 # We don't add this speculatively without verification
         except Exception:
             pass

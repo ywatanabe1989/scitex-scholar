@@ -31,6 +31,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Literal, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.pipelines.ScholarPipelineSearchParallel import (
     ScholarPipelineSearchParallel,
 )

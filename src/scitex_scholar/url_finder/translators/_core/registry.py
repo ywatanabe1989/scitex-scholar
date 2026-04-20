@@ -72,7 +72,6 @@ from .._individual.cell_press import CellPressTranslator
 from .._individual.cern_document_server import CERNDocumentServerTranslator
 from .._individual.ceur_workshop_proceedings import CEURWorkshopProceedingsTranslator
 from .._individual.clacso import CLACSOTranslator
-from .._individual.csiro_publishing import CSIROPublishingTranslator
 from .._individual.dblp_computer_science_bibliography import DBLPTranslator
 from .._individual.digital_humanities_quarterly import (
     DigitalHumanitiesQuarterlyTranslator,
@@ -322,7 +321,7 @@ class TranslatorRegistry:
             if pdf_urls:
                 return pdf_urls
         except Exception as e:
-            logger.debug(f"{self.name}: Pattern extraction failed for {url}: {e}")
+            logger.debug(f"{cls.__name__}: Pattern extraction failed for {url}: {e}")
 
         # Fall back to translator-based approach
         translator = cls.get_translator_for_url(url)
@@ -331,11 +330,11 @@ class TranslatorRegistry:
                 return await translator.extract_pdf_urls_async(page)
             except Exception as e:
                 logger.error(
-                    f"{self.name}: Translator {translator.LABEL} failed for {url}: {e}"
+                    f"{cls.__name__}: Translator {translator.LABEL} failed for {url}: {e}"
                 )
                 return []
 
-        logger.debug(f"{self.name}: No translator found for {url}")
+        logger.debug(f"{cls.__name__}: No translator found for {url}")
         return []
 
     @classmethod

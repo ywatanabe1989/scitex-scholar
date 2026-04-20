@@ -11,9 +11,9 @@ import traceback
 from pathlib import Path
 from typing import List, Optional, Union
 
+import scitex_logging as logging
 from playwright.async_api import BrowserContext
 
-import scitex_logging as logging
 from scitex_scholar.config import ScholarConfig
 from scitex_scholar.pdf_download.strategies import (
     FlexibleFilenameGenerator,

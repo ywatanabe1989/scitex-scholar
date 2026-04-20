@@ -51,15 +51,15 @@ def main():
         return 1
 
     # Build citation network
-    print(f"\n2. Building citation network (top 20 papers)...")
+    print("\n2. Building citation network (top 20 papers)...")
     graph = builder.build(seed_doi, top_n=20)
 
-    print(f"\nNetwork built:")
+    print("\nNetwork built:")
     print(f"  Nodes: {graph.node_count}")
     print(f"  Edges: {graph.edge_count}")
 
     # Show top papers by similarity
-    print(f"\nTop 10 most similar papers:")
+    print("\nTop 10 most similar papers:")
     print(f"{'Rank':<5} {'Score':<7} {'Year':<6} {'Title':<60}")
     print("-" * 85)
 

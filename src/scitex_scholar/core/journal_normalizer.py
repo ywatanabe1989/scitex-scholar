@@ -37,7 +37,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import aiohttp
-
 import scitex_logging as logging
 
 logger = logging.getLogger(__name__)

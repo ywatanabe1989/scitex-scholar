@@ -115,7 +115,7 @@ async def process_bibtex_entries(
     # Initialize components
     engine = ScholarEngine(config=config, use_cache=use_cache)
     url_finder = ScholarURLFinder(context, config=config, use_cache=use_cache)
-    pdf_downloader = ScholarPDFDownloader(context, config=config, use_cache=False)
+    ScholarPDFDownloader(context, config=config, use_cache=False)
 
     results = {}
 

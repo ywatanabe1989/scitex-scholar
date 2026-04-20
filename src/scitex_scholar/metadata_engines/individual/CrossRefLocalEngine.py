@@ -12,8 +12,6 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 
 import json
-import time
-import urllib.parse
 from typing import Dict, List, Optional, Union
 
 import scitex_logging as logging
@@ -249,7 +247,6 @@ class CrossRefLocalEngine(BaseDOIEngine):
 
 
 if __name__ == "__main__":
-    from pprint import pprint
 
     from scitex_scholar.metadata_engines.individual import CrossRefLocalEngine
 

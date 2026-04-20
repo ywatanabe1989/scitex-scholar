@@ -17,9 +17,8 @@ This enhanced version addresses issues found in the original implementation:
 from typing import List, Optional
 
 import requests
-from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
-
 import scitex_logging as logging
+from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 
 from ._BaseDOISource import BaseDOISource
 

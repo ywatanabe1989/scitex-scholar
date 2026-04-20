@@ -17,16 +17,14 @@ from typing import Dict, List, Optional, Union
 
 import feedparser
 import requests
+import scitex_logging as logging
 from bs4 import BeautifulSoup
 from tenacity import (
     retry,
     retry_if_exception_type,
-    retry_if_result,
     stop_after_attempt,
     wait_exponential,
 )
-
-import scitex_logging as logging
 
 from ..utils._standardize_metadata import standardize_metadata
 from ._BaseDOIEngine import BaseDOIEngine

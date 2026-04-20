@@ -92,7 +92,7 @@ def demonstrate_library_system(config) -> None:
         project="transformer_papers",
     )
 
-    print(f"Paper storage example:")
+    print("Paper storage example:")
     print(f"  Storage path: {storage_path}")
     print(f"  Readable name: {readable_name}")
     print(f"  Paper ID: {paper_id}")

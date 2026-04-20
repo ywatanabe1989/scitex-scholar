@@ -1,4 +1,4 @@
-"""
+r"""
 CAOD Translator
 
 Translates CAOD (Chinese Academic Online Database) articles to Zotero format.
@@ -16,7 +16,7 @@ Metadata:
     lastUpdated: 2018-09-08 13:38:50
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from bs4 import BeautifulSoup
 

@@ -38,9 +38,9 @@ from pathlib import Path
 from typing import Dict, Iterator, Optional
 
 import openpyxl
+import scitex_logging as logging
 
 import scitex as stx
-import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
 
@@ -231,7 +231,6 @@ def run_main() -> None:
 
     import matplotlib.pyplot as plt
 
-    import scitex as stx
 
     args = parse_args()
 

@@ -132,5 +132,12 @@ target-version = "py310"
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]
 
+[tool.ruff.lint.per-file-ignores]
+# Project-wide pattern: files set `__FILE__ = __file__` and
+# `__DIR__ = os.path.dirname(__FILE__)` between `import os` and the rest
+# of the module imports, which triggers E402 spuriously.
+"src/scitex_scholar/**/*.py" = ["E402"]
+"tests/**/*.py" = ["E402"]
+
 [tool.scitex-linter]
 library_dirs = ["src", "tests", "examples"]

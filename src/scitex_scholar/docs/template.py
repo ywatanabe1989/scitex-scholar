@@ -40,8 +40,9 @@ IO:
 """Imports"""
 import argparse
 
-import scitex as stx
 import scitex_logging as logging
+
+import scitex as stx
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +64,6 @@ def main(args):
 
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
-    import scitex as stx
 
     parser = argparse.ArgumentParser(description="")
     # parser.add_argument(
@@ -93,7 +93,6 @@ def run_main() -> None:
 
     import matplotlib.pyplot as plt
 
-    import scitex as stx
 
     args = parse_args()
 

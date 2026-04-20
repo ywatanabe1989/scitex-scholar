@@ -1,4 +1,4 @@
-"""
+r"""
 Bibliotheque et Archives Nationale du Quebec (Pistard) Translator
 
 Translates records from BAnQ Pistard catalog.
@@ -15,8 +15,7 @@ Metadata:
     lastUpdated: 2008-08-06 17:00:00
 """
 
-import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 
@@ -84,7 +83,7 @@ class BibliothequeArchivesNationaleQuebecPistardTranslator:
         content_elem = doc.select_one("div#Content div table")
 
         if content_elem:
-            contents = content_elem.get_text()
+            content_elem.get_text()
 
             # Process headers and associate with content
             for i, header in enumerate(headers):

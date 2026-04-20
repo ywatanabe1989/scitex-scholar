@@ -11,13 +11,11 @@ Features:
 - Tag-based organization
 """
 
-import json
 import time
-from datetime import datetime
-from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Set
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 from scitex_scholar.storage import LibraryManager
 

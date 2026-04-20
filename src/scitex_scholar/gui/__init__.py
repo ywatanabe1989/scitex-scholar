@@ -9,7 +9,6 @@ Or from Python:
     launch(port=5051)
 """
 
-from pathlib import Path
 from typing import Optional
 
 

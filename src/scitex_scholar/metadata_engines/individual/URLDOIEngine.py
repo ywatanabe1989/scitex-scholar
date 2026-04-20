@@ -18,7 +18,6 @@ import time
 from typing import Dict, List, Optional, Union
 
 import requests
-
 import scitex_logging as logging
 
 from ..utils import standardize_metadata

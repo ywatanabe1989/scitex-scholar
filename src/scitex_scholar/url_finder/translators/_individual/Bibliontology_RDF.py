@@ -19,7 +19,6 @@ Metadata:
     lastUpdated: 2014-04-03 16:34:38
 """
 
-import re
 from typing import Any, Dict, List
 from xml.etree.ElementTree import Element, SubElement, tostring
 

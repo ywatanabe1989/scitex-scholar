@@ -36,21 +36,21 @@ class ScienceDirectTranslator(BaseTranslator):
         try:
             if await page.locator(".accessContent").first.is_visible(timeout=1000):
                 return []
-        except:
+        except Exception:
             pass
         try:
             if await page.locator(".access-options-link-text").first.is_visible(
                 timeout=1000
             ):
                 return []
-        except:
+        except Exception:
             pass
         try:
             if await page.locator("#check-access-popover").first.is_visible(
                 timeout=1000
             ):
                 return []
-        except:
+        except Exception:
             pass
 
         # Method 1: Direct PDF link (JS lines 75-76)
@@ -60,7 +60,7 @@ class ScienceDirectTranslator(BaseTranslator):
             )
             if pdf_url and pdf_url != "#":
                 return [pdf_url]
-        except:
+        except Exception:
             pass
 
         # Method 1b: Meta tag citation_pdf_url (JS line 76)
@@ -70,7 +70,7 @@ class ScienceDirectTranslator(BaseTranslator):
             ).first.get_attribute("content", timeout=2000)
             if pdf_url:
                 return [pdf_url]
-        except:
+        except Exception:
             pass
 
         # Method 2: Embedded PDF object (JS lines 83-92)
@@ -80,7 +80,7 @@ class ScienceDirectTranslator(BaseTranslator):
             ).first.get_attribute("data", timeout=2000)
             if intermediate_url:
                 return [intermediate_url]
-        except:
+        except Exception:
             pass
 
         # Method 3: JSON metadata (JS lines 123-148)
@@ -112,7 +112,7 @@ class ScienceDirectTranslator(BaseTranslator):
                     base_url = await page.evaluate("window.location.origin")
                     pdf_url = f"{base_url}{pdf_url}"
                     return [pdf_url]
-        except:
+        except Exception:
             pass
 
         # Method 4: Canonical link + suffix (JS lines 154-159)
@@ -123,7 +123,7 @@ class ScienceDirectTranslator(BaseTranslator):
             if canonical_url:
                 pdf_url = f"{canonical_url}/pdfft?download=true"
                 return [pdf_url]
-        except:
+        except Exception:
             pass
 
         # Method 5: Refetch HTML for .pdf-download-btn-link (JS lines 164-172)

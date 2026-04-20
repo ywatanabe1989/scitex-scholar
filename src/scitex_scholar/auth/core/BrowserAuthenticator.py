@@ -283,7 +283,7 @@ class BrowserAuthenticator(BrowserMixin):
                 page = await context.new_page()
 
                 # Navigate to verification URL
-                response = await page.goto(
+                await page.goto(
                     verification_url,
                     wait_until="domcontentloaded",
                     timeout=15000,

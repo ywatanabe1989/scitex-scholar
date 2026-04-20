@@ -1,4 +1,4 @@
-"""
+r"""
 Bibliotheque et Archives Nationales du Quebec Translator
 
 Translates records from BAnQ main catalog.
@@ -16,8 +16,7 @@ Metadata:
     lastUpdated: 2015-06-29 17:02:02
 """
 
-import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 

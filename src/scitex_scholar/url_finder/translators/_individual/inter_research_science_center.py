@@ -39,7 +39,7 @@ class InterResearchScienceCenterTranslator:
 
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except:
+        except Exception:
             pass
 
         # Extract PDF URL from meta tags and direct links
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                 await InterResearchScienceCenterTranslator.extract_pdf_urls_async(page)
             )
 
-            print(f"\nResults:")
+            print("\nResults:")
             print(f"  Found {len(pdf_urls)} PDF URL(s)")
             for url in pdf_urls:
                 print(f"  - {url}")

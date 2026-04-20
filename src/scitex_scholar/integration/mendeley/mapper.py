@@ -5,9 +5,10 @@ Mendeley ↔ Scholar data mapping.
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 
 from ..base import BaseMapper

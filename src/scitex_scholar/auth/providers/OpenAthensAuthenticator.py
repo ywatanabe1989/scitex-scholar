@@ -27,10 +27,10 @@ import asyncio
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
-from playwright.async_api import async_playwright
-
 import scitex_logging as logging
+from playwright.async_api import async_playwright
 from scitex_logging import ScholarError
+
 from scitex_scholar.config import ScholarConfig
 
 from ..core.BrowserAuthenticator import BrowserAuthenticator
@@ -185,7 +185,7 @@ class OpenAthensAuthenticator(BaseAuthenticator):
         if self.email:
             logger.info(f"Account: {self.email}")
 
-        async with async_playwright() as p:
+        async with async_playwright():
             # Always start with OpenAthens page
             page = await self.browser_authenticator.navigate_to_login_async(
                 self.MYATHENS_URL

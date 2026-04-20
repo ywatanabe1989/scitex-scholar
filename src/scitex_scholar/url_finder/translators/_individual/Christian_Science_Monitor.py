@@ -1,4 +1,4 @@
-"""
+r"""
 Christian Science Monitor Translator
 
 Translates magazine articles from Christian Science Monitor to Zotero format.

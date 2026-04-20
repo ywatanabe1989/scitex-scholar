@@ -1,4 +1,4 @@
-"""
+r"""
 CIA World Factbook Translator
 
 Translates CIA World Factbook articles to Zotero format.

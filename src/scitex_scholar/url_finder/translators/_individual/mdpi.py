@@ -37,7 +37,7 @@ class MDPITranslator(BaseTranslator):
             if pdf_url:
                 pdf_urls.append(pdf_url)
                 return pdf_urls
-        except:
+        except Exception:
             pass
 
         # Method 2: Direct PDF download link
@@ -53,7 +53,7 @@ class MDPITranslator(BaseTranslator):
                     pdf_link = f"{base_url}{pdf_link}"
                 pdf_urls.append(pdf_link)
                 return pdf_urls
-        except:
+        except Exception:
             pass
 
         # Method 3: Construct PDF URL from article URL
@@ -67,7 +67,7 @@ class MDPITranslator(BaseTranslator):
                 pdf_url = f"{current_url.rstrip('/')}/pdf"
                 pdf_urls.append(pdf_url)
                 return pdf_urls
-        except:
+        except Exception:
             pass
 
         return pdf_urls
