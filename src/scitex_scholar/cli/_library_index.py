@@ -50,6 +50,28 @@ def register_subparser(subparsers) -> None:
     ls.add_argument("--limit", type=int, default=20)
     ls.add_argument("--offset", type=int, default=0)
 
+    au = sub.add_parser(
+        "audit",
+        help="Report library anomalies without raising (read-only)",
+        description=(
+            "Walk MASTER and decorated symlinks, report duplicate DOIs, "
+            "unparseable metadata, missing PDFs, and orphaned symlinks. "
+            "Always exits 0 unless --strict is passed."
+        ),
+    )
+    au.add_argument("--library-root", type=Path, default=None)
+    au.add_argument(
+        "--json",
+        dest="as_json",
+        action="store_true",
+        help="Emit JSON instead of human-readable text",
+    )
+    au.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit 1 when any issue is found (for CI)",
+    )
+
 
 def run(args) -> int:
     root = args.library_root or _default_library_root()
@@ -82,6 +104,16 @@ def run(args) -> int:
                 f"{r['paper_id']}\t{r.get('year') or ''}\t{(r.get('title') or '')[:80]}"
             )
         return 0
+
+    if args.db_command == "audit":
+        from ..storage._library_audit import audit, format_report
+
+        report = audit(root)
+        if args.as_json:
+            print(json.dumps(report.to_dict(), indent=2, default=str))
+        else:
+            print(format_report(report))
+        return 1 if (args.strict and report.has_issues) else 0
 
     logger.error(f"Unknown db command: {args.db_command}")
     return 1
