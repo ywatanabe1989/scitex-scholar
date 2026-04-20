@@ -22,15 +22,24 @@ def _write_entry(
     year: int | None = 2024,
     journal: str = "J",
     is_oa: bool = False,
+    authors: list[str] | None = None,
+    abstract: str | None = None,
+    citation_count: int | None = None,
 ) -> None:
     entry = root / "MASTER" / paper_id
     entry.mkdir(parents=True)
+    basic: dict = {"title": title, "year": year}
+    if authors is not None:
+        basic["authors"] = authors
+    if abstract is not None:
+        basic["abstract"] = abstract
     md = {
         "metadata": {
             "id": {"doi": doi, "arxiv_id": arxiv_id, "pmid": pmid},
-            "basic": {"title": title, "year": year},
+            "basic": basic,
             "publication": {"journal": journal},
             "access": {"is_open_access": is_oa},
+            "citation": {"count": citation_count} if citation_count is not None else {},
         }
     }
     (entry / "metadata.json").write_text(json.dumps(md))
@@ -81,17 +90,53 @@ def test_list_all_orders_by_year_desc(tmp_path: Path):
     assert [r["paper_id"] for r in rows] == ["NEW", "OLD"]
 
 
-def test_duplicate_doi_second_wins(tmp_path: Path):
-    # Two MASTER entries with the same DOI is a data bug; INSERT OR REPLACE
-    # means the second-inserted row wins (silently replacing the first).
-    # The DB stays consistent with a UNIQUE(doi) invariant.
+def test_duplicate_doi_raises(tmp_path: Path):
+    # Two MASTER entries sharing a DOI is library corruption; build() must
+    # fail loudly so the user can fix it, rather than silently drop a paper.
     _write_entry(tmp_path, "AAA", doi="10.1/same", title="first")
     _write_entry(tmp_path, "BBB", doi="10.1/same", title="second")
-    n = idx.build(tmp_path)
-    assert n == 2  # attempted to insert 2 rows
-    rows = idx.list_all(tmp_path)
-    assert len(rows) == 1  # only one survives the UNIQUE(doi) constraint
-    assert rows[0]["doi"] == "10.1/same"
+    with pytest.raises(ValueError, match="Duplicate DOIs"):
+        idx.build(tmp_path)
+
+
+def test_duplicate_doi_preserves_existing_db(tmp_path: Path):
+    # If a prior build() succeeded and a new duplicate is introduced, the
+    # failing rebuild must not wipe the existing DB (atomic swap).
+    _write_entry(tmp_path, "AAA", doi="10.1/aaa")
+    idx.build(tmp_path)
+    assert idx.lookup_by_doi(tmp_path, "10.1/aaa") is not None
+    _write_entry(tmp_path, "BBB", doi="10.1/aaa")
+    with pytest.raises(ValueError):
+        idx.build(tmp_path)
+    # Old DB still intact.
+    assert idx.lookup_by_doi(tmp_path, "10.1/aaa") is not None
+
+
+def test_build_populates_enriched_fields(tmp_path: Path):
+    _write_entry(
+        tmp_path,
+        "AAA",
+        doi="10.1/aaa",
+        authors=["Alice", "Bob"],
+        abstract="Summary text.",
+        citation_count=42,
+    )
+    idx.build(tmp_path)
+    row = idx.lookup_by_doi(tmp_path, "10.1/aaa")
+    assert row is not None
+    assert json.loads(row["authors_json"]) == ["Alice", "Bob"]
+    assert row["abstract"] == "Summary text."
+    assert row["citation_count"] == 42
+
+
+def test_build_null_enriched_fields_when_absent(tmp_path: Path):
+    _write_entry(tmp_path, "AAA", doi="10.1/aaa")
+    idx.build(tmp_path)
+    row = idx.lookup_by_doi(tmp_path, "10.1/aaa")
+    assert row is not None
+    assert row["authors_json"] is None
+    assert row["abstract"] is None
+    assert row["citation_count"] is None
 
 
 def test_build_requires_master_dir(tmp_path: Path):

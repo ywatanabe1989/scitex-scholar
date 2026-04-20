@@ -11,15 +11,18 @@ Schema v1 (additive-only; bump ``SCHEMA_VERSION`` and add a migration
 step before altering existing columns):
 
     papers(
-        paper_id     TEXT PRIMARY KEY,
-        doi          TEXT,
-        arxiv_id     TEXT,
-        pmid         TEXT,
-        title        TEXT,
-        year         INTEGER,
-        venue        TEXT,
-        is_oa        INTEGER,
-        updated_at   REAL             -- metadata.json mtime at index time
+        paper_id       TEXT PRIMARY KEY,
+        doi            TEXT,
+        arxiv_id       TEXT,
+        pmid           TEXT,
+        title          TEXT,
+        year           INTEGER,
+        venue          TEXT,
+        is_oa          INTEGER,
+        authors_json   TEXT,            -- JSON array of author name strings
+        abstract       TEXT,
+        citation_count INTEGER,
+        updated_at     REAL             -- metadata.json mtime at index time
     )
 
 Indexes: unique on (doi) where doi not null; b-tree on arxiv_id, pmid,
@@ -32,6 +35,7 @@ with sqlite3 — no Python dependency on scitex-scholar required.
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 from contextlib import closing, contextmanager
 from pathlib import Path
@@ -52,15 +56,18 @@ CREATE TABLE IF NOT EXISTS meta (
 );
 
 CREATE TABLE IF NOT EXISTS papers (
-    paper_id   TEXT PRIMARY KEY,
-    doi        TEXT,
-    arxiv_id   TEXT,
-    pmid       TEXT,
-    title      TEXT,
-    year       INTEGER,
-    venue      TEXT,
-    is_oa      INTEGER,
-    updated_at REAL
+    paper_id       TEXT PRIMARY KEY,
+    doi            TEXT,
+    arxiv_id       TEXT,
+    pmid           TEXT,
+    title          TEXT,
+    year           INTEGER,
+    venue          TEXT,
+    is_oa          INTEGER,
+    authors_json   TEXT,
+    abstract       TEXT,
+    citation_count INTEGER,
+    updated_at     REAL
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_papers_doi
@@ -101,6 +108,12 @@ def _apply_schema(conn: sqlite3.Connection) -> None:
     conn.commit()
 
 
+def _is_oa_int(access: dict) -> Optional[int]:
+    if "is_open_access" not in access:
+        return None
+    return 1 if access.get("is_open_access") else 0
+
+
 def _row_from_metadata(paper_id: str, meta_path: Path) -> Optional[tuple]:
     try:
         md = json.loads(meta_path.read_text())
@@ -111,6 +124,9 @@ def _row_from_metadata(paper_id: str, meta_path: Path) -> Optional[tuple]:
     basic = m.get("basic", {}) or {}
     pub = m.get("publication", {}) or {}
     access = m.get("access", {}) or {}
+    citation = m.get("citation", {}) or {}
+    authors = basic.get("authors")
+    authors_json = json.dumps(authors) if isinstance(authors, list) else None
     return (
         paper_id,
         id_.get("doi"),
@@ -119,41 +135,65 @@ def _row_from_metadata(paper_id: str, meta_path: Path) -> Optional[tuple]:
         basic.get("title"),
         basic.get("year"),
         pub.get("short_journal") or pub.get("journal"),
-        1
-        if access.get("is_open_access")
-        else (0 if "is_open_access" in access else None),
+        _is_oa_int(access),
+        authors_json,
+        basic.get("abstract"),
+        citation.get("count"),
         meta_path.stat().st_mtime,
     )
 
 
 def build(library_root: Path, verbose: bool = False) -> int:
-    """(Re)build the index from MASTER metadata. Returns row count."""
+    """(Re)build the index from MASTER metadata. Returns row count.
+
+    Raises ``ValueError`` if two paper folders share the same DOI — this
+    indicates library corruption, not a benign duplicate.
+    """
     library_root = Path(library_root).resolve()
     master = library_root / "MASTER"
     if not master.is_dir():
         raise FileNotFoundError(master)
 
-    target = db_path(library_root)
-    if target.exists():
-        target.unlink()
-
-    rows = []
+    rows: list[tuple] = []
+    doi_to_paper: dict[str, str] = {}
+    dupes: dict[str, list[str]] = {}
     for meta_file in master.glob("*/metadata.json"):
         paper_id = meta_file.parent.name
         row = _row_from_metadata(paper_id, meta_file)
-        if row is not None:
-            rows.append(row)
-        elif verbose:
-            logger.warning(f"Skipped unreadable {meta_file}")
+        if row is None:
+            if verbose:
+                logger.warning(f"Skipped unreadable {meta_file}")
+            continue
+        rows.append(row)
+        doi = row[1]
+        if doi:
+            key = doi.lower()
+            if key in doi_to_paper and doi_to_paper[key] != paper_id:
+                dupes.setdefault(key, [doi_to_paper[key]]).append(paper_id)
+            else:
+                doi_to_paper[key] = paper_id
 
-    with closing(sqlite3.connect(target)) as conn:
+    if dupes:
+        lines = [f"  {doi}: {', '.join(pids)}" for doi, pids in sorted(dupes.items())]
+        raise ValueError(
+            "Duplicate DOIs found in MASTER (library corrupted):\n" + "\n".join(lines)
+        )
+
+    target = db_path(library_root)
+    tmp = target.with_suffix(target.suffix + ".tmp")
+    if tmp.exists():
+        tmp.unlink()
+    with closing(sqlite3.connect(tmp)) as conn:
         _apply_schema(conn)
         conn.executemany(
-            "INSERT OR REPLACE INTO papers(paper_id, doi, arxiv_id, pmid, title, "
-            "year, venue, is_oa, updated_at) VALUES (?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO papers(paper_id, doi, arxiv_id, pmid, title, year, venue, "
+            "is_oa, authors_json, abstract, citation_count, updated_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
             rows,
         )
         conn.commit()
+
+    os.replace(tmp, target)
 
     logger.success(f"Indexed {len(rows)} papers at {target}")
     return len(rows)
