@@ -52,6 +52,38 @@ from scitex_scholar.core import Paper
 logger = logging.getLogger(__name__)
 
 
+def _atomic_write_json(path: Path, data: Any) -> None:
+    """Write JSON to ``path`` atomically.
+
+    Strategy: write the full payload to a sibling ``.tmp`` file, ``flush``
+    + ``fsync`` the handle, then ``os.replace`` into place. A POSIX
+    ``rename`` is atomic within the same filesystem, so readers always
+    see either the previous valid JSON or the new valid JSON — never a
+    truncated half-written file, even if the process is killed or the
+    system loses power mid-write.
+
+    The ``.tmp`` sibling is best-effort-cleaned on failure so we don't
+    leak stragglers. Some rare failures (e.g. disk full after flush
+    but before replace) may leave a ``.tmp`` behind; those are harmless
+    — the next successful write overwrites them, and ``db audit`` does
+    not look at ``.tmp`` files.
+    """
+    path = Path(path)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    except Exception:
+        try:
+            tmp.unlink(missing_ok=True)
+        except OSError:
+            pass
+        raise
+
+
 class PaperIO:
     """Simple IO interface for Paper objects.
 
@@ -208,15 +240,19 @@ class PaperIO:
     # Save Methods
     # ========================================
     def save_metadata(self) -> Path:
-        """Save Paper metadata to metadata.json
+        """Save Paper metadata to metadata.json atomically.
+
+        Writes to a sibling ``.tmp`` file and ``os.replace``-renames it into
+        place. Readers always see either the previous valid JSON or the new
+        valid JSON — never a truncated half-written file — even if the
+        process is killed mid-write.
 
         Returns
         -------
             Path to saved metadata.json
         """
         path = self.get_metadata_path()
-        with open(path, "w") as f:
-            json.dump(self.paper.to_dict(), f, indent=2)
+        _atomic_write_json(path, self.paper.to_dict())
         logger.debug(f"{self.name}: Saved metadata: {path}")
         return path
 
@@ -281,7 +317,7 @@ class PaperIO:
         return path
 
     def save_tables(self, tables: List[Any]) -> Path:
-        """Save extracted tables to tables.json
+        """Save extracted tables to tables.json atomically.
 
         Args:
             tables: List of table data
@@ -291,8 +327,7 @@ class PaperIO:
             Path to tables.json
         """
         path = self.get_tables_path()
-        with open(path, "w") as f:
-            json.dump(tables, f, indent=2)
+        _atomic_write_json(path, tables)
         logger.debug(f"{self.name}: Saved {len(tables)} tables: {path}")
         return path
 
