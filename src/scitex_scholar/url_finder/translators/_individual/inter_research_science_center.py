@@ -39,7 +39,7 @@ class InterResearchScienceCenterTranslator:
 
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except:
+        except Exception:
             pass
 
         # Extract PDF URL from meta tags and direct links

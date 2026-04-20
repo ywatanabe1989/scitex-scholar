@@ -465,7 +465,7 @@ class CrossrefRESTTranslator(BaseTranslator):
                     try:
                         # Try to fix double-encoding issues
                         value = html.unescape(value)
-                    except:
+                    except Exception:
                         # Strip control characters
                         value = re.sub(r"[\u0000-\u001F\u007F-\u009F]", "", value)
 

@@ -42,7 +42,7 @@ class DBLPTranslator:
 
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except:
+        except Exception:
             pass
 
         # Extract URLs from BibTeX data

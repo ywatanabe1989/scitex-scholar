@@ -22,7 +22,7 @@ class TestPackageImport(unittest.TestCase):
             import sys
 
             sys.path.insert(0, "./src")
-            import scitex_scholar
+            import scitex_scholar  # noqa: F401  # import tests availability
         except ImportError:
             self.fail("Failed to import scitex_scholar package")
 

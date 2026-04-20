@@ -36,7 +36,7 @@ class ZbMATHTranslator:
 
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except:
+        except Exception:
             pass
 
         # Extract PDF URLs from download links
