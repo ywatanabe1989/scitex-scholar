@@ -5,6 +5,12 @@ All notable changes to `scitex-scholar` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-04-21
+
+### Added
+
+- **CLI `db dedupe`** — resolve duplicate-DOI entries in MASTER. Scores candidates by a reproducible rubric (`+10` PDF, `+1` per populated `basic.*` field, `+1` per populated `id.*` field, `+log(1+citation_count)` capped at 5, `mtime` tiebreaker). Losers move to `MASTER_quarantine/<paper_id>/` by default (reversible) or can be `--hard-delete`d. Dry-run by default; `--apply` executes. Output shows per-group scores so users see *why* each winner was picked. Idempotent on re-run. Completes the audit → dedupe → build workflow surfaced by issue #12. (PR #15)
+
 ## [1.1.2] - 2026-04-21
 
 ### Fixed
