@@ -215,6 +215,13 @@ STORAGE: ~/.scitex/scholar/library/
 
     _register_link_project_tree(subparsers)
 
+    # ========================================
+    # Subcommands: materialize / dematerialize
+    # ========================================
+    from .cli._materialize import register_subparsers as _register_materialize
+
+    _register_materialize(subparsers)
+
     highlight_parser = subparsers.add_parser(
         "highlight",
         help="Overlay semantic highlights on a PDF",
@@ -353,6 +360,14 @@ async def main_async():
         from .cli._project_tree import run as run_link_project_tree
 
         return run_link_project_tree(args)
+    elif args.command == "materialize":
+        from .cli._materialize import run_materialize
+
+        return run_materialize(args)
+    elif args.command == "dematerialize":
+        from .cli._materialize import run_dematerialize
+
+        return run_dematerialize(args)
     else:
         logger.error(f"Unknown command: {args.command}")
         return 1
