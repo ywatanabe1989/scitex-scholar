@@ -12,7 +12,7 @@ Installation:
     pip install scitex-scholar
 """
 
-__version__ = "0.3.0"
+__version__ = "1.1.0"
 __author__ = "Yusuke Watanabe"
 __email__ = "ywatanabe@scitex.ai"
 

@@ -5,7 +5,7 @@ All notable changes to `scitex-scholar` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1.0] - 2026-04-21
 
 ### Added
 
@@ -35,4 +35,4 @@ this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Broken `impact_factor/estimation/` subtree — imported a non-existent `fetchers` module; `ImpactFactorCalculator` was unreachable in practice. The live `impact_factor/ImpactFactorEngine.py` and `impact_factor/jcr/` are unaffected.
 - Hidden `metadata_engines/.combined-SemanticScholarSource/` backup directory.
 
-[Unreleased]: https://github.com/ywatanabe1989/scitex-scholar/compare/v1.0.1...HEAD
+[1.1.0]: https://github.com/ywatanabe1989/scitex-scholar/compare/v1.0.1...v1.1.0
