@@ -5,6 +5,12 @@ All notable changes to `scitex-scholar` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-04-21
+
+### Fixed
+
+- **`db build` no longer raises `sqlite3.IntegrityError: UNIQUE constraint failed: papers.doi` when multiple MASTER entries have `doi=""` (empty string).** The `UNIQUE(doi) WHERE doi IS NOT NULL` index treats NULL as distinct per row, but empty string is a real value and multiple of them collided. `_row_from_metadata` now normalizes empty and whitespace-only DOI / arxiv_id / pmid to `None` before insert, matching the semantic intent ("no ID"). Regression test added.
+
 ## [1.2.0] - 2026-04-21
 
 ### Added

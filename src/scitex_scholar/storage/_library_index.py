@@ -114,6 +114,20 @@ def _is_oa_int(access: dict) -> Optional[int]:
     return 1 if access.get("is_open_access") else 0
 
 
+def _normalize_id(value: Optional[str]) -> Optional[str]:
+    """Treat empty / whitespace-only strings as absent.
+
+    The `UNIQUE(doi) WHERE doi IS NOT NULL` index treats NULL as distinct
+    but `""` as a real value, so multiple empty-string DOIs collide.
+    Normalizing empty → NULL matches the semantic intent ("no DOI").
+    Applied to arxiv_id and pmid too for consistency.
+    """
+    if value is None:
+        return None
+    s = str(value).strip()
+    return s or None
+
+
 def _row_from_metadata(paper_id: str, meta_path: Path) -> Optional[tuple]:
     try:
         md = json.loads(meta_path.read_text())
@@ -129,9 +143,9 @@ def _row_from_metadata(paper_id: str, meta_path: Path) -> Optional[tuple]:
     authors_json = json.dumps(authors) if isinstance(authors, list) else None
     return (
         paper_id,
-        id_.get("doi"),
-        id_.get("arxiv_id"),
-        id_.get("pmid"),
+        _normalize_id(id_.get("doi")),
+        _normalize_id(id_.get("arxiv_id")),
+        _normalize_id(id_.get("pmid")),
         basic.get("title"),
         basic.get("year"),
         pub.get("short_journal") or pub.get("journal"),
