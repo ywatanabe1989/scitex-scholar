@@ -222,6 +222,13 @@ STORAGE: ~/.scitex/scholar/library/
 
     _register_materialize(subparsers)
 
+    # ========================================
+    # Subcommand: db  (library index)
+    # ========================================
+    from .cli._library_index import register_subparser as _register_db
+
+    _register_db(subparsers)
+
     highlight_parser = subparsers.add_parser(
         "highlight",
         help="Overlay semantic highlights on a PDF",
@@ -368,6 +375,10 @@ async def main_async():
         from .cli._materialize import run_dematerialize
 
         return run_dematerialize(args)
+    elif args.command == "db":
+        from .cli._library_index import run as run_db
+
+        return run_db(args)
     else:
         logger.error(f"Unknown command: {args.command}")
         return 1
