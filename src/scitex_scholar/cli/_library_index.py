@@ -50,6 +50,29 @@ def register_subparser(subparsers) -> None:
     ls.add_argument("--limit", type=int, default=20)
     ls.add_argument("--offset", type=int, default=0)
 
+    de = sub.add_parser(
+        "dedupe",
+        help="Resolve duplicate-DOI entries (quarantine losers)",
+        description=(
+            "Detect duplicate-DOI groups in MASTER and pick a winner per "
+            "group by a scored rubric (PDF presence, populated metadata, "
+            "citation count, mtime). Default is dry-run — pass --apply "
+            "to move losers to MASTER_quarantine/ (reversible). "
+            "--hard-delete removes losers instead of quarantining."
+        ),
+    )
+    de.add_argument("--library-root", type=Path, default=None)
+    de.add_argument(
+        "--apply",
+        action="store_true",
+        help="Execute the plan (default is dry-run)",
+    )
+    de.add_argument(
+        "--hard-delete",
+        action="store_true",
+        help="Delete losers instead of quarantining (irreversible)",
+    )
+
     au = sub.add_parser(
         "audit",
         help="Report library anomalies without raising (read-only)",
@@ -103,6 +126,15 @@ def run(args) -> int:
             print(
                 f"{r['paper_id']}\t{r.get('year') or ''}\t{(r.get('title') or '')[:80]}"
             )
+        return 0
+
+    if args.db_command == "dedupe":
+        from ..storage._library_dedupe import apply_plan, format_plan, plan_dedupe
+
+        plan = plan_dedupe(root)
+        if args.apply and plan.decisions:
+            apply_plan(root, plan, hard_delete=args.hard_delete)
+        print(format_plan(plan))
         return 0
 
     if args.db_command == "audit":
