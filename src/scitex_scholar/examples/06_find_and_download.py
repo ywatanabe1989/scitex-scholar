@@ -25,6 +25,7 @@ This demonstrates the complete workflow:
 import argparse
 import asyncio
 from pathlib import Path
+from typing import Optional
 
 import scitex_logging as logging
 
@@ -38,7 +39,7 @@ async def find_and_download_pdf(
     output_dir: str = "/tmp",
     browser_mode: str = "stealth",
     func_name="find_and_download_pdf",
-) -> Path:
+) -> Optional[Path]:
     """
     Find PDF URL and download it immediately in the same session.
 

@@ -17,7 +17,11 @@ from typing import Dict, List, Optional
 
 from scitex_logging import getLogger
 
-from ..fetchers import CrossrefFetcher, OpenAlexFetcher, SemanticScholarFetcher
+from ..fetchers import (  # type: ignore[import-not-found]
+    CrossrefFetcher,
+    OpenAlexFetcher,
+    SemanticScholarFetcher,
+)
 from .cache_manager import CacheManager
 from .journal_matcher import JournalMatcher
 

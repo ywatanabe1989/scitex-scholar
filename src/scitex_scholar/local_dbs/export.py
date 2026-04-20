@@ -27,7 +27,7 @@ SUPPORTED_FORMATS = ["text", "json", "bibtex"]
 
 def save(
     data: Union[UnifiedWork, UnifiedSearchResult, List[UnifiedWork]],
-    path: str,
+    path: Union[str, Path],
     format: str = "json",
 ) -> str:
     """Save UnifiedWork(s) or UnifiedSearchResult to a file.

@@ -23,7 +23,7 @@ class ArgumentDef:
     help: str
 
     # Type and validation
-    type: Optional[type] = None
+    type: Optional[Any] = None  # argparse type callable; Optional[type] self-refs
     choices: Optional[List[str]] = None
     nargs: Optional[str] = None
 

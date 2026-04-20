@@ -325,8 +325,8 @@ class BrowserAuthenticator(BrowserMixin):
             Tuple of (simple_cookies_dict, full_cookies_list)
         """
         cookies = await page.context.cookies()
-        simple_cookies = {c["name"]: c["value"] for c in cookies}
-        return simple_cookies, cookies
+        simple_cookies = {c.get("name", ""): c.get("value", "") for c in cookies}
+        return simple_cookies, [dict(c) for c in cookies]
 
     async def reliable_click_async(self, page: Page, selector: str) -> bool:
         """Perform reliable click using shared utility."""

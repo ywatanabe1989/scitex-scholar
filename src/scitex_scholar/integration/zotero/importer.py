@@ -64,7 +64,7 @@ class ZoteroImporter:
                 )
 
             try:
-                from pyzotero import zotero
+                from pyzotero import zotero  # type: ignore[import-not-found]
 
                 self._zot = zotero.Zotero(
                     library_id=self.library_id,

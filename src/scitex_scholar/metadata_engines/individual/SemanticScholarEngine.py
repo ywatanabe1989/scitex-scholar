@@ -82,7 +82,7 @@ class SemanticScholarEngine(S2BatchMixin, BaseDOIEngine):
         max_results=1,
         return_as: Optional[str] = "dict",
         **kwargs,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """When doi or corpus_id is provided, all other information is ignored"""
         if doi:
             return self._search_by_doi(doi, return_as)
@@ -98,7 +98,7 @@ class SemanticScholarEngine(S2BatchMixin, BaseDOIEngine):
         wait=wait_exponential(multiplier=2, min=4, max=20),
         retry=retry_if_exception_type((requests.ConnectionError,)),
     )
-    def _search_by_doi(self, doi: str, return_as: str) -> Optional[Dict]:
+    def _search_by_doi(self, doi: str, return_as: str) -> Dict | str | None:
         """Search by DOI directly"""
         self._handle_rate_limit()
 
@@ -139,7 +139,7 @@ class SemanticScholarEngine(S2BatchMixin, BaseDOIEngine):
         authors: Optional[List[str]] = None,
         max_results: int = 1,
         return_as: str = "dict",
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Search by metadata other than doi"""
         if not title:
             return None
@@ -218,7 +218,7 @@ class SemanticScholarEngine(S2BatchMixin, BaseDOIEngine):
         wait=wait_exponential(multiplier=2, min=4, max=20),
         retry=retry_if_exception_type((requests.ConnectionError,)),
     )
-    def _search_by_corpus_id(self, corpus_id: str, return_as: str) -> Optional[Dict]:
+    def _search_by_corpus_id(self, corpus_id: str, return_as: str) -> Dict | str | None:
         """Search by Corpus ID directly"""
         if not corpus_id.isdigit():
             corpus_id = corpus_id.replace("CorpusId:", "")
@@ -258,7 +258,7 @@ class SemanticScholarEngine(S2BatchMixin, BaseDOIEngine):
 
     def _extract_metadata_from_paper(
         self, paper: dict, return_as: str
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Extract metadata from Semantic Scholar paper"""
         paper_title = paper.get("title", "")
         paper_year = paper.get("year")

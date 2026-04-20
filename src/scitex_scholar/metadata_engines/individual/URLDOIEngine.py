@@ -68,7 +68,7 @@ class URLDOIEngine(BaseDOIEngine):
         return_as: Optional[str] = "dict",
         url: Optional[str] = None,
         **kwargs,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """When doi is provided, all the information other than doi is ignored"""
         if doi:
             return self._search_by_doi(doi, return_as)
@@ -77,7 +77,7 @@ class URLDOIEngine(BaseDOIEngine):
                 title, year, authors, max_results, return_as, url
             )
 
-    def _search_by_doi(self, doi: str, return_as: str) -> Optional[Dict]:
+    def _search_by_doi(self, doi: str, return_as: str) -> Dict | str | None:
         """Search by DOI directly"""
         doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
 
@@ -118,7 +118,7 @@ class URLDOIEngine(BaseDOIEngine):
         max_results: int = 1,
         return_as: str = "dict",
         url: Optional[str] = None,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Extract DOI from URL field if available"""
 
         if not url:

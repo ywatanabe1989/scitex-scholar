@@ -89,7 +89,7 @@ class AuthenticationGateway:
         self.auth_manager = auth_manager
         self.browser_manager = browser_manager
         self.config = config or ScholarConfig()
-        self._auth_cache: Dict[str, bool] = {}  # Cache visited gateways
+        self._auth_cache: Dict[str, "bool | str"] = {}  # Cache visited gateways / URLs
 
     async def prepare_context_async(
         self, doi: str, context: BrowserContext, title: Optional[str] = None
@@ -226,6 +226,8 @@ class AuthenticationGateway:
         paywalled_publishers = self.config.resolve(
             "paywalled_publishers", None, default=[]
         )
+        if not isinstance(paywalled_publishers, list):
+            paywalled_publishers = []
 
         doi = url_context.doi or ""
 
@@ -267,6 +269,8 @@ class AuthenticationGateway:
         paywalled_publishers = self.config.resolve(
             "paywalled_publishers", None, default=[]
         )
+        if not isinstance(paywalled_publishers, list):
+            paywalled_publishers = []
 
         # Check if URL matches any paywalled publisher
         url_lower = (url_context.url or "").lower()
@@ -332,7 +336,8 @@ class AuthenticationGateway:
                 f"{self.name}: Authentication already established for {url_context.doi}"
             )
             # Return cached URL if available
-            return self._auth_cache.get(f"{cache_key}_url")
+            cached = self._auth_cache.get(f"{cache_key}_url")
+            return cached if isinstance(cached, str) else None
 
         logger.info(
             f"{self.name}: Establishing auth via OpenURL",

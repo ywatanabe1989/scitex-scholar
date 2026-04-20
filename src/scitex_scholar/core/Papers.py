@@ -111,7 +111,7 @@ class Papers:
 
     def __dir__(self) -> List[str]:
         """Custom dir for better discoverability."""
-        base_attrs = object.__dir__(self)
+        base_attrs = list(object.__dir__(self))
         custom_attrs = [
             "papers",
             "filter",
@@ -478,65 +478,63 @@ class Papers:
             if year_str.isdigit():
                 year = int(year_str)
 
-            # Parse keywords
-            keywords = []
-            if "keywords" in fields:
-                keywords = [k.strip() for k in fields["keywords"].split(",")]
+        # Parse keywords
+        keywords = []
+        if "keywords" in fields:
+            keywords = [k.strip() for k in fields["keywords"].split(",")]
 
-            # Create structured data for Paper
-            basic_data = {
-                "title": fields.get("title", "").strip("{}"),
-                "authors": authors,
-                "abstract": fields.get("abstract", ""),
-                "year": year,
-                "keywords": keywords,
-            }
+        # Create structured data for Paper
+        basic_data = {
+            "title": fields.get("title", "").strip("{}"),
+            "authors": authors,
+            "abstract": fields.get("abstract", ""),
+            "year": year,
+            "keywords": keywords,
+        }
 
-            id_data = {
-                "doi": fields.get("doi"),
-                "pmid": fields.get("pmid"),
-                "arxiv_id": fields.get("arxiv"),
-            }
+        id_data = {
+            "doi": fields.get("doi"),
+            "pmid": fields.get("pmid"),
+            "arxiv_id": fields.get("arxiv"),
+        }
 
-            publication_data = {
-                "journal": fields.get("journal"),
-            }
+        publication_data = {
+            "journal": fields.get("journal"),
+        }
 
-            url_data = {
-                "pdf": fields.get("url"),
-            }
+        url_data = {
+            "pdf": fields.get("url"),
+        }
 
-            # Create Paper with Pydantic structure
-            paper = Paper()
+        # Create Paper with Pydantic structure
+        paper = Paper()
 
-            # Set basic metadata
-            paper.metadata.basic.title = basic_data.get("title", "")
-            paper.metadata.basic.authors = basic_data.get("authors")
-            paper.metadata.basic.abstract = basic_data.get("abstract")
-            paper.metadata.basic.year = basic_data.get("year")
-            paper.metadata.basic.keywords = basic_data.get("keywords")
+        # Set basic metadata
+        paper.metadata.basic.title = basic_data.get("title", "")
+        paper.metadata.basic.authors = basic_data.get("authors")
+        paper.metadata.basic.abstract = basic_data.get("abstract")
+        paper.metadata.basic.year = basic_data.get("year")
+        paper.metadata.basic.keywords = basic_data.get("keywords")
 
-            # Set ID metadata
-            if id_data.get("doi"):
-                paper.metadata.set_doi(id_data["doi"])
-            paper.metadata.id.pmid = id_data.get("pmid")
-            paper.metadata.id.arxiv_id = id_data.get("arxiv_id")
+        # Set ID metadata
+        if id_data.get("doi"):
+            paper.metadata.set_doi(id_data["doi"])
+        paper.metadata.id.pmid = id_data.get("pmid")
+        paper.metadata.id.arxiv_id = id_data.get("arxiv_id")
 
-            # Set publication metadata
-            paper.metadata.publication.journal = publication_data.get("journal")
+        # Set publication metadata
+        paper.metadata.publication.journal = publication_data.get("journal")
 
-            # Set URL metadata
-            if url_data.get("pdf"):
-                paper.metadata.url.pdfs.append(
-                    {"url": url_data["pdf"], "source": "bibtex"}
-                )
+        # Set URL metadata
+        if url_data.get("pdf"):
+            paper.metadata.url.pdfs.append({"url": url_data["pdf"], "source": "bibtex"})
 
-            # Store original BibTeX fields for later reconstruction
-            paper._original_bibtex_fields = fields.copy()
-            paper._bibtex_entry_type = entry.get("entry_type", "misc")
-            paper._bibtex_key = entry.get("key", "")
+        # Store original BibTeX fields for later reconstruction
+        paper._original_bibtex_fields = fields.copy()
+        paper._bibtex_entry_type = entry.get("entry_type", "misc")
+        paper._bibtex_key = entry.get("key", "")
 
-            return paper
+        return paper
 
     def save(
         self,
@@ -600,7 +598,7 @@ class Papers:
         else:
             raise ValueError(f"Unsupported format: {format}")
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> List[Dict[str, Any]]:
         """Convert to dictionary.
 
         DEPRECATED: Use papers_utils.papers_to_dict() for new code.
