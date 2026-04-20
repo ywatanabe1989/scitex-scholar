@@ -26,13 +26,12 @@ import asyncio
 import re
 import time
 from typing import Dict, List, Optional, Union
-from urllib.parse import urlencode
 
 import aiohttp
 import requests
+import scitex_logging as logging
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-import scitex_logging as logging
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -83,7 +82,7 @@ class PubMedConverter:
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=1, max=10),
     )
-    def pmid2doi(self, pmid: Union[str, int]) -> Optional[str]:
+    def pmid2doi(self, pmid: Union[str, int, None]) -> Optional[str]:
         """
         Convert a single PMID to DOI using NCBI E-utilities.
 
@@ -150,7 +149,7 @@ class PubMedConverter:
             logger.warning(f"Error converting PMID {pmid}: {e}")
             return None
 
-    async def pmid2doi_async(self, pmid: Union[str, int]) -> Optional[str]:
+    async def pmid2doi_async(self, pmid: Union[str, int, None]) -> Optional[str]:
         """
         Async version of PMID to DOI conversion.
 

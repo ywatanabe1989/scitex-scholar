@@ -11,6 +11,7 @@ import os
 from typing import List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Papers import Papers
 
 from ..base import BaseImporter
@@ -59,7 +60,7 @@ class MendeleyImporter(BaseImporter):
         """Get or create Mendeley client."""
         if self._client is None:
             try:
-                from mendeley import Mendeley
+                from mendeley import Mendeley  # type: ignore[import-not-found]
 
                 mendeley = Mendeley(
                     client_id=self.credentials["app_id"],
@@ -115,7 +116,6 @@ class MendeleyImporter(BaseImporter):
             for f in folders.items:
                 if f.name == collection_name:
                     folder = f
-                    collection_id = f.id
                     break
 
         # Get documents

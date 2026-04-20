@@ -407,24 +407,24 @@ class BibTeXValidator:
 
         # Check required fields
         required = REQUIRED_FIELDS.get(entry_type, [])
-        for field in required:
+        for field_name in required:
             # Check for field or common alternatives
-            has_field = field in fields
+            has_field = field_name in fields
             # author can be satisfied by editor
-            if field == "author" and "editor" in fields:
+            if field_name == "author" and "editor" in fields:
                 has_field = True
             # title variations
-            if field == "title" and not has_field:
+            if field_name == "title" and not has_field:
                 has_field = any(f in fields for f in ["title", "booktitle", "chapter"])
 
             if not has_field:
                 issues.append(
                     ValidationIssue(
                         severity=ValidationSeverity.WARNING,
-                        message=f"Missing recommended field: {field}",
+                        message=f"Missing recommended field: {field_name}",
                         line_number=line_number,
                         entry_key=entry_key,
-                        field_name=field,
+                        field_name=field_name,
                     )
                 )
 

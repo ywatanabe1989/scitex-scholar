@@ -32,7 +32,7 @@ class NaturePublishingGroupTranslator(BaseTranslator):
 
     @classmethod
     def matches_url(cls, url: str) -> bool:
-        """Check if URL matches Nature Publishing Group pattern.
+        r"""Check if URL matches Nature Publishing Group pattern.
 
         Based on JavaScript detectWeb() (lines 476-501).
         Excludes PDF URLs and includes various article and issue pages.

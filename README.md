@@ -140,3 +140,22 @@ Cache and auth state live under `~/.scitex/scholar/cache/` (URL resolver, Chrome
 ## License
 
 AGPL-3.0-only.
+
+## Part of SciTeX
+
+`scitex-scholar` is part of [**SciTeX**](https://scitex.ai).
+
+> Four Freedoms for Research
+>
+> 0. The freedom to **run** your research anywhere — your machine, your terms.
+> 1. The freedom to **study** how every step works — from raw data to final manuscript.
+> 2. The freedom to **redistribute** your workflows, not just your papers.
+> 3. The freedom to **modify** any module and share improvements with the community.
+>
+> AGPL-3.0 — because we believe research infrastructure deserves the same freedoms as the software it runs on.
+
+---
+
+<p align="center">
+  <a href="https://scitex.ai" target="_blank"><b>SciTeX</b></a>
+</p>

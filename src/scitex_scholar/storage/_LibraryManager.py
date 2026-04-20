@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 from scitex_scholar.storage._DeduplicationManager import DeduplicationManager
 

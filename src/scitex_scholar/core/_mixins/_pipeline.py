@@ -14,6 +14,7 @@ import asyncio
 from typing import TYPE_CHECKING, List, Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.pdf_download.ScholarPDFDownloader import ScholarPDFDownloader
 from scitex_scholar.url_finder.ScholarURLFinder import ScholarURLFinder
 

@@ -14,7 +14,6 @@ __DIR__ = os.path.dirname(__FILE__)
 import re
 
 import bibtexparser
-
 import scitex_logging as logging
 
 logger = logging.getLogger(__name__)

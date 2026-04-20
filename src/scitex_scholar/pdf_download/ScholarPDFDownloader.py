@@ -9,11 +9,11 @@ import asyncio
 import os
 import traceback
 from pathlib import Path
-from typing import List, Optional, Union
-
-from playwright.async_api import BrowserContext
+from typing import Any, List, Optional, Union
 
 import scitex_logging as logging
+from playwright.async_api import BrowserContext
+
 from scitex_scholar.config import ScholarConfig
 from scitex_scholar.pdf_download.strategies import (
     FlexibleFilenameGenerator,
@@ -65,7 +65,7 @@ class ScholarPDFDownloader:
         max_concurrent: int = 3,
     ) -> List[Path]:
         """Download multiple PDFs with parallel processing."""
-        output_dir = output_dir or self.output_dir
+        output_dir = Path(output_dir or self.output_dir)
         if not pdf_urls:
             return []
 
@@ -228,7 +228,7 @@ class ScholarPDFDownloader:
         logger.info(f"{self.name}: Manual mode button injected into browser context")
 
         button_task = None
-        pdf_page = None
+        pdf_page: Any = None
 
         async def chrome_pdf_wrapper(url, path):
             return await try_download_chrome_pdf_viewer_async(

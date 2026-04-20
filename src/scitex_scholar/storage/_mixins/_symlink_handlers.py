@@ -118,6 +118,8 @@ class SymlinkHandlersMixin:
                     return None
 
             # Extract metadata from nested structure if needed
+            if metadata is None:
+                return None
             if "metadata" in metadata:
                 meta_section = metadata.get("metadata", {})
                 basic_section = meta_section.get("basic", {})
@@ -216,7 +218,11 @@ class SymlinkHandlersMixin:
 
         try:
             local_lib = (
-                Path(self.project_dir) / ".scitex" / "scholar" / "library" / self.project
+                Path(self.project_dir)
+                / ".scitex"
+                / "scholar"
+                / "library"
+                / self.project
             )
             local_lib.mkdir(parents=True, exist_ok=True)
 

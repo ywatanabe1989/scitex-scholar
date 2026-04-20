@@ -1,4 +1,4 @@
-"""
+r"""
 Chicago Journal of Theoretical Computer Science Translator
 
 Translates journal articles from CJTCS to Zotero format.

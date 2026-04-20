@@ -15,6 +15,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar._utils import TextNormalizer
 
 if TYPE_CHECKING:
@@ -56,7 +57,7 @@ class PaperSavingMixin:
         source: Optional[str] = None,
         paper_id: Optional[str] = None,
         **kwargs,
-    ) -> str:
+    ) -> Optional[str]:
         """Save successfully resolved paper to Scholar library."""
         # Extract fields from paper_data if provided
         if paper_data is not None:

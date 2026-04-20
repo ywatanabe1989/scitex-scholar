@@ -15,10 +15,10 @@ __FILE__ = __file__
 
 from typing import Dict, List
 
+import scitex_logging as logging
 from playwright.async_api import Page
 from scitex_browser import browser_logger
 
-import scitex_logging as logging
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)

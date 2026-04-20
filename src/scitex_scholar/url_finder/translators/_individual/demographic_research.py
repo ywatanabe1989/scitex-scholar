@@ -137,7 +137,7 @@ class DemographicResearchTranslator:
         # Find the refman export link
         refman_link = doc.find("a", href=re.compile(r"/refman\.plx\?"))
         if refman_link:
-            refman_url = refman_link.get("href")
+            refman_link.get("href")
             # Note: In full implementation, would fetch RIS data from refman_url
             # and parse it to extract metadata
             # For now, extract basic info from the page

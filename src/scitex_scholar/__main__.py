@@ -207,7 +207,27 @@ STORAGE: ~/.scitex/scholar/library/
     # ========================================
     # Subcommand: highlight
     # ========================================
+    # ========================================
+    # Subcommand: link-project-tree
+    # ========================================
+    from .cli._project_tree import register_subparser as _register_link_project_tree
     from .pdf_highlight._cli import build_parser as _build_highlight_parser
+
+    _register_link_project_tree(subparsers)
+
+    # ========================================
+    # Subcommands: materialize / dematerialize
+    # ========================================
+    from .cli._materialize import register_subparsers as _register_materialize
+
+    _register_materialize(subparsers)
+
+    # ========================================
+    # Subcommand: db  (library index)
+    # ========================================
+    from .cli._library_index import register_subparser as _register_db
+
+    _register_db(subparsers)
 
     highlight_parser = subparsers.add_parser(
         "highlight",
@@ -321,7 +341,12 @@ async def run_mcp_server():
     from .mcp_server import main as mcp_main
 
     logger.info("Starting Scholar MCP server...")
-    await mcp_main()
+    import inspect
+    from typing import Any, cast
+
+    result: Any = mcp_main()
+    if inspect.isawaitable(result):
+        await cast(Any, result)
     return 0
 
 
@@ -343,6 +368,22 @@ async def main_async():
         from .pdf_highlight._cli import run as run_highlight
 
         return run_highlight(args)
+    elif args.command == "link-project-tree":
+        from .cli._project_tree import run as run_link_project_tree
+
+        return run_link_project_tree(args)
+    elif args.command == "materialize":
+        from .cli._materialize import run_materialize
+
+        return run_materialize(args)
+    elif args.command == "dematerialize":
+        from .cli._materialize import run_dematerialize
+
+        return run_dematerialize(args)
+    elif args.command == "db":
+        from .cli._library_index import run as run_db
+
+        return run_db(args)
     else:
         logger.error(f"Unknown command: {args.command}")
         return 1

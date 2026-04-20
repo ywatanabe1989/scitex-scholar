@@ -15,10 +15,10 @@ __DIR__ = os.path.dirname(__FILE__)
 from pathlib import Path
 from typing import Optional
 
+import scitex_logging as logging
 from playwright.async_api import BrowserContext
 from scitex_browser.stealth import HumanBehavior
 
-import scitex_logging as logging
 from scitex_scholar.browser import (
     browser_logger,
     click_center_async,

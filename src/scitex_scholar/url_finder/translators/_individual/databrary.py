@@ -16,8 +16,7 @@ Metadata:
     lastUpdated: 2023-04-19 16:49:05
 """
 
-import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from bs4 import BeautifulSoup
 

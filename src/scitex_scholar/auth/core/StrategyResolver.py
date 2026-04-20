@@ -18,6 +18,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 logger = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ class AuthenticationStrategy:
     sso_automator_available: bool = False
     institution_name: Optional[str] = None
     confidence: float = 0.0  # 0.0 to 1.0
-    fallback_methods: List[AuthenticationMethod] = None
+    fallback_methods: Optional[List[AuthenticationMethod]] = None
 
     def __post_init__(self):
         if self.fallback_methods is None:
@@ -106,7 +107,8 @@ class AuthenticationStrategyResolver:
 
         # Get email from config if not provided
         if not openathens_email:
-            openathens_email = self.config.resolve("openathens_email", None, None, str)
+            _email = self.config.resolve("openathens_email", None, None, str)
+            openathens_email = _email if isinstance(_email, str) else None
 
         if not openathens_email:
             logger.warning(

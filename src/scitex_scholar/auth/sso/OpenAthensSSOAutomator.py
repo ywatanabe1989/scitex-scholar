@@ -225,11 +225,10 @@ class OpenAthensSSOAutomator(BaseSSOAutomator):
     async def _select_best_institution_match(self, page, institution_elements) -> bool:
         """Try to select the best matching institution based on email domain."""
         try:
-            email_domain = (
-                self.openathens_email.split("@")[1].lower()
-                if "@" in self.openathens_email
-                else ""
+            _email = (
+                self.openathens_email if isinstance(self.openathens_email, str) else ""
             )
+            email_domain = _email.split("@")[1].lower() if "@" in _email else ""
 
             # Domain-specific matching logic
             domain_keywords = {

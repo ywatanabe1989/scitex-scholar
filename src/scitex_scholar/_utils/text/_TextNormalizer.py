@@ -13,7 +13,6 @@ in DOI resolution, handling Unicode, LaTeX, and encoding issues.
 
 import re
 import unicodedata
-from typing import Dict, List
 
 
 class TextNormalizer:

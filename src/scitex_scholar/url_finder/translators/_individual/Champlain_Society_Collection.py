@@ -1,4 +1,4 @@
-"""
+r"""
 Champlain Society - Collection Translator
 
 Translates historical books from Champlain Society Collection to Zotero format.
@@ -80,7 +80,7 @@ class ChamplainSocietyCollectionTranslator:
                 value_cell = row.find_all("td")
 
                 if header and len(value_cell) >= 2:
-                    field_title = header.get_text().strip().replace("\s+", "")
+                    field_title = header.get_text().strip().replace(r"\s+", "")
                     field_value = value_cell[1].get_text().strip()
 
                     # Normalize French to English

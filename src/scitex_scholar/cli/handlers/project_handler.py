@@ -59,7 +59,7 @@ async def handle_project_operations(args, scholar):
                 # Paper has no DOI and no PDF - mark as failed with explanation
                 from scitex_scholar.storage._LibraryManager import LibraryManager
 
-                library_manager = LibraryManager(
+                LibraryManager(
                     config=scholar.config, project=args.project
                 )
 

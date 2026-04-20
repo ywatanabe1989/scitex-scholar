@@ -8,6 +8,7 @@ import os
 from typing import Dict, List, Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 from scitex_scholar.core.Papers import Papers
 
@@ -55,7 +56,7 @@ class MendeleyExporter(BaseExporter):
         """Get or create Mendeley client."""
         if self._client is None:
             try:
-                from mendeley import Mendeley
+                from mendeley import Mendeley  # type: ignore[import-not-found]
 
                 mendeley = Mendeley(
                     client_id=self.credentials["app_id"],

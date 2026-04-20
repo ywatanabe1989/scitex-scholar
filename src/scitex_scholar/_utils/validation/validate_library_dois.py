@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Dict, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 from .DOIValidator import DOIValidator
@@ -135,7 +136,7 @@ def validate_library_dois(
                 with open(metadata_file, "w") as f:
                     json.dump(metadata, f, indent=2, ensure_ascii=False)
 
-                logger.info(f"  ✓ Removed invalid DOI from metadata")
+                logger.info("  ✓ Removed invalid DOI from metadata")
 
         # Be polite to DOI service
         if i < len(metadata_files):

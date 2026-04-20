@@ -129,13 +129,13 @@ class CascadeConfig:
         self.resolution_log = []
 
     def _convert_type(self, value, type):
-        if type == int:
+        if type is int:
             return int(value)
-        elif type == float:
+        elif type is float:
             return float(value)
-        elif type == bool:
+        elif type is bool:
             return value.lower() in ("true", "1", "yes")
-        elif type == list:
+        elif type is list:
             return value.split(",")
         return value
 

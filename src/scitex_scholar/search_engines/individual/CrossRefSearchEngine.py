@@ -12,10 +12,10 @@ Features:
   - No authentication required (polite pool with email)
 """
 
-import time
 from typing import Any, Dict, List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.metadata_engines.individual.CrossRefEngine import CrossRefEngine
 
 from .._BaseSearchEngine import BaseSearchEngine

@@ -39,7 +39,7 @@ class ScinapseTranslator:
 
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except:
+        except Exception:
             pass
 
         # Extract PDF URL (line 99)
@@ -101,7 +101,7 @@ if __name__ == "__main__":
             print("Extracting PDF URLs...")
             pdf_urls = await ScinapseTranslator.extract_pdf_urls_async(page)
 
-            print(f"\nResults:")
+            print("\nResults:")
             print(f"  Found {len(pdf_urls)} PDF URL(s)")
             for url in pdf_urls:
                 print(f"  - {url}")

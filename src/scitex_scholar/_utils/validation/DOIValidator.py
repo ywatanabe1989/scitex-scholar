@@ -18,10 +18,9 @@ Validates DOI accessibility by checking https://doi.org/<DOI> resolution.
 """
 
 import time
-from typing import Optional, Tuple
+from typing import Callable, Optional, Tuple
 
 import requests
-
 import scitex_logging as logging
 
 logger = logging.getLogger(__name__)
@@ -211,7 +210,7 @@ class DOIValidator:
         self,
         dois: list[str],
         delay: float = 0.5,
-        progress_callback: Optional[callable] = None,
+        progress_callback: Optional[Callable] = None,
     ) -> dict:
         """Validate multiple DOIs with rate limiting.
 

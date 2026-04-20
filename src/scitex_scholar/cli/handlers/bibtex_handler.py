@@ -111,7 +111,7 @@ async def handle_bibtex_operations(args, scholar):
             project_original_path = project_bibtex_dir / original_filename
             if (
                 not project_original_path.exists()
-                or project_original_path.samefile(bibtex_path) == False
+                or not project_original_path.samefile(bibtex_path)
             ):
                 shutil.copy2(bibtex_path, project_original_path)
                 logger.info(
@@ -124,7 +124,7 @@ async def handle_bibtex_operations(args, scholar):
             project_output_path = project_bibtex_dir / output_filename
             if (
                 not project_output_path.exists()
-                or project_output_path.samefile(Path(args.output)) == False
+                or not project_output_path.samefile(Path(args.output))
             ):
                 shutil.copy2(args.output, project_output_path)
                 logger.info(
@@ -157,7 +157,7 @@ async def handle_bibtex_operations(args, scholar):
 
             # Create relative symlink: bibliography.bib -> info/bibtex/merged.bib
             bibliography_link.symlink_to("info/bibtex/merged.bib")
-            logger.info(f"Created bibliography.bib symlink at project root")
+            logger.info("Created bibliography.bib symlink at project root")
 
     return 0
 

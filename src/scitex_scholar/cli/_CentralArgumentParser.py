@@ -9,7 +9,6 @@ No arguments should be defined anywhere else.
 """
 
 import argparse
-from typing import Dict, Optional
 
 import scitex_logging as logging
 

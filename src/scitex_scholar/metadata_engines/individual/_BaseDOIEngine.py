@@ -12,7 +12,7 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 
 import json
-from typing import Dict
+from typing import Dict, Optional
 
 """
 Abstract base class for DOI engines with enhanced rate limit handling.
@@ -25,10 +25,9 @@ import asyncio
 import re
 import time
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import List
 
 import requests
-
 import scitex_logging as logging
 
 from ..utils import (
@@ -389,7 +388,7 @@ class BaseDOIEngine(ABC):
         year=None,
         authors=None,
         return_as: str = "dict",
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Create empty result structure with tracking information when no metadata is found."""
 
         # Add system tracking

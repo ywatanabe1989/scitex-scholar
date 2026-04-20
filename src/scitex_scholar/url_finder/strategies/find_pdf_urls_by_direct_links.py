@@ -241,6 +241,8 @@ async def _find_from_dropdowns(
                 ".pdf-download-button",
             ],
         )
+        if not isinstance(dropdown_selectors, (list, tuple)):
+            dropdown_selectors = []
 
         pdf_urls = []
         for selector in dropdown_selectors:

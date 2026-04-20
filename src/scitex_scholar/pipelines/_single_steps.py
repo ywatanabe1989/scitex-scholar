@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import hashlib
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 import scitex_logging as logging
 
@@ -381,7 +381,9 @@ class PipelineHelpersMixin:
         """Generate 8-digit library ID from DOI."""
         return hashlib.md5(f"DOI:{doi}".encode()).hexdigest()[:8].upper()
 
-    def _link_to_project(self, paper: Paper, project: str, io: PaperIO) -> Path:
+    def _link_to_project(
+        self, paper: Paper, project: str, io: PaperIO
+    ) -> Optional[Path]:
         """Create human-readable symlink in project directory using LibraryManager."""
         from scitex_scholar.storage import LibraryManager
 

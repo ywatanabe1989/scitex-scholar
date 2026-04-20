@@ -40,7 +40,7 @@ class GMSGermanMedicalScienceTranslator:
 
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
-        except:
+        except Exception:
             pass
 
         # Extract PDF URLs from download links
@@ -102,7 +102,7 @@ if __name__ == "__main__":
                 page
             )
 
-            print(f"\nResults:")
+            print("\nResults:")
             print(f"  Found {len(pdf_urls)} PDF URL(s)")
             for url in pdf_urls:
                 print(f"  - {url}")

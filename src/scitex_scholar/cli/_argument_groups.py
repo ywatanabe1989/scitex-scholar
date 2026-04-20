@@ -8,7 +8,7 @@ Single source of truth for all command-line arguments.
 Separation of concerns: definitions here, parsing in _CentralArgumentParser.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, List, Optional
 
 
@@ -23,7 +23,7 @@ class ArgumentDef:
     help: str
 
     # Type and validation
-    type: Optional[type] = None
+    type: Optional[Any] = None  # argparse type callable; Optional[type] self-refs
     choices: Optional[List[str]] = None
     nargs: Optional[str] = None
 

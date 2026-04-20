@@ -18,6 +18,7 @@ from typing import Any, Dict, List, Optional
 from urllib.parse import quote
 
 import scitex_logging as logging
+
 from scitex_scholar.metadata_engines.individual.ArXivEngine import ArXivEngine
 
 from .._BaseSearchEngine import BaseSearchEngine

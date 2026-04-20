@@ -92,8 +92,6 @@ class BaseSSOAutomator(ABC):
         )
 
         # Session management: resolve via ScholarConfig so SCITEX_DIR is honoured.
-        from scitex_scholar.config import ScholarConfig
-
         self._session_dir = (
             ScholarConfig().path_manager.get_cache_auth_dir() / "sso_sessions"
         )
@@ -168,7 +166,8 @@ class BaseSSOAutomator(ABC):
     async def _save_session_async(self, context: BrowserContext):
         """Save browser session."""
         try:
-            state = await context.storage_state()
+            state_raw = await context.storage_state()
+            state: dict = dict(state_raw)
             session_file = (
                 self._session_dir / f"{self.get_institution_id()}_session.json"
             )
@@ -235,7 +234,7 @@ class BaseSSOAutomator(ABC):
 
         # Audio alert (immediate feedback) - uses scitex.notify.alert
         try:
-            from scitex.notify import alert_async
+            from scitex.notify import alert_async  # type: ignore[import-not-found]
 
             audio_msg = self._generate_audio_message(event_type, **kwargs)
             level = "critical" if priority == "high" else "info"

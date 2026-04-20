@@ -95,7 +95,7 @@ class BaiduScholarTranslator:
         if not paper_id_match:
             return item
 
-        paper_id = paper_id_match.group(1)
+        paper_id_match.group(1)
 
         # Extract title - remove "百度学术" suffix
         title_elem = doc.find("title")

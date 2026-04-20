@@ -1,4 +1,4 @@
-"""
+r"""
 Business Standard Translator
 
 Translates Business Standard India articles to Zotero format.
@@ -17,7 +17,7 @@ Metadata:
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 
 from bs4 import BeautifulSoup
 

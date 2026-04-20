@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-scholar"
-version = "1.0.1"
+version = "1.1.0"
 description = "Scientific paper search, enrichment, download, and management for the SciTeX ecosystem"
 readme = "README.md"
 license = "AGPL-3.0-only"
@@ -132,5 +132,43 @@ target-version = "py310"
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]
 
+[tool.ruff.lint.per-file-ignores]
+# Project-wide pattern: files set `__FILE__ = __file__` and
+# `__DIR__ = os.path.dirname(__FILE__)` between `import os` and the rest
+# of the module imports, which triggers E402 spuriously.
+"src/scitex_scholar/**/*.py" = ["E402"]
+"tests/**/*.py" = ["E402"]
+
 [tool.scitex-linter]
 library_dirs = ["src", "tests", "examples"]
+
+[tool.pyright]
+include = ["src"]
+# Translator files are thin bs4 wrappers tested at integration level; strict
+# type-checking produces noise without catching real bugs.
+exclude = [
+    "**/__pycache__",
+    # Translator files are thin bs4 wrappers; integration-tested.
+    "src/scitex_scholar/url_finder/translators/_individual",
+    # Bundled skill scripts live under src/ for distribution but are
+    # not part of the library's type surface.
+    "src/scitex_scholar/.claude",
+    "src/scitex_scholar/docs",
+    # Hidden backup/experimental directories (not part of the package surface).
+    "**/.combined-*",
+]
+typeCheckingMode = "basic"
+reportMissingImports = "error"
+reportMissingTypeStubs = false
+# Silence categories dominated by false positives in this codebase:
+# - scitex-logging adds .success() to stdlib Logger (pyright can't see it)
+# - bs4 / mcp / pydantic-derived types return structural Unions pyright rejects
+# - mixin classes rely on host-class attributes pyright can't infer
+# - `param: str = None` pattern is idiomatic here and not treated as a bug
+reportAttributeAccessIssue = "none"
+reportArgumentType = "none"
+reportCallIssue = "none"
+reportOptionalMemberAccess = "none"
+reportOptionalCall = "none"
+reportOptionalSubscript = "none"
+reportOptionalIterable = "none"

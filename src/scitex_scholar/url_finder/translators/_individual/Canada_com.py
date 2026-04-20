@@ -1,4 +1,4 @@
-"""
+r"""
 Canada.com Translator
 
 Translates newspaper articles from Canada.com to Zotero format.
@@ -16,7 +16,6 @@ Metadata:
     lastUpdated: 2021-12-28 04:34:11
 """
 
-import re
 from typing import Any, Dict
 
 from bs4 import BeautifulSoup

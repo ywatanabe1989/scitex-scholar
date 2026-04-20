@@ -20,12 +20,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Union
 
+import scitex_logging as logging
 from playwright.async_api import Browser, BrowserContext, async_playwright
 from scitex_browser.automation import CookieAutoAcceptor
 from scitex_browser.core import BrowserMixin, ChromeProfileManager
 from scitex_browser.stealth import StealthManager
 
-import scitex_logging as logging
 from scitex_scholar.browser.utils.close_unwanted_pages import close_unwanted_pages
 from scitex_scholar.config import ScholarConfig
 
@@ -81,7 +81,6 @@ class ScholarBrowserManager(BrowserMixin):
         browser_mode=None,
         auth_manager=None,
         chrome_profile_name=None,
-        use_zenrows_proxy=False,
         config: ScholarConfig = None,
     ):
         """
@@ -101,13 +100,6 @@ class ScholarBrowserManager(BrowserMixin):
         )
         super().__init__(mode=self.browser_mode)
         self._set_interactive_or_stealth(browser_mode)
-
-        # ZenRows
-        self.use_zenrows_proxy = use_zenrows_proxy
-        if use_zenrows_proxy:
-            from .remote.ZenRowsProxyManager import ZenRowsProxyManager
-
-            self.zenrows_proxy_manager = ZenRowsProxyManager(config=config)
 
         # Library Authentication
         self.auth_manager = auth_manager
@@ -221,6 +213,7 @@ class ScholarBrowserManager(BrowserMixin):
             await self._ensure_extensions_installed_async()
             self._verify_xvfb_running()
             await self._launch_persistent_context_async()
+        assert self._persistent_browser is not None
         return self._persistent_browser
 
     async def _ensure_playwright_started_async(self):
@@ -419,8 +412,6 @@ class ScholarBrowserManager(BrowserMixin):
             logger.debug(f"{self.name}: Stealth window args: {window_args}")
 
         proxy_config = None
-        if self.use_zenrows_proxy:
-            proxy_config = self.zenrows_proxy_manager.get_proxy_config()
 
         # Set download directory to scholar library downloads folder
         downloads_path = self.config.get_library_downloads_dir()

@@ -24,12 +24,12 @@ Example:
     ... )
 """
 
-import json
 import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.metadata_engines.individual.PubMedEngine import PubMedEngine
 
 from .._BaseSearchEngine import BaseSearchEngine

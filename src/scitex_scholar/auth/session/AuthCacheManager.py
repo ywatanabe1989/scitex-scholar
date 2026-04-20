@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 import scitex_logging as logging
+
 from scitex_scholar.config import ScholarConfig
 
 from .SessionManager import SessionManager

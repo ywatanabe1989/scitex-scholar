@@ -12,9 +12,12 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from scitex_scholar.config import ScholarConfig
+
+if TYPE_CHECKING:
+    from scitex_scholar.core.Paper import Paper
 
 from ._LibraryCacheManager import LibraryCacheManager
 from ._LibraryManager import LibraryManager
@@ -78,7 +81,7 @@ class ScholarLibrary:
         # Return primitive types as-is
         return value
 
-    def save_paper(self, paper: "Paper", force: bool = False) -> str:
+    def save_paper(self, paper: "Paper", force: bool = False) -> Optional[str]:
         """Save paper to library with explicit parameters.
 
         Supports both old flat Paper and new Pydantic Paper structures.

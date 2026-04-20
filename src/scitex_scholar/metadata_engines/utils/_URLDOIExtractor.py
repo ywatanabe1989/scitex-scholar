@@ -25,7 +25,6 @@ Examples:
 
 import re
 from typing import Dict, List, Optional
-from urllib.parse import urlparse
 
 import scitex_logging as logging
 

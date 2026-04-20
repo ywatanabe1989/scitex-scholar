@@ -6,3 +6,14 @@ from .OpenAlexLocalEngine import OpenAlexLocalEngine
 from .PubMedEngine import PubMedEngine
 from .SemanticScholarEngine import SemanticScholarEngine
 from .URLDOIEngine import URLDOIEngine
+
+__all__ = [
+    "ArXivEngine",
+    "CrossRefEngine",
+    "CrossRefLocalEngine",
+    "OpenAlexEngine",
+    "OpenAlexLocalEngine",
+    "PubMedEngine",
+    "SemanticScholarEngine",
+    "URLDOIEngine",
+]

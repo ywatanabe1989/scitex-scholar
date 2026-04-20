@@ -17,16 +17,14 @@ from typing import Dict, List, Optional, Union
 
 import feedparser
 import requests
+import scitex_logging as logging
 from bs4 import BeautifulSoup
 from tenacity import (
     retry,
     retry_if_exception_type,
-    retry_if_result,
     stop_after_attempt,
     wait_exponential,
 )
-
-import scitex_logging as logging
 
 from ..utils._standardize_metadata import standardize_metadata
 from ._BaseDOIEngine import BaseDOIEngine
@@ -63,7 +61,7 @@ class ArXivEngine(BaseDOIEngine):
         max_results=1,
         return_as: Optional[str] = "dict",
         **kwargs,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """When doi is provided, all the information other than doi is ignored"""
         if doi:
             return self._search_by_doi(doi, return_as)
@@ -77,7 +75,7 @@ class ArXivEngine(BaseDOIEngine):
         wait=wait_exponential(multiplier=1, min=2, max=10),
         retry=retry_if_exception_type((requests.HTTPError, requests.ConnectionError)),
     )
-    def _search_by_doi(self, doi: str, return_as: str) -> Optional[Dict]:
+    def _search_by_doi(self, doi: str, return_as: str) -> Dict | str | None:
         """Search solely on doi"""
         doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
         # Extract arXiv ID - handle both "arXiv." and "arxiv." (case-insensitive)
@@ -166,7 +164,7 @@ class ArXivEngine(BaseDOIEngine):
         authors: Optional[List[str]] = None,
         max_results: Optional[int] = 5,  # Increased from 1 to get more candidates
         return_as: Optional[str] = "dict",
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Search by metadata other than doi"""
         if not title:
             return self._create_minimal_metadata(
@@ -236,7 +234,9 @@ class ArXivEngine(BaseDOIEngine):
         wait=wait_exponential(multiplier=1, min=2, max=10),
         retry=retry_if_exception_type((requests.HTTPError, requests.ConnectionError)),
     )
-    def _extract_metadata_from_entry(self, entry, return_as: str) -> Optional[Dict]:
+    def _extract_metadata_from_entry(
+        self, entry, return_as: str
+    ) -> Optional[Union[Dict, str]]:
         """Extract metadata from ArXiv entry"""
         arxiv_id = entry.id.split("/abs/")[-1].split("v")[0]
         year = entry.get("published", "")[:4]
@@ -293,7 +293,7 @@ class ArXivEngine(BaseDOIEngine):
 
     # def _extract_metadata_from_entry(
     #     self, entry, return_as: str
-    # ) -> Optional[Dict]:
+    # ) -> Dict | str | None:
     #     """Extract metadata from ArXiv entry"""
     #     arxiv_id = entry.id.split("/abs/")[-1].split("v")[0]
     #     year = entry.get("published", "")[:4]

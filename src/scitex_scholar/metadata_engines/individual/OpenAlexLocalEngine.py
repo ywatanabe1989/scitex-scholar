@@ -83,7 +83,7 @@ class OpenAlexLocalEngine(BaseDOIEngine):
         max_results=1,
         return_as: Optional[str] = "dict",
         **kwargs,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Search using local OpenAlex API with all parameters"""
         if doi:
             return self._search_by_doi(doi, return_as)
@@ -92,7 +92,7 @@ class OpenAlexLocalEngine(BaseDOIEngine):
                 title, year, authors, max_results, return_as
             )
 
-    def _search_by_doi(self, doi: str, return_as: str) -> Optional[Dict]:
+    def _search_by_doi(self, doi: str, return_as: str) -> Dict | str | None:
         """Get work metadata by DOI"""
         doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
         url = self._build_endpoint_url(f"works/{doi}")
@@ -127,7 +127,7 @@ class OpenAlexLocalEngine(BaseDOIEngine):
         authors: Optional[List[str]],
         max_results: int,
         return_as: str,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Search by metadata (title, year, authors)"""
         if not title:
             return self._create_minimal_metadata(
@@ -191,7 +191,9 @@ class OpenAlexLocalEngine(BaseDOIEngine):
                 return_as=return_as,
             )
 
-    def _extract_metadata_from_work(self, data: dict, return_as: str) -> Optional[Dict]:
+    def _extract_metadata_from_work(
+        self, data: dict, return_as: str
+    ) -> Dict | str | None:
         """Extract metadata from OpenAlex work data"""
         if not data:
             return self._create_minimal_metadata(return_as=return_as)
@@ -218,7 +220,6 @@ class OpenAlexLocalEngine(BaseDOIEngine):
         volume = data.get("volume")
         issue = data.get("issue")
         pages = data.get("pages")
-        publisher = None  # Not directly available in response
 
         # Extract citation count
         cited_by_count = data.get("cited_by_count")
@@ -293,7 +294,6 @@ class OpenAlexLocalEngine(BaseDOIEngine):
 
 
 if __name__ == "__main__":
-
     from scitex_scholar.metadata_engines.individual import OpenAlexLocalEngine
 
     TITLE = "deep learning"

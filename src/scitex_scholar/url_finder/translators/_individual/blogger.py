@@ -1,4 +1,4 @@
-"""
+r"""
 Blogger Translator
 
 Translates blog posts from Blogspot/Blogger.
@@ -17,7 +17,7 @@ Metadata:
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
 

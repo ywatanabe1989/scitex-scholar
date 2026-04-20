@@ -24,13 +24,6 @@ import json
 import xml.etree.ElementTree as ET
 from typing import List, Optional
 
-from tenacity import (
-    retry,
-    retry_if_exception_type,
-    stop_after_attempt,
-    wait_exponential,
-)
-
 import scitex_logging as logging
 
 from ..utils import standardize_metadata
@@ -60,7 +53,7 @@ class PubMedEngine(BaseDOIEngine):
         pmid: Optional[str] = None,
         return_as: Optional[str] = "dict",
         **kwargs,
-    ) -> Optional[Dict[str, Any]]:
+    ) -> Dict[str, Any] | str | None:
         """Get comprehensive metadata from PubMed."""
         assert return_as in [
             "dict",
@@ -80,7 +73,7 @@ class PubMedEngine(BaseDOIEngine):
         year: Optional[int] = None,
         authors: Optional[List[str]] = None,
         return_as: Optional[str] = "dict",
-    ) -> Optional[Dict[str, Any]]:
+    ) -> Dict[str, Any] | str | None:
         query_parts = [f"{title}[Title]"]
         if year:
             query_parts.append(f"{year}[pdat]")
@@ -117,7 +110,7 @@ class PubMedEngine(BaseDOIEngine):
         self,
         doi: str,
         return_as: Optional[str] = "dict",
-    ) -> Optional[Dict[str, Any]]:
+    ) -> Dict[str, Any] | str | None:
         """Search by DOI using PubMed database"""
         doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
 
@@ -147,7 +140,7 @@ class PubMedEngine(BaseDOIEngine):
         self,
         pmid: str,
         return_as: Optional[str] = "dict",
-    ) -> Optional[Dict[str, Any]]:
+    ) -> Dict[str, Any] | str | None:
         """Fetch comprehensive metadata for a specific PMID."""
         fetch_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
         fetch_params = {
@@ -262,11 +255,12 @@ class PubMedEngine(BaseDOIEngine):
             },
         }
 
-        metadata = standardize_metadata(metadata)
+        _std = standardize_metadata(metadata)
+        metadata_std: Dict[str, Any] = {str(k): v for k, v in _std.items()}
         if return_as == "dict":
-            return metadata
+            return metadata_std
         if return_as == "json":
-            return json.dumps(metadata, indent=2)
+            return json.dumps(metadata_std, indent=2)
 
         return self._create_minimal_metadata(
             pmid=pmid,

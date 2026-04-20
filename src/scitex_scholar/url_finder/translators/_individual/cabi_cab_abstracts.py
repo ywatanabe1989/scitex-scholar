@@ -1,4 +1,4 @@
-"""
+r"""
 CABI - CAB Abstracts Translator
 
 Translates CABI CAB Abstracts articles to Zotero format.
@@ -16,8 +16,7 @@ Metadata:
     lastUpdated: 2017-06-14 03:41:30
 """
 
-import re
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from bs4 import BeautifulSoup
 

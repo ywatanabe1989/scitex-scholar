@@ -10,11 +10,10 @@ Features:
 - Batch import with progress tracking
 """
 
-import json
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 import scitex_logging as logging
+
 from scitex_scholar.core.Paper import Paper
 from scitex_scholar.core.Papers import Papers
 from scitex_scholar.storage import LibraryManager
@@ -65,7 +64,7 @@ class ZoteroImporter:
                 )
 
             try:
-                from pyzotero import zotero
+                from pyzotero import zotero  # type: ignore[import-not-found]
 
                 self._zot = zotero.Zotero(
                     library_id=self.library_id,

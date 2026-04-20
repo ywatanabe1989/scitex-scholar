@@ -12,8 +12,6 @@ __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 
 import json
-import time
-import urllib.parse
 from typing import Dict, List, Optional, Union
 
 import scitex_logging as logging
@@ -84,7 +82,7 @@ class CrossRefLocalEngine(BaseDOIEngine):
         max_results=1,
         return_as: Optional[str] = "dict",
         **kwargs,
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Search using local CrossRef API with all parameters"""
         params = {}
 
@@ -109,7 +107,7 @@ class CrossRefLocalEngine(BaseDOIEngine):
 
         return self._make_search_request(params, return_as)
 
-    def _make_search_request(self, params: dict, return_as: str) -> Optional[Dict]:
+    def _make_search_request(self, params: dict, return_as: str) -> Dict | str | None:
         """Make search request to local or external API"""
         url = self._build_endpoint_url("search")
 
@@ -146,7 +144,7 @@ class CrossRefLocalEngine(BaseDOIEngine):
                 logger.warning(f"CrossRef Local search error: {e}")
             return self._create_minimal_metadata(return_as=return_as)
 
-    def _search_by_doi_only(self, doi: str, return_as: str) -> Optional[Dict]:
+    def _search_by_doi_only(self, doi: str, return_as: str) -> Dict | str | None:
         """Get full metadata for DOI"""
         doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "")
         url = self._build_endpoint_url("search")
@@ -169,7 +167,7 @@ class CrossRefLocalEngine(BaseDOIEngine):
 
     def _extract_metadata_from_crossref_data(
         self, data, return_as: str
-    ) -> Optional[Dict]:
+    ) -> Dict | str | None:
         """Extract metadata from CrossRef JSON data"""
         if not data or data.get("error"):
             return self._create_minimal_metadata(return_as=return_as)
@@ -249,8 +247,6 @@ class CrossRefLocalEngine(BaseDOIEngine):
 
 
 if __name__ == "__main__":
-    from pprint import pprint
-
     from scitex_scholar.metadata_engines.individual import CrossRefLocalEngine
 
     TITLE = "deep learning"
