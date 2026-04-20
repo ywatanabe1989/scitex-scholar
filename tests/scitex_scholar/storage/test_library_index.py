@@ -90,6 +90,21 @@ def test_list_all_orders_by_year_desc(tmp_path: Path):
     assert [r["paper_id"] for r in rows] == ["NEW", "OLD"]
 
 
+def test_empty_string_doi_treated_as_null(tmp_path: Path):
+    # Multiple entries with `doi=""` used to raise UNIQUE(doi) in SQLite
+    # (NULL is distinct per unique-index semantics, but empty string is a
+    # real value and collides). Empty should be normalized to NULL so the
+    # index treats "no DOI" consistently regardless of None-vs-"" source.
+    _write_entry(tmp_path, "A", doi="", title="alpha")
+    _write_entry(tmp_path, "B", doi="", title="beta")
+    _write_entry(tmp_path, "C", doi="   ", title="whitespace-only")  # also empty
+    n = idx.build(tmp_path)
+    assert n == 3
+    rows = idx.list_all(tmp_path)
+    assert len(rows) == 3
+    assert all(r["doi"] is None for r in rows)
+
+
 def test_duplicate_doi_raises(tmp_path: Path):
     # Two MASTER entries sharing a DOI is library corruption; build() must
     # fail loudly so the user can fix it, rather than silently drop a paper.
