@@ -207,7 +207,13 @@ STORAGE: ~/.scitex/scholar/library/
     # ========================================
     # Subcommand: highlight
     # ========================================
+    # ========================================
+    # Subcommand: link-project-tree
+    # ========================================
+    from .cli._project_tree import register_subparser as _register_link_project_tree
     from .pdf_highlight._cli import build_parser as _build_highlight_parser
+
+    _register_link_project_tree(subparsers)
 
     highlight_parser = subparsers.add_parser(
         "highlight",
@@ -343,6 +349,10 @@ async def main_async():
         from .pdf_highlight._cli import run as run_highlight
 
         return run_highlight(args)
+    elif args.command == "link-project-tree":
+        from .cli._project_tree import run as run_link_project_tree
+
+        return run_link_project_tree(args)
     else:
         logger.error(f"Unknown command: {args.command}")
         return 1
