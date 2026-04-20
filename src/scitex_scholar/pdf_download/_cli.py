@@ -32,7 +32,6 @@ async def main_async(args):
         chrome_profile_name="system",
         browser_mode=args.browser_mode,
         auth_manager=auth_manager,
-        use_zenrows_proxy=False,
     )
     (
         browser,

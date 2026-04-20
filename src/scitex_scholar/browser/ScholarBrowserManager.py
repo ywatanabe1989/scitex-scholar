@@ -81,7 +81,6 @@ class ScholarBrowserManager(BrowserMixin):
         browser_mode=None,
         auth_manager=None,
         chrome_profile_name=None,
-        use_zenrows_proxy=False,
         config: ScholarConfig = None,
     ):
         """
@@ -101,13 +100,6 @@ class ScholarBrowserManager(BrowserMixin):
         )
         super().__init__(mode=self.browser_mode)
         self._set_interactive_or_stealth(browser_mode)
-
-        # ZenRows
-        self.use_zenrows_proxy = use_zenrows_proxy
-        if use_zenrows_proxy:
-            from .remote.ZenRowsProxyManager import ZenRowsProxyManager  # type: ignore[import-not-found]  # noqa
-
-            self.zenrows_proxy_manager = ZenRowsProxyManager(config=config)
 
         # Library Authentication
         self.auth_manager = auth_manager
@@ -420,8 +412,6 @@ class ScholarBrowserManager(BrowserMixin):
             logger.debug(f"{self.name}: Stealth window args: {window_args}")
 
         proxy_config = None
-        if self.use_zenrows_proxy:
-            proxy_config = self.zenrows_proxy_manager.get_proxy_config()
 
         # Set download directory to scholar library downloads folder
         downloads_path = self.config.get_library_downloads_dir()

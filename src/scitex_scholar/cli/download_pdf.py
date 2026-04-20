@@ -172,7 +172,6 @@ def main():
                     chrome_profile_name="system",
                     browser_mode="stealth",
                     auth_manager=ScholarAuthManager(),
-                    use_zenrows_proxy=False,
                 )
                 (
                     browser,
