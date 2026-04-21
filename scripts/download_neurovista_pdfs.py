@@ -184,16 +184,35 @@ def main() -> int:
 
     to_fetch: List[Tuple[str, str]] = []
     already_present: List[Tuple[str, str]] = []
+    metadata_only: List[Tuple[str, str]] = []
     mirror_only: List[Tuple[str, str, Path]] = []
     for citekey, doi in seeds:
         if doi in cached:
-            already_present.append((citekey, doi))
+            # Distinguish "PDF in library" from "metadata-only library entry"
+            if find_pdf_in_storage(cached[doi]):
+                already_present.append((citekey, doi))
+                continue
+            # Metadata-only — still needs the PDF
+            mirror_pdf_path = find_mirror_pdf(citekey, args.mirror_dir)
+            if mirror_pdf_path:
+                mirror_only.append((citekey, doi, mirror_pdf_path))
+                continue
+            metadata_only.append((citekey, doi))
+            to_fetch.append((citekey, doi))
             continue
         mirror_pdf_path = find_mirror_pdf(citekey, args.mirror_dir)
         if mirror_pdf_path:
             mirror_only.append((citekey, doi, mirror_pdf_path))
             continue
         to_fetch.append((citekey, doi))
+
+    if metadata_only:
+        print(
+            "Library metadata-only (no PDF yet): "
+            f"{len(metadata_only)}"
+        )
+        for ck, doi in metadata_only:
+            print(f"  * {ck}: {doi}")
 
     if mirror_only:
         print(
@@ -267,6 +286,9 @@ def main() -> int:
                 "already_present": [
                     {"citekey": ck, "doi": doi} for ck, doi in already_present
                 ],
+                "metadata_only": [
+                    {"citekey": ck, "doi": doi} for ck, doi in metadata_only
+                ],
                 "mirror_only": [
                     {"citekey": ck, "doi": doi, "pdf": str(pdf)}
                     for ck, doi, pdf in mirror_only
@@ -292,6 +314,7 @@ def main() -> int:
     print(f"  failed        : {stats.get('failed', 0)}")
     print(f"  errors        : {stats.get('errors', 0)}")
     print(f"  already cached: {len(already_present)}")
+    print(f"  metadata only : {len(metadata_only)}")
     print(f"  mirror only   : {len(mirror_only)}")
 
     return 0 if stats.get("errors", 0) == 0 else 1
