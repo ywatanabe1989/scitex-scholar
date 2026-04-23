@@ -51,15 +51,25 @@ class BaseAuthenticator(ABC):
     @abstractmethod
     async def is_authenticate_async(self, verify_live: bool = False) -> bool:
         """
-        Check if currently authenticate_async.
+        Check if currently authenticated.
 
         Args:
             verify_live: If True, verify with actual request instead of just checking session
 
         Returns:
-            True if authenticate_async, False otherwise
+            True if authenticated, False otherwise
         """
         pass
+
+    async def is_authenticated_async(self, verify_live: bool = False) -> bool:
+        """Past-tense alias for is_authenticate_async.
+
+        The original method name uses the verb form; `is_authenticated_async`
+        is the grammatically natural state-check form that some call sites
+        (and scholar#23) expected. Delegates to the subclass implementation
+        of `is_authenticate_async`, so both spellings work.
+        """
+        return await self.is_authenticate_async(verify_live=verify_live)
 
     @abstractmethod
     async def authenticate_async(self, **kwargs) -> dict:
