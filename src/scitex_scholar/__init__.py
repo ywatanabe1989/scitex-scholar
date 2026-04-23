@@ -16,6 +16,7 @@ __version__ = "1.2.1"
 __author__ = "Yusuke Watanabe"
 __email__ = "ywatanabe@scitex.ai"
 
+from ._utils.text._TextNormalizer import TextNormalizer as _TextNormalizer
 from .auth import ScholarAuthManager
 from .browser import ScholarBrowserManager
 from .citation_graph import CitationGraphBuilder, plot_citation_graph
@@ -35,6 +36,34 @@ from .formatting import (
 )
 from .migration import from_connected_papers, to_connected_papers
 from .url_finder import ScholarURLFinder
+
+
+def clean_abstract(text: str) -> str:
+    """Strip HTML/JATS XML tags from a CrossRef-style abstract.
+
+    Handles `<jats:p>`, `<jats:italic>`, `<jats:bold>`, `<jats:sup>`,
+    `<jats:sub>` and their plain-HTML counterparts (`<p>`, `<i>`,
+    `<b>`, `<em>`, `<strong>`, `<sup>`, `<sub>`), plus common HTML
+    entities (`&amp;`, `&lt;`, `&gt;`, `&quot;`, `&apos;`, `&nbsp;`).
+    Normalizes whitespace.
+
+    Parameters
+    ----------
+    text : str
+        Raw abstract text from CrossRef API (or similar).
+
+    Returns
+    -------
+    str
+        Abstract with markup removed, safe for display.
+
+    Examples
+    --------
+    >>> clean_abstract("<jats:p>Objective. <jats:italic>in vitro</jats:italic>.</jats:p>")
+    'Objective. in vitro.'
+    """
+    return _TextNormalizer.strip_html_tags(text)
+
 
 # Kept as a public flag so downstream shims (scitex.scholar re-export) can
 # advertise availability without reaching into each submodule. Always True:
@@ -61,6 +90,7 @@ __all__ = [
     "from_connected_papers",
     "to_connected_papers",
     "apply_filters",
+    "clean_abstract",
     "SCHOLAR_AVAILABLE",
 ]
 
