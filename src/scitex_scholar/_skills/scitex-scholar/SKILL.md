@@ -4,9 +4,18 @@ description: End-to-end scientific-literature toolkit — paper search across Cr
 type: reference
 allowed-tools: mcp__scitex__scholar_*
 primary_interface: mixed
+interfaces:
+  python: 3
+  cli: 3
+  mcp: 2
+  skills: 2
+  hook: 0
+  http: 0
 ---
 
 # scitex-scholar
+
+> **Interfaces:** Python ⭐⭐⭐ · CLI ⭐⭐⭐ · MCP ⭐⭐ · Skills ⭐⭐ · Hook — · HTTP —
 
 > **Primary interfaces (two).** Both CLI and Python (or MCP) see heavy daily use — pick whichever fits the task.
 
