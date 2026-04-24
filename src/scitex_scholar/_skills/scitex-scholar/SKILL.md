@@ -64,3 +64,8 @@ rule and empirical verification table.
 - [14_pdf-download.md](14_pdf-download.md) — OpenURL → publisher → PDF, Zotero translators, browser modes
 - [15_library-management.md](15_library-management.md) — MASTER/8DIGIT-ID storage, project symlinks, metadata.json
 - [16_semantic-highlight.md](16_semantic-highlight.md) — overlay claim / method / limitation highlights on a PDF
+
+
+## Environment
+
+- [20_env-vars.md](20_env-vars.md) — SCITEX_* env vars read by scitex-scholar at runtime
