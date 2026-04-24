@@ -22,7 +22,7 @@ from typing import Any, Dict, List, Optional
 from bs4 import BeautifulSoup
 
 
-class BaiduScholarTranslator:
+class BaiduScholarTranslator:  # i18n-ok: Chinese brand name in docstring
     """Translator for Baidu Scholar (百度学术) academic search."""
 
     METADATA = {
@@ -97,10 +97,12 @@ class BaiduScholarTranslator:
 
         paper_id_match.group(1)
 
-        # Extract title - remove "百度学术" suffix
+        # Extract title — remove Baidu Scholar suffix literal.
         title_elem = doc.find("title")
         if title_elem:
-            title = title_elem.get_text().replace("_百度学术", "").strip()
+            title = (
+                title_elem.get_text().replace("_百度学术", "").strip()
+            )  # i18n-ok: brand suffix literal
             item["title"] = title
 
         # Extract tags/keywords
