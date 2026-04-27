@@ -11,7 +11,10 @@ __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
 # ----------------------------------------
 
-import scitex as stx
+try:
+    import scitex as stx
+except ImportError:
+    stx = None
 
 """
 Functionalities:

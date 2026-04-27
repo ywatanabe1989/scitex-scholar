@@ -22,7 +22,10 @@ Prerequisites:
 import argparse
 from typing import Dict, Optional
 
-import scitex
+try:
+    import scitex
+except ImportError:
+    scitex = None
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
