@@ -47,7 +47,10 @@ import scitex_logging as logging
 from sql_manager import DynamicModel, Manager
 from sqlalchemy import Column, Float, String, func
 
-import scitex as stx
+try:
+    import scitex as stx
+except ImportError:
+    stx = None
 
 logger = logging.getLogger(__name__)
 

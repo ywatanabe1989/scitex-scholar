@@ -40,7 +40,10 @@ from typing import Dict, Iterator, Optional
 import openpyxl
 import scitex_logging as logging
 
-import scitex as stx
+try:
+    import scitex as stx
+except ImportError:
+    stx = None
 
 logger = logging.getLogger(__name__)
 

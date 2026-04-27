@@ -20,7 +20,10 @@ Prerequisites:
 """Imports"""
 import argparse
 from typing import Optional
-import scitex
+try:
+    import scitex
+except ImportError:
+    scitex = None
 import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
