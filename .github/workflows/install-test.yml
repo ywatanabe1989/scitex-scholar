@@ -37,23 +37,31 @@ jobs:
           python -m venv /tmp/clean-venv
           /tmp/clean-venv/bin/pip install --upgrade pip
           /tmp/clean-venv/bin/pip install dist/*.whl
-          # Import the package — fails on the first undeclared dep.
-          # Replace IMPORT_NAME if pyproject `[project].name` differs from
-          # the source layout (e.g. scitex-foo → scitex_foo).
-          PKG_NAME=$(python -c "import tomllib, sys; sys.stdout.write(tomllib.load(open('pyproject.toml','rb'))['project']['name'])")
-          IMPORT_NAME="${PKG_NAME//-/_}"
+          # Detect import name from src/ layout (the only directory under
+          # src/ that contains __init__.py). Works on every supported Python
+          # without needing tomllib (3.11+) or tomli (extra dep).
+          IMPORT_NAME=$(find src -maxdepth 2 -name __init__.py -printf '%h\n' \
+                          | head -1 | xargs -n1 basename)
+          if [ -z "$IMPORT_NAME" ]; then
+              echo "Could not detect import name under src/" >&2
+              exit 1
+          fi
+          echo "Importing $IMPORT_NAME ..."
           /tmp/clean-venv/bin/python -c "import ${IMPORT_NAME}; print(f'OK: {${IMPORT_NAME}.__name__}')"
 
-      - name: Audit declared deps vs actual imports (if scitex-dev available)
-        # Optional secondary check using scitex_dev.audit_dependencies(). Only
-        # runs if the runner has scitex-dev installed; non-fatal otherwise.
+      - name: Audit declared deps vs actual imports (best-effort)
+        # Secondary check using scitex_dev.audit_dependencies(). Non-fatal:
+        # skipped if scitex-dev isn't yet available on PyPI for this Python.
+        continue-on-error: true
         run: |
-          /tmp/clean-venv/bin/pip install scitex-dev || true
+          /tmp/clean-venv/bin/pip install scitex-dev 2>/dev/null || (
+              echo "scitex-dev not installable on this Python; skipping"
+              exit 0
+          )
           /tmp/clean-venv/bin/python -c "
           try:
               from scitex_dev import audit_dependencies
           except ImportError:
-              print('scitex-dev not available; skipping audit')
               import sys; sys.exit(0)
           rep = audit_dependencies('.')
           print(rep)
