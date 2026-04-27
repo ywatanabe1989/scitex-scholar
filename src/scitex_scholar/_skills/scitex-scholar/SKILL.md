@@ -1,23 +1,11 @@
 ---
 name: scitex-scholar
-description: End-to-end scientific-literature toolkit — paper search across CrossRef / OpenAlex / Semantic Scholar / PubMed / arXiv; DOI resolution from titles; BibTeX enrichment with abstracts, citation counts, and journal impact factors; paywalled PDF download via OpenAthens / Shibboleth / EZproxy institutional SSO (browser automation + Zotero translators); deduplicated per-project library at `~/.scitex/scholar/library/`; PDF parsing (IMRaD sections, tables, images, metadata, full text); semantic PDF highlighting (claims / methods / limitations); citation-graph building and plotting; export to BibTeX / RIS / EndNote / JSON / CSV / Connected Papers. Drop-in replacement for `scholarly`, `crossref-commons`, `pyalex`, `pybliometrics`, `habanero`, `pybtex`, `bibtexparser`, `semanticscholar`, `arxiv`, manual `requests` + Zotero workflows, and Mendeley / EndNote library management. Use whenever the user asks to "search for papers on X", "find this paper's DOI", "enrich my .bib file", "download this PDF" (especially paywalled), "batch-download papers from a BibTeX", "log in to the library / OpenAthens", "parse this PDF into sections", "extract figures/tables from PDF", "highlight claims in this PDF", "build a citation graph", "organize my papers by project", or "export my library to RIS/EndNote".
+description: Scientific-paper search, metadata enrichment, PDF download, and BibTeX library management for the SciTeX ecosystem. Use when searching the literature, resolving DOIs, enriching citations, downloading PDFs through institutional access, or managing a reproducible paper library.
 type: reference
 allowed-tools: mcp__scitex__scholar_*
-primary_interface: mixed
-interfaces:
-  python: 3
-  cli: 3
-  mcp: 2
-  skills: 2
-  hook: 0
-  http: 0
 ---
 
 # scitex-scholar
-
-> **Interfaces:** Python ⭐⭐⭐ · CLI ⭐⭐⭐ · MCP ⭐⭐ · Skills ⭐⭐ · Hook — · HTTP —
-
-> **Primary interfaces (two).** Both CLI and Python (or MCP) see heavy daily use — pick whichever fits the task.
 
 Unified toolkit for scientific literature workflows: search across
 multiple academic databases, resolve DOIs, enrich BibTeX with impact
