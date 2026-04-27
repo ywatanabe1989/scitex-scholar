@@ -1,5 +1,16 @@
 # SciTeX Scholar (`scitex-scholar`)
 
+<!-- scitex-badges:start -->
+[![PyPI](https://img.shields.io/pypi/v/scitex-scholar.svg)](https://pypi.org/project/scitex-scholar/)
+[![Python](https://img.shields.io/pypi/pyversions/scitex-scholar.svg)](https://pypi.org/project/scitex-scholar/)
+[![Tests](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/test.yml/badge.svg)](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/test.yml)
+[![Install Test](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/install-test.yml/badge.svg)](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/install-test.yml)
+[![Coverage](https://codecov.io/gh/ywatanabe1989/scitex-scholar/graph/badge.svg)](https://codecov.io/gh/ywatanabe1989/scitex-scholar)
+[![Docs](https://readthedocs.org/projects/scitex-scholar/badge/?version=latest)](https://scitex-scholar.readthedocs.io/en/latest/)
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+<!-- scitex-badges:end -->
+
+
 <p align="center"><b>Scientific paper search, enrichment, PDF download, and library management for reproducible research.</b></p>
 
 <p align="center">
