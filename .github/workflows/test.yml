@@ -22,9 +22,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install package + dev deps
+      - name: Install package + dev deps + test plugins
         run: |
           pip install --upgrade pip
+          pip install pytest pytest-cov pytest-timeout
           pip install -e ".[dev]" || pip install -e .
       - name: Detect import name
         id: pkg
