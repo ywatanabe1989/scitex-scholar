@@ -1,7 +1,4 @@
-"""Sphinx configuration for SciTeX Scholar documentation.
-
-See https://www.sphinx-doc.org/en/master/usage/configuration.html
-"""
+"""Sphinx configuration for scitex-scholar documentation."""
 
 import os
 import sys
@@ -11,7 +8,7 @@ sys.path.insert(0, os.path.abspath("../../src"))
 # -- Project information -----------------------------------------------------
 
 project = "SciTeX Scholar"
-copyright = "2024-2026, Yusuke Watanabe"
+copyright = "2026, Yusuke Watanabe"
 author = "Yusuke Watanabe"
 
 try:
@@ -44,18 +41,8 @@ autodoc_default_options = {
     "exclude-members": "__weakref__",
 }
 
-# Optional deps that should not block RTD if missing on the build image.
-autodoc_mock_imports = [
-    "anthropic",
-    "pymupdf",
-    "fitz",
-    "playwright",
-    "mcp",
-    "fastmcp",
-    "scitex",
-    "scitex_browser",
-    "scitex_repro",
-]
+# Mock optional / heavy deps so autodoc never fails on missing imports.
+autodoc_mock_imports = ['mcp', 'playwright', 'aiohttp', 'pymupdf', 'fitz', 'bs4', 'beautifulsoup4', 'bibtexparser', 'feedparser', 'httpx', 'nest_asyncio', 'pandas', 'pydantic', 'yaml', 'requests', 'sql_manager', 'sqlalchemy', 'tenacity', 'tqdm', 'scitex', 'scitex_io', 'scitex_browser', 'scitex_logging']
 
 autosummary_generate = True
 
@@ -93,7 +80,6 @@ html_theme_options = {
 }
 
 html_static_path = ["_static"]
-html_logo = "../scitex-logo-banner.png"
 html_title = f"{project} v{release}"
 html_short_title = project
 
@@ -101,17 +87,9 @@ html_context = {
     "display_github": True,
     "github_user": "ywatanabe1989",
     "github_repo": "scitex-scholar",
-    "github_version": "main",
+    "github_version": "develop",
     "conf_py_path": "/docs/sphinx/",
 }
-
-# -- Intersphinx -------------------------------------------------------------
-
-intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
-}
-
-# -- MyST --------------------------------------------------------------------
 
 myst_enable_extensions = [
     "dollarmath",
@@ -124,3 +102,8 @@ myst_enable_extensions = [
     "substitution",
     "tasklist",
 ]
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+}
