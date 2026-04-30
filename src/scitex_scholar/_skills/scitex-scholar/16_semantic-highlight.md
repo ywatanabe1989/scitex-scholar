@@ -1,5 +1,7 @@
 ---
 description: Overlay rhetorical-role highlights (claim/method/limitation/supportive/contradictive) onto a PDF via Claude. 5-colour scheme, sentence-level granularity, legend page appended.
+name: semantic-highlight
+tags: [scitex-scholar, scitex-package]
 ---
 
 # Semantic PDF highlighting

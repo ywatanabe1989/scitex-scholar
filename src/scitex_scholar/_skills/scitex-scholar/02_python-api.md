@@ -1,5 +1,7 @@
 ---
 description: Python API — Scholar, Paper, Papers, ScholarConfig, ScholarAuthManager.
+name: python-api
+tags: [scitex-scholar, scitex-package]
 ---
 
 # Python API

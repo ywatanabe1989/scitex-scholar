@@ -1,5 +1,7 @@
 ---
 description: MCP tools for AI agents — search, DOI, enrichment, PDF, library.
+name: mcp-tools
+tags: [scitex-scholar, scitex-package]
 ---
 
 # MCP Tools

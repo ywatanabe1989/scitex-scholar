@@ -1,5 +1,7 @@
 ---
 description: PDF download via OpenURL → publisher → Zotero translators; stealth and interactive browser modes.
+name: pdf-download
+tags: [scitex-scholar, scitex-package]
 ---
 
 # PDF Download

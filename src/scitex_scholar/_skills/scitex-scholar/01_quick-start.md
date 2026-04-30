@@ -1,5 +1,7 @@
 ---
 description: Common workflows — single paper, BibTeX batch, project organization.
+name: quick-start
+tags: [scitex-scholar, scitex-package]
 ---
 
 # Quick Start

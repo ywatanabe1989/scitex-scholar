@@ -1,5 +1,7 @@
 ---
 description: MASTER/{ID} hash storage, project symlinks, metadata.json layout.
+name: library-management
+tags: [scitex-scholar, scitex-package]
 ---
 
 # Library Management
