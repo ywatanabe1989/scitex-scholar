@@ -146,7 +146,9 @@ AGPL-3.0-only.
 
 ## Part of SciTeX
 
-`scitex-scholar` is part of [**SciTeX**](https://scitex.ai).
+`scitex-scholar` is part of [**SciTeX**](https://scitex.ai). Install via
+the umbrella with `pip install scitex[scholar]` to use as
+`scitex.scholar` (Python) or `scitex scholar ...` (CLI).
 
 > Four Freedoms for Research
 >
