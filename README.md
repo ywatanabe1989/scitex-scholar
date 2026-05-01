@@ -10,6 +10,12 @@
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 <!-- scitex-badges:end -->
 
+<p align="center">
+  <a href="https://scitex.ai">
+    <img src="docs/scitex-logo-blue-cropped.png" alt="SciTeX" width="400">
+  </a>
+</p>
+
 <p align="center"><b>Scientific paper search, enrichment, PDF download, and library management for reproducible research.</b></p>
 
 <p align="center">
@@ -43,7 +49,12 @@ pip install "scitex-scholar[browser]"      # Playwright automation
 pip install "scitex-scholar[all]"          # everything
 ```
 
-## Python usage
+## 4 Interfaces
+
+<details open>
+<summary><strong>Python API</strong></summary>
+
+<br>
 
 ```python
 from scitex_scholar import Scholar, Paper, Papers, apply_filters, to_bibtex
@@ -57,7 +68,12 @@ top = apply_filters(papers, min_citations=50, min_impact_factor=5.0)
 print(to_bibtex(top))
 ```
 
-## CLI
+</details>
+
+<details>
+<summary><strong>CLI</strong></summary>
+
+<br>
 
 Entry point: `python -m scitex_scholar <subcommand>`.
 
@@ -76,6 +92,30 @@ python -m scitex_scholar mcp
 ```
 
 Common flags: `--browser-mode {stealth,interactive}`, `--chrome-profile NAME`, `--force`.
+
+</details>
+
+<details>
+<summary><strong>MCP Server</strong></summary>
+
+<br>
+
+The package ships MCP tool handlers consumed by the unified `scitex serve`
+server (tools prefixed `scholar_*`). A standalone server at
+`scitex_scholar.mcp_server` is still shipped but deprecated. See
+`src/scitex_scholar/_skills/scitex-scholar/SKILL.md` for the full tool list.
+
+</details>
+
+<details>
+<summary><strong>Skills</strong></summary>
+
+<br>
+
+Agent skill pages live under `src/scitex_scholar/_skills/scitex-scholar/`.
+The `semantic-highlight` skill documents the PDF-highlighting workflow.
+
+</details>
 
 ## Core API
 
@@ -126,10 +166,6 @@ print(result.counts(), result.annotations_added)
 Also exposed as the `scholar_highlight_pdf` MCP tool (unified `scitex serve` server) and as the
 `semantic-highlight` agent skill under `src/scitex_scholar/_skills/scitex-scholar/`.
 
-## MCP integration
-
-The package ships MCP tool handlers consumed by the unified `scitex serve` server (tools prefixed `scholar_*`). A standalone server at `scitex_scholar.mcp_server` is still shipped but deprecated. See `src/scitex_scholar/_skills/scitex-scholar/SKILL.md` for the full tool list.
-
 ## Storage layout
 
 ```
@@ -162,5 +198,5 @@ the umbrella with `pip install scitex[scholar]` to use as
 ---
 
 <p align="center">
-  <a href="https://scitex.ai" target="_blank"><b>SciTeX</b></a>
+  <a href="https://scitex.ai" target="_blank"><img src="docs/scitex-icon-navy-inverted.png" alt="SciTeX" width="40"/></a>
 </p>
