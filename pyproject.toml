@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-scholar"
-version = "1.2.1"
+version = "1.2.3"
 description = "Scientific paper search, enrichment, download, and management for the SciTeX ecosystem"
 readme = "README.md"
 license = "AGPL-3.0-only"
@@ -27,7 +27,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -37,6 +36,7 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+    "mcp",
     # scitex[session] provides @stx.session decorator (+ matplotlib, PyYAML)
     # used in pipelines/, metadata_engines/, impact_factor/jcr/.
     # Using the [session] extra keeps the dep minimal vs. the full scitex.
@@ -69,17 +69,20 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-pdf = [
-    "pdfplumber>=0.9.0",
+browser = [
+    "playwright>=1.40.0",
+]
+clew = [
+    "scitex-clew>=0.1.0",
+]
+export = [
+    "openpyxl>=3.1.0",
 ]
 mcp = [
     "fastmcp>=2.0.0",
 ]
-browser = [
-    "playwright>=1.40.0",
-]
-export = [
-    "openpyxl>=3.1.0",
+pdf = [
+    "pdfplumber>=0.9.0",
 ]
 server = [
     "aiohttp>=3.8.0",
@@ -88,17 +91,27 @@ server = [
 watch = [
     "watchdog>=3.0.0",
 ]
-clew = [
-    "scitex-clew>=0.1.0",
-]
 dev = [
     "scitex-dev",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "numpy>=1.21.0",
 ]
+docs = [
+    "sphinx>=7.0",
+    "sphinx-rtd-theme>=2.0",
+    "myst-parser>=2.0",
+    "sphinx-copybutton>=0.5",
+    "sphinx-autodoc-typehints>=1.25",
+]
 all = [
-    "scitex-scholar[pdf,mcp,browser,export,server,watch,clew,dev]",
+    "scitex-scholar[browser]",
+    "scitex-scholar[clew]",
+    "scitex-scholar[export]",
+    "scitex-scholar[mcp]",
+    "scitex-scholar[pdf]",
+    "scitex-scholar[server]",
+    "scitex-scholar[watch]",
 ]
 
 [project.scripts]

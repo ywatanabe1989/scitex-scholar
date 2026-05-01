@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scitex_scholar.citation_graph &mdash; SciTeX Scholar v1.2.3</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=590429e0"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scitex_scholar.impact_factor" href="impact_factor.html" />
+    <link rel="prev" title="scitex_scholar.formatting" href="formatting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciTeX Scholar
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#basic-installation">Basic Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#development">Development</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="core.html">scitex_scholar.core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.Paper"><code class="docutils literal notranslate"><span class="pre">Paper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Paper.model_dump"><code class="docutils literal notranslate"><span class="pre">Paper.model_dump()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Paper.from_dict"><code class="docutils literal notranslate"><span class="pre">Paper.from_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Paper.to_dict"><code class="docutils literal notranslate"><span class="pre">Paper.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Paper.detect_open_access"><code class="docutils literal notranslate"><span class="pre">Paper.detect_open_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Paper.is_open_access"><code class="docutils literal notranslate"><span class="pre">Paper.is_open_access</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.Papers"><code class="docutils literal notranslate"><span class="pre">Papers</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__init__"><code class="docutils literal notranslate"><span class="pre">Papers.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__len__"><code class="docutils literal notranslate"><span class="pre">Papers.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__iter__"><code class="docutils literal notranslate"><span class="pre">Papers.__iter__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__getitem__"><code class="docutils literal notranslate"><span class="pre">Papers.__getitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__repr__"><code class="docutils literal notranslate"><span class="pre">Papers.__repr__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__str__"><code class="docutils literal notranslate"><span class="pre">Papers.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.__dir__"><code class="docutils literal notranslate"><span class="pre">Papers.__dir__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.papers"><code class="docutils literal notranslate"><span class="pre">Papers.papers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.append"><code class="docutils literal notranslate"><span class="pre">Papers.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.extend"><code class="docutils literal notranslate"><span class="pre">Papers.extend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.to_list"><code class="docutils literal notranslate"><span class="pre">Papers.to_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.filter"><code class="docutils literal notranslate"><span class="pre">Papers.filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.sort_by"><code class="docutils literal notranslate"><span class="pre">Papers.sort_by()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.from_bibtex"><code class="docutils literal notranslate"><span class="pre">Papers.from_bibtex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers._from_bibtex_file"><code class="docutils literal notranslate"><span class="pre">Papers._from_bibtex_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers._from_bibtex_text"><code class="docutils literal notranslate"><span class="pre">Papers._from_bibtex_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers._bibtex_entry_to_paper"><code class="docutils literal notranslate"><span class="pre">Papers._bibtex_entry_to_paper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.save"><code class="docutils literal notranslate"><span class="pre">Papers.save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.to_dict"><code class="docutils literal notranslate"><span class="pre">Papers.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.to_dataframe"><code class="docutils literal notranslate"><span class="pre">Papers.to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Papers.summary"><code class="docutils literal notranslate"><span class="pre">Papers.summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.Scholar"><code class="docutils literal notranslate"><span class="pre">Scholar</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Scholar.name"><code class="docutils literal notranslate"><span class="pre">Scholar.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.Scholar.__init__"><code class="docutils literal notranslate"><span class="pre">Scholar.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus"><code class="docutils literal notranslate"><span class="pre">OAStatus</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus.GOLD"><code class="docutils literal notranslate"><span class="pre">OAStatus.GOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus.GREEN"><code class="docutils literal notranslate"><span class="pre">OAStatus.GREEN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus.HYBRID"><code class="docutils literal notranslate"><span class="pre">OAStatus.HYBRID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus.BRONZE"><code class="docutils literal notranslate"><span class="pre">OAStatus.BRONZE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus.CLOSED"><code class="docutils literal notranslate"><span class="pre">OAStatus.CLOSED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAStatus.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">OAStatus.UNKNOWN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult"><code class="docutils literal notranslate"><span class="pre">OAResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.is_open_access"><code class="docutils literal notranslate"><span class="pre">OAResult.is_open_access</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.status"><code class="docutils literal notranslate"><span class="pre">OAResult.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.oa_url"><code class="docutils literal notranslate"><span class="pre">OAResult.oa_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.source"><code class="docutils literal notranslate"><span class="pre">OAResult.source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.license"><code class="docutils literal notranslate"><span class="pre">OAResult.license</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.confidence"><code class="docutils literal notranslate"><span class="pre">OAResult.confidence</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OAResult.__init__"><code class="docutils literal notranslate"><span class="pre">OAResult.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.detect_oa_from_identifiers"><code class="docutils literal notranslate"><span class="pre">detect_oa_from_identifiers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.check_oa_status"><code class="docutils literal notranslate"><span class="pre">check_oa_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.check_oa_status_async"><code class="docutils literal notranslate"><span class="pre">check_oa_status_async()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.is_open_access_source"><code class="docutils literal notranslate"><span class="pre">is_open_access_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.is_open_access_journal"><code class="docutils literal notranslate"><span class="pre">is_open_access_journal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.is_arxiv_id"><code class="docutils literal notranslate"><span class="pre">is_arxiv_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache"><code class="docutils literal notranslate"><span class="pre">OASourcesCache</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.__init__"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.get_instance"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.get_instance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache._is_cache_valid"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._is_cache_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache._load_from_cache"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._load_from_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache._save_to_cache"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._save_to_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache._fetch_oa_sources_async"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._fetch_oa_sources_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache._fetch_oa_sources_sync"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._fetch_oa_sources_sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.ensure_loaded"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.ensure_loaded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.is_oa_source"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.is_oa_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.is_oa_issn"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.is_oa_issn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.source_count"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.source_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.OASourcesCache.cache_age_hours"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.cache_age_hours</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.get_oa_cache"><code class="docutils literal notranslate"><span class="pre">get_oa_cache()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.is_oa_journal_cached"><code class="docutils literal notranslate"><span class="pre">is_oa_journal_cached()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.refresh_oa_cache"><code class="docutils literal notranslate"><span class="pre">refresh_oa_cache()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.__init__"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.get_instance"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_instance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer._is_cache_valid"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._is_cache_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer._load_from_cache"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._load_from_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer._save_to_cache"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._save_to_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer._add_journal"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._add_journal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer._fetch_journals_async"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._fetch_journals_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer._fetch_journals_sync"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._fetch_journals_sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.ensure_loaded"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.ensure_loaded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.get_issn_l"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_issn_l()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.normalize"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.normalize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.get_abbreviation"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_abbreviation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.get_journal_info"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_journal_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.is_same_journal"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.is_same_journal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.is_open_access"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.is_open_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.search"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.search()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.journal_count"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.journal_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#scitex_scholar.core.JournalNormalizer.cache_age_hours"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.cache_age_hours</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.get_journal_normalizer"><code class="docutils literal notranslate"><span class="pre">get_journal_normalizer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.normalize_journal_name"><code class="docutils literal notranslate"><span class="pre">normalize_journal_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.get_journal_issn_l"><code class="docutils literal notranslate"><span class="pre">get_journal_issn_l()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.is_same_journal"><code class="docutils literal notranslate"><span class="pre">is_same_journal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#scitex_scholar.core.refresh_journal_cache"><code class="docutils literal notranslate"><span class="pre">refresh_journal_cache()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">scitex_scholar.auth</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.ensure_authenticate_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.ensure_authenticate_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.is_authenticate_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.is_authenticate_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.authenticate_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.authenticate_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.get_auth_headers_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_auth_headers_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.get_auth_options"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_auth_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.get_auth_cookies_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_auth_cookies_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager._register_provider"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager._register_provider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.set_active_provider"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.set_active_provider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.get_active_provider"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_active_provider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.logout_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.logout_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.ScholarAuthManager.list_providers"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.list_providers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway.name"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway.__init__"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway.prepare_context_async"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway.prepare_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway._resolve_publisher_url_async"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._resolve_publisher_url_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway._check_auth_requirements_from_doi"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._check_auth_requirements_from_doi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway._check_auth_requirements"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._check_auth_requirements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.AuthenticationGateway._establish_authentication_async"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._establish_authentication_async()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext"><code class="docutils literal notranslate"><span class="pre">URLContext</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.doi"><code class="docutils literal notranslate"><span class="pre">URLContext.doi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.title"><code class="docutils literal notranslate"><span class="pre">URLContext.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.url"><code class="docutils literal notranslate"><span class="pre">URLContext.url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.pdf_urls"><code class="docutils literal notranslate"><span class="pre">URLContext.pdf_urls</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.requires_auth"><code class="docutils literal notranslate"><span class="pre">URLContext.requires_auth</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.auth_provider"><code class="docutils literal notranslate"><span class="pre">URLContext.auth_provider</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.auth_gateway_url"><code class="docutils literal notranslate"><span class="pre">URLContext.auth_gateway_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth.html#scitex_scholar.auth.URLContext.__init__"><code class="docutils literal notranslate"><span class="pre">URLContext.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="browser.html">scitex_scholar.browser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager.get_authenticated_browser_and_context_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.get_authenticated_browser_and_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager._new_context_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager._new_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager._verify_xvfb_running"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager._verify_xvfb_running()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager._load_auth_cookies_to_persistent_context_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager._load_auth_cookies_to_persistent_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager.take_screenshot_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.take_screenshot_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager.start_periodic_screenshots_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.start_periodic_screenshots_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager.stop_periodic_screenshots_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.stop_periodic_screenshots_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="browser.html#scitex_scholar.browser.ScholarBrowserManager.close"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.close()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">scitex_scholar.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig"><code class="docutils literal notranslate"><span class="pre">ScholarConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.__getattr__"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.__getattr__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.__dir__"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.__dir__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.resolve"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.resolve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.get"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.print"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.clear_log"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.clear_log()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.load_yaml"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.load_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.load"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.ScholarConfig.paths"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.paths</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#scitex_scholar.config.PublisherRules"><code class="docutils literal notranslate"><span class="pre">PublisherRules</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.PublisherRules.__init__"><code class="docutils literal notranslate"><span class="pre">PublisherRules.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.PublisherRules.get_config_for_url"><code class="docutils literal notranslate"><span class="pre">PublisherRules.get_config_for_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.PublisherRules.merge_with_config"><code class="docutils literal notranslate"><span class="pre">PublisherRules.merge_with_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.PublisherRules.is_valid_pdf_url"><code class="docutils literal notranslate"><span class="pre">PublisherRules.is_valid_pdf_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#scitex_scholar.config.PublisherRules.filter_pdf_urls"><code class="docutils literal notranslate"><span class="pre">PublisherRules.filter_pdf_urls()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">scitex_scholar.filters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#scitex_scholar.filters.apply_filters"><code class="docutils literal notranslate"><span class="pre">apply_filters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">scitex_scholar.formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.clean_text"><code class="docutils literal notranslate"><span class="pre">clean_text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.generate_cite_key"><code class="docutils literal notranslate"><span class="pre">generate_cite_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.paper_normalize"><code class="docutils literal notranslate"><span class="pre">paper_normalize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.paper_from_search_result"><code class="docutils literal notranslate"><span class="pre">paper_from_search_result()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.make_citation_key"><code class="docutils literal notranslate"><span class="pre">make_citation_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.sanitize_filename"><code class="docutils literal notranslate"><span class="pre">sanitize_filename()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.to_bibtex"><code class="docutils literal notranslate"><span class="pre">to_bibtex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.to_ris"><code class="docutils literal notranslate"><span class="pre">to_ris()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.to_endnote"><code class="docutils literal notranslate"><span class="pre">to_endnote()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.to_csv_row"><code class="docutils literal notranslate"><span class="pre">to_csv_row()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.to_text_citation"><code class="docutils literal notranslate"><span class="pre">to_text_citation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.clean_bibtex_for_arxiv"><code class="docutils literal notranslate"><span class="pre">clean_bibtex_for_arxiv()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="formatting.html#scitex_scholar.formatting.papers_to_format"><code class="docutils literal notranslate"><span class="pre">papers_to_format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">scitex_scholar.citation_graph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder._auto_detect"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder._auto_detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder.build"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.build()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder._create_paper_node"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder._create_paper_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder._build_citation_edges"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder._build_citation_edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder.build_from_dois"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.build_from_dois()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder.build_from_query"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.build_from_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder.export_json"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.export_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraphBuilder.get_paper_summary"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.get_paper_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode"><code class="docutils literal notranslate"><span class="pre">PaperNode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.doi"><code class="docutils literal notranslate"><span class="pre">PaperNode.doi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.title"><code class="docutils literal notranslate"><span class="pre">PaperNode.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.year"><code class="docutils literal notranslate"><span class="pre">PaperNode.year</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.authors"><code class="docutils literal notranslate"><span class="pre">PaperNode.authors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.journal"><code class="docutils literal notranslate"><span class="pre">PaperNode.journal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.citation_count"><code class="docutils literal notranslate"><span class="pre">PaperNode.citation_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.similarity_score"><code class="docutils literal notranslate"><span class="pre">PaperNode.similarity_score</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.is_seed"><code class="docutils literal notranslate"><span class="pre">PaperNode.is_seed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.metadata"><code class="docutils literal notranslate"><span class="pre">PaperNode.metadata</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.to_dict"><code class="docutils literal notranslate"><span class="pre">PaperNode.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode.__init__"><code class="docutils literal notranslate"><span class="pre">PaperNode.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge"><code class="docutils literal notranslate"><span class="pre">CitationEdge</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge.source"><code class="docutils literal notranslate"><span class="pre">CitationEdge.source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge.target"><code class="docutils literal notranslate"><span class="pre">CitationEdge.target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge.edge_type"><code class="docutils literal notranslate"><span class="pre">CitationEdge.edge_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge.weight"><code class="docutils literal notranslate"><span class="pre">CitationEdge.weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge.to_dict"><code class="docutils literal notranslate"><span class="pre">CitationEdge.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge.__init__"><code class="docutils literal notranslate"><span class="pre">CitationEdge.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph"><code class="docutils literal notranslate"><span class="pre">CitationGraph</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.seed_doi"><code class="docutils literal notranslate"><span class="pre">CitationGraph.seed_doi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.seed_dois"><code class="docutils literal notranslate"><span class="pre">CitationGraph.seed_dois</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.nodes"><code class="docutils literal notranslate"><span class="pre">CitationGraph.nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.edges"><code class="docutils literal notranslate"><span class="pre">CitationGraph.edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.metadata"><code class="docutils literal notranslate"><span class="pre">CitationGraph.metadata</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.to_dict"><code class="docutils literal notranslate"><span class="pre">CitationGraph.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.node_count"><code class="docutils literal notranslate"><span class="pre">CitationGraph.node_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.edge_count"><code class="docutils literal notranslate"><span class="pre">CitationGraph.edge_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.to_networkx"><code class="docutils literal notranslate"><span class="pre">CitationGraph.to_networkx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph.__init__"><code class="docutils literal notranslate"><span class="pre">CitationGraph.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scitex_scholar.citation_graph.plot_citation_graph"><code class="docutils literal notranslate"><span class="pre">plot_citation_graph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scitex_scholar.citation_graph.list_backends"><code class="docutils literal notranslate"><span class="pre">list_backends()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="impact_factor.html">scitex_scholar.impact_factor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine.__init__"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine._get_jcr_year"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine._get_jcr_year()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine._get_metrics_uncached"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine._get_metrics_uncached()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine.get_database_info"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine.get_database_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="impact_factor.html#scitex_scholar.impact_factor.get_journal_metrics"><code class="docutils literal notranslate"><span class="pre">get_journal_metrics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_engines.html">scitex_scholar.metadata_engines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine"><code class="docutils literal notranslate"><span class="pre">ScholarEngine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarEngine.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._setup_cache"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._setup_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._load_cache"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._load_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._save_cache"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._save_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._get_cache_key"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._get_cache_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine.search_async"><code class="docutils literal notranslate"><span class="pre">ScholarEngine.search_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine.search_batch_async"><code class="docutils literal notranslate"><span class="pre">ScholarEngine.search_batch_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._search_engine_with_timeout"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._search_engine_with_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._extract_identifiers"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._extract_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._identifiers_match"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._identifiers_match()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._validate_paper_consistency"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._validate_paper_consistency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._validate_against_query"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._validate_against_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._combine_metadata"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._combine_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._merge_metadata_structures"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._merge_metadata_structures()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">scitex_scholar.migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="migration.html#scitex_scholar.migration.from_connected_papers"><code class="docutils literal notranslate"><span class="pre">from_connected_papers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="migration.html#scitex_scholar.migration.to_connected_papers"><code class="docutils literal notranslate"><span class="pre">to_connected_papers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pdf_download.html">scitex_scholar.pdf_download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_from_urls"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_from_urls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_open_access"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_open_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_smart"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_smart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_from_url"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_from_url()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciTeX Scholar</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scitex_scholar.citation_graph</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ywatanabe1989/scitex-scholar/blob/develop/docs/sphinx/api/citation_graph.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scitex_scholar.citation_graph">
+<span id="scitex-scholar-citation-graph"></span><h1>scitex_scholar.citation_graph<a class="headerlink" href="#module-scitex_scholar.citation_graph" title="Link to this heading"></a></h1>
+<p>Citation Graph Module</p>
+<p>Build and analyze citation networks for academic papers using CrossRef data.</p>
+<p>This module provides tools to:
+- Extract citation relationships
+- Calculate paper similarity (co-citation, bibliographic coupling)
+- Build citation network graphs
+- Export for visualization (D3.js, vis.js, Cytoscape)</p>
+<dl>
+<dt>Example (local SQLite):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scitex_scholar.citation_graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">CitationGraphBuilder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">CitationGraphBuilder</span><span class="p">(</span><span class="n">db_path</span><span class="o">=</span><span class="s2">&quot;/path/to/crossref.db&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;10.1038/s41586-020-2008-3&quot;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example (HTTP via crossref-local):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">CitationGraphBuilder</span><span class="p">(</span><span class="n">api_url</span><span class="o">=</span><span class="s2">&quot;http://localhost:31291&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;10.1038/s41586-020-2008-3&quot;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scitex_scholar.citation_graph.</span></span><span class="sig-name descname"><span class="pre">CitationGraphBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Build citation network graphs for academic papers.</p>
+<p>Auto-detects backend via crossref_local.Config (DB → HTTP).</p>
+<dl>
+<dt>Example (auto-detect):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">CitationGraphBuilder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;10.1038/s41586-020-2008-3&quot;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example (explicit SQLite):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">CitationGraphBuilder</span><span class="p">(</span><span class="n">db_path</span><span class="o">=</span><span class="s2">&quot;/path/to/crossref.db&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example (explicit HTTP):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">CitationGraphBuilder</span><span class="p">(</span><span class="n">api_url</span><span class="o">=</span><span class="s2">&quot;http://localhost:31291&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize builder with database path, HTTP API URL, or auto-detect.</p>
+<p>When no args given, delegates to crossref_local.Config for auto-detection:
+1. CROSSREF_LOCAL_MODE env var (explicit “db” or “http”)
+2. CROSSREF_LOCAL_API_URL env var → HTTP mode
+3. Local DB file existence → DB mode
+4. Fallback to HTTP mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to CrossRef SQLite database (local mode)</p></li>
+<li><p><strong>api_url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL of crossref-local HTTP API (HTTP mode)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder._auto_detect">
+<span class="sig-name descname"><span class="pre">_auto_detect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder._auto_detect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder._auto_detect" title="Link to this definition"></a></dt>
+<dd><p>Auto-detect backend via crossref_local.Config.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed_doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_coupling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_cocitation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder.build" title="Link to this definition"></a></dt>
+<dd><p>Build citation network around a seed paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed_doi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – DOI of the seed paper</p></li>
+<li><p><strong>top_n</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Number of most similar papers to include</p></li>
+<li><p><strong>weight_coupling</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for bibliographic coupling</p></li>
+<li><p><strong>weight_cocitation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for co-citation</p></li>
+<li><p><strong>weight_direct</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for direct citations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph" title="scitex_scholar.citation_graph.models.CitationGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">CitationGraph</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CitationGraph object with nodes and edges</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder._create_paper_node">
+<span class="sig-name descname"><span class="pre">_create_paper_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_score</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder._create_paper_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder._create_paper_node" title="Link to this definition"></a></dt>
+<dd><p>Create a PaperNode with metadata from database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – DOI of the paper</p></li>
+<li><p><strong>similarity_score</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Calculated similarity score</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode" title="scitex_scholar.citation_graph.models.PaperNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaperNode</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PaperNode object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder._build_citation_edges">
+<span class="sig-name descname"><span class="pre">_build_citation_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dois</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder._build_citation_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder._build_citation_edges" title="Link to this definition"></a></dt>
+<dd><p>Build citation edges between papers in the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dois</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – List of DOIs in the network</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge" title="scitex_scholar.citation_graph.models.CitationEdge"><code class="xref py py-class docutils literal notranslate"><span class="pre">CitationEdge</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of CitationEdge objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder.build_from_dois">
+<span class="sig-name descname"><span class="pre">build_from_dois</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dois</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_related_per_doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_coupling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_cocitation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder.build_from_dois"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder.build_from_dois" title="Link to this definition"></a></dt>
+<dd><p>Build citation network from multiple seed DOIs.</p>
+<p>Combines similarity scores from all seeds to find papers
+related to the entire set, producing a richer connected graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dois</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – List of seed DOIs</p></li>
+<li><p><strong>num_related_per_doi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Number of related papers to discover per DOI</p></li>
+<li><p><strong>weight_coupling</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for bibliographic coupling</p></li>
+<li><p><strong>weight_cocitation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for co-citation</p></li>
+<li><p><strong>weight_direct</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for direct citations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph" title="scitex_scholar.citation_graph.models.CitationGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">CitationGraph</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CitationGraph with all seeds + related papers + edges</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder.build_from_query">
+<span class="sig-name descname"><span class="pre">build_from_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_related_per_doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_coupling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_cocitation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder.build_from_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder.build_from_query" title="Link to this definition"></a></dt>
+<dd><p>Build citation network from a text query.</p>
+<p>Searches local databases, extracts DOIs from results,
+then delegates to build_from_dois().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Search query (e.g. “hippocampal sharp wave ripples”)</p></li>
+<li><p><strong>num_related_per_doi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Related papers per seed DOI</p></li>
+<li><p><strong>search_limit</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Max papers to fetch from search</p></li>
+<li><p><strong>weight_coupling</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for bibliographic coupling</p></li>
+<li><p><strong>weight_cocitation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for co-citation</p></li>
+<li><p><strong>weight_direct</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Weight for direct citations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph" title="scitex_scholar.citation_graph.models.CitationGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">CitationGraph</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CitationGraph with search-discovered seeds + related papers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder.export_json">
+<span class="sig-name descname"><span class="pre">export_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder.export_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder.export_json" title="Link to this definition"></a></dt>
+<dd><p>Export graph to JSON file for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph" title="scitex_scholar.citation_graph.models.CitationGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">CitationGraph</span></code></a></span>) – CitationGraph to export</p></li>
+<li><p><strong>output_path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to output JSON file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraphBuilder.get_paper_summary">
+<span class="sig-name descname"><span class="pre">get_paper_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/builder.html#CitationGraphBuilder.get_paper_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraphBuilder.get_paper_summary" title="Link to this definition"></a></dt>
+<dd><p>Get summary information for a paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – DOI of the paper</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with paper summary</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scitex_scholar.citation_graph.</span></span><span class="sig-name descname"><span class="pre">PaperNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">journal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citation_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#PaperNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a paper in the citation network.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.doi">
+<span class="sig-name descname"><span class="pre">doi</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.doi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.title">
+<span class="sig-name descname"><span class="pre">title</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.title" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.year">
+<span class="sig-name descname"><span class="pre">year</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.year" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.authors">
+<span class="sig-name descname"><span class="pre">authors</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.authors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.journal">
+<span class="sig-name descname"><span class="pre">journal</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.journal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.citation_count">
+<span class="sig-name descname"><span class="pre">citation_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.citation_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.similarity_score">
+<span class="sig-name descname"><span class="pre">similarity_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.similarity_score" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.is_seed">
+<span class="sig-name descname"><span class="pre">is_seed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.is_seed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#PaperNode.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.to_dict" title="Link to this definition"></a></dt>
+<dd><p>Convert to dictionary for JSON export.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.PaperNode.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">journal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citation_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scitex_scholar.citation_graph.PaperNode.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scitex_scholar.citation_graph.</span></span><span class="sig-name descname"><span class="pre">CitationEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cites'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#CitationEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a citation relationship between papers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge.source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge.target">
+<span class="sig-name descname"><span class="pre">target</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge.target" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge.edge_type">
+<span class="sig-name descname"><span class="pre">edge_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cites'</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge.edge_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge.weight" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#CitationEdge.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge.to_dict" title="Link to this definition"></a></dt>
+<dd><p>Convert to dictionary for JSON export.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationEdge.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cites'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationEdge.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scitex_scholar.citation_graph.</span></span><span class="sig-name descname"><span class="pre">CitationGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed_doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_dois</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#CitationGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a complete citation network.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.seed_doi">
+<span class="sig-name descname"><span class="pre">seed_doi</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.seed_doi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.seed_dois">
+<span class="sig-name descname"><span class="pre">seed_dois</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.seed_dois" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scitex_scholar.citation_graph.PaperNode" title="scitex_scholar.citation_graph.models.PaperNode"><span class="pre">PaperNode</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scitex_scholar.citation_graph.CitationEdge" title="scitex_scholar.citation_graph.models.CitationEdge"><span class="pre">CitationEdge</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.edges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#CitationGraph.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.to_dict" title="Link to this definition"></a></dt>
+<dd><p>Convert to dictionary for JSON export.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.node_count">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">node_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.node_count" title="Link to this definition"></a></dt>
+<dd><p>Number of nodes in graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.edge_count">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">edge_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.edge_count" title="Link to this definition"></a></dt>
+<dd><p>Number of edges in graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.to_networkx">
+<span class="sig-name descname"><span class="pre">to_networkx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/models.html#CitationGraph.to_networkx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.to_networkx" title="Link to this definition"></a></dt>
+<dd><p>Convert to NetworkX DiGraph with node attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Directed graph with node attributes: title, short_title,
+year, citations, similarity, journal.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>networkx.DiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.CitationGraph.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed_doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_dois</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scitex_scholar.citation_graph.CitationGraph.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.plot_citation_graph">
+<span class="sig-prename descclassname"><span class="pre">scitex_scholar.citation_graph.</span></span><span class="sig-name descname"><span class="pre">plot_citation_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/visualization.html#plot_citation_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.plot_citation_graph" title="Link to this definition"></a></dt>
+<dd><p>Visualize a citation graph with pluggable backends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<a class="reference internal" href="#scitex_scholar.citation_graph.CitationGraph" title="scitex_scholar.citation_graph.CitationGraph"><em>CitationGraph</em></a><em> or </em><em>networkx.DiGraph</em>) – Citation network to visualize. CitationGraph is auto-converted
+via <code class="docutils literal notranslate"><span class="pre">to_networkx()</span></code>.</p></li>
+<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Rendering backend: ‘auto’, ‘figrecipe’, ‘scitex.plt’,
+‘matplotlib’, or ‘pyvis’. Default ‘auto’ picks the best available.</p></li>
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Output file path. Required for ‘pyvis’ backend (HTML).
+For static backends, saves the figure to this path.</p></li>
+<li><p><strong>**kwargs</strong> – Backend-specific keyword arguments (layout, seed, figsize, etc.).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Backend-specific result. Static backends return
+<code class="docutils literal notranslate"><span class="pre">{'fig',</span> <span class="pre">'ax',</span> <span class="pre">'pos',</span> <span class="pre">'backend'}</span></code>.
+Pyvis returns <code class="docutils literal notranslate"><span class="pre">{'output',</span> <span class="pre">'backend'}</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scitex_scholar.citation_graph.list_backends">
+<span class="sig-prename descclassname"><span class="pre">scitex_scholar.citation_graph.</span></span><span class="sig-name descname"><span class="pre">list_backends</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_scholar/citation_graph/visualization.html#list_backends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_scholar.citation_graph.list_backends" title="Link to this definition"></a></dt>
+<dd><p>List available visualization backends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping of backend name to availability.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="formatting.html" class="btn btn-neutral float-left" title="scitex_scholar.formatting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="impact_factor.html" class="btn btn-neutral float-right" title="scitex_scholar.impact_factor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yusuke Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

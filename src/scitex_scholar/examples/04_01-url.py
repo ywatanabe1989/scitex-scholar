@@ -38,7 +38,10 @@ import argparse
 import asyncio
 from pprint import pprint
 
-import scitex as stx
+try:
+    import scitex as stx
+except ImportError:
+    stx = None
 
 """Warnings"""
 

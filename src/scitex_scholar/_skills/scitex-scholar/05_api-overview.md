@@ -1,5 +1,7 @@
 ---
 description: Top-level Python API, CLI, MCP tool catalog, storage layout, and installation extras for scitex-scholar.
+name: api-overview
+tags: [scitex-scholar, scitex-package]
 ---
 
 # scitex-scholar API overview

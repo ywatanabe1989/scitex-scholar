@@ -1,5 +1,7 @@
 ---
 description: Enrich BibTeX entries with metadata (abstract, citations, IF) and per-field provenance.
+name: bibtex-enrichment
+tags: [scitex-scholar, scitex-package]
 ---
 
 # BibTeX Enrichment

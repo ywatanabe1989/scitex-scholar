@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scitex_scholar.url_finder.ScholarURLFinder &mdash; SciTeX Scholar v1.2.3</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=590429e0"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SciTeX Scholar
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#basic-installation">Basic Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#development">Development</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core.html">scitex_scholar.core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Paper"><code class="docutils literal notranslate"><span class="pre">Paper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Paper.model_dump"><code class="docutils literal notranslate"><span class="pre">Paper.model_dump()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Paper.from_dict"><code class="docutils literal notranslate"><span class="pre">Paper.from_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Paper.to_dict"><code class="docutils literal notranslate"><span class="pre">Paper.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Paper.detect_open_access"><code class="docutils literal notranslate"><span class="pre">Paper.detect_open_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Paper.is_open_access"><code class="docutils literal notranslate"><span class="pre">Paper.is_open_access</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers"><code class="docutils literal notranslate"><span class="pre">Papers</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__init__"><code class="docutils literal notranslate"><span class="pre">Papers.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__len__"><code class="docutils literal notranslate"><span class="pre">Papers.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__iter__"><code class="docutils literal notranslate"><span class="pre">Papers.__iter__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__getitem__"><code class="docutils literal notranslate"><span class="pre">Papers.__getitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__repr__"><code class="docutils literal notranslate"><span class="pre">Papers.__repr__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__str__"><code class="docutils literal notranslate"><span class="pre">Papers.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.__dir__"><code class="docutils literal notranslate"><span class="pre">Papers.__dir__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.papers"><code class="docutils literal notranslate"><span class="pre">Papers.papers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.append"><code class="docutils literal notranslate"><span class="pre">Papers.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.extend"><code class="docutils literal notranslate"><span class="pre">Papers.extend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.to_list"><code class="docutils literal notranslate"><span class="pre">Papers.to_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.filter"><code class="docutils literal notranslate"><span class="pre">Papers.filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.sort_by"><code class="docutils literal notranslate"><span class="pre">Papers.sort_by()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.from_bibtex"><code class="docutils literal notranslate"><span class="pre">Papers.from_bibtex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers._from_bibtex_file"><code class="docutils literal notranslate"><span class="pre">Papers._from_bibtex_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers._from_bibtex_text"><code class="docutils literal notranslate"><span class="pre">Papers._from_bibtex_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers._bibtex_entry_to_paper"><code class="docutils literal notranslate"><span class="pre">Papers._bibtex_entry_to_paper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.save"><code class="docutils literal notranslate"><span class="pre">Papers.save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.to_dict"><code class="docutils literal notranslate"><span class="pre">Papers.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.to_dataframe"><code class="docutils literal notranslate"><span class="pre">Papers.to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Papers.summary"><code class="docutils literal notranslate"><span class="pre">Papers.summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Scholar"><code class="docutils literal notranslate"><span class="pre">Scholar</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Scholar.name"><code class="docutils literal notranslate"><span class="pre">Scholar.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.Scholar.__init__"><code class="docutils literal notranslate"><span class="pre">Scholar.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus"><code class="docutils literal notranslate"><span class="pre">OAStatus</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus.GOLD"><code class="docutils literal notranslate"><span class="pre">OAStatus.GOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus.GREEN"><code class="docutils literal notranslate"><span class="pre">OAStatus.GREEN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus.HYBRID"><code class="docutils literal notranslate"><span class="pre">OAStatus.HYBRID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus.BRONZE"><code class="docutils literal notranslate"><span class="pre">OAStatus.BRONZE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus.CLOSED"><code class="docutils literal notranslate"><span class="pre">OAStatus.CLOSED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAStatus.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">OAStatus.UNKNOWN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult"><code class="docutils literal notranslate"><span class="pre">OAResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.is_open_access"><code class="docutils literal notranslate"><span class="pre">OAResult.is_open_access</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.status"><code class="docutils literal notranslate"><span class="pre">OAResult.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.oa_url"><code class="docutils literal notranslate"><span class="pre">OAResult.oa_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.source"><code class="docutils literal notranslate"><span class="pre">OAResult.source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.license"><code class="docutils literal notranslate"><span class="pre">OAResult.license</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.confidence"><code class="docutils literal notranslate"><span class="pre">OAResult.confidence</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OAResult.__init__"><code class="docutils literal notranslate"><span class="pre">OAResult.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.detect_oa_from_identifiers"><code class="docutils literal notranslate"><span class="pre">detect_oa_from_identifiers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.check_oa_status"><code class="docutils literal notranslate"><span class="pre">check_oa_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.check_oa_status_async"><code class="docutils literal notranslate"><span class="pre">check_oa_status_async()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.is_open_access_source"><code class="docutils literal notranslate"><span class="pre">is_open_access_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.is_open_access_journal"><code class="docutils literal notranslate"><span class="pre">is_open_access_journal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.is_arxiv_id"><code class="docutils literal notranslate"><span class="pre">is_arxiv_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache"><code class="docutils literal notranslate"><span class="pre">OASourcesCache</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.__init__"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.get_instance"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.get_instance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache._is_cache_valid"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._is_cache_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache._load_from_cache"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._load_from_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache._save_to_cache"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._save_to_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache._fetch_oa_sources_async"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._fetch_oa_sources_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache._fetch_oa_sources_sync"><code class="docutils literal notranslate"><span class="pre">OASourcesCache._fetch_oa_sources_sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.ensure_loaded"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.ensure_loaded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.is_oa_source"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.is_oa_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.is_oa_issn"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.is_oa_issn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.source_count"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.source_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.OASourcesCache.cache_age_hours"><code class="docutils literal notranslate"><span class="pre">OASourcesCache.cache_age_hours</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.get_oa_cache"><code class="docutils literal notranslate"><span class="pre">get_oa_cache()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.is_oa_journal_cached"><code class="docutils literal notranslate"><span class="pre">is_oa_journal_cached()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.refresh_oa_cache"><code class="docutils literal notranslate"><span class="pre">refresh_oa_cache()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.__init__"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.get_instance"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_instance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer._is_cache_valid"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._is_cache_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer._load_from_cache"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._load_from_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer._save_to_cache"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._save_to_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer._add_journal"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._add_journal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer._fetch_journals_async"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._fetch_journals_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer._fetch_journals_sync"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer._fetch_journals_sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.ensure_loaded"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.ensure_loaded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.get_issn_l"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_issn_l()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.normalize"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.normalize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.get_abbreviation"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_abbreviation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.get_journal_info"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.get_journal_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.is_same_journal"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.is_same_journal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.is_open_access"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.is_open_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.search"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.search()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.journal_count"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.journal_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.JournalNormalizer.cache_age_hours"><code class="docutils literal notranslate"><span class="pre">JournalNormalizer.cache_age_hours</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.get_journal_normalizer"><code class="docutils literal notranslate"><span class="pre">get_journal_normalizer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.normalize_journal_name"><code class="docutils literal notranslate"><span class="pre">normalize_journal_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.get_journal_issn_l"><code class="docutils literal notranslate"><span class="pre">get_journal_issn_l()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.is_same_journal"><code class="docutils literal notranslate"><span class="pre">is_same_journal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html#scitex_scholar.core.refresh_journal_cache"><code class="docutils literal notranslate"><span class="pre">refresh_journal_cache()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/auth.html">scitex_scholar.auth</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.ensure_authenticate_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.ensure_authenticate_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.is_authenticate_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.is_authenticate_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.authenticate_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.authenticate_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.get_auth_headers_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_auth_headers_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.get_auth_options"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_auth_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.get_auth_cookies_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_auth_cookies_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager._register_provider"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager._register_provider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.set_active_provider"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.set_active_provider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.get_active_provider"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.get_active_provider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.logout_async"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.logout_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.ScholarAuthManager.list_providers"><code class="docutils literal notranslate"><span class="pre">ScholarAuthManager.list_providers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway.name"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway.__init__"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway.prepare_context_async"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway.prepare_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway._resolve_publisher_url_async"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._resolve_publisher_url_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway._check_auth_requirements_from_doi"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._check_auth_requirements_from_doi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway._check_auth_requirements"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._check_auth_requirements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.AuthenticationGateway._establish_authentication_async"><code class="docutils literal notranslate"><span class="pre">AuthenticationGateway._establish_authentication_async()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext"><code class="docutils literal notranslate"><span class="pre">URLContext</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.doi"><code class="docutils literal notranslate"><span class="pre">URLContext.doi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.title"><code class="docutils literal notranslate"><span class="pre">URLContext.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.url"><code class="docutils literal notranslate"><span class="pre">URLContext.url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.pdf_urls"><code class="docutils literal notranslate"><span class="pre">URLContext.pdf_urls</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.requires_auth"><code class="docutils literal notranslate"><span class="pre">URLContext.requires_auth</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.auth_provider"><code class="docutils literal notranslate"><span class="pre">URLContext.auth_provider</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.auth_gateway_url"><code class="docutils literal notranslate"><span class="pre">URLContext.auth_gateway_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/auth.html#scitex_scholar.auth.URLContext.__init__"><code class="docutils literal notranslate"><span class="pre">URLContext.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/browser.html">scitex_scholar.browser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager.get_authenticated_browser_and_context_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.get_authenticated_browser_and_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager._new_context_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager._new_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager._verify_xvfb_running"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager._verify_xvfb_running()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager._load_auth_cookies_to_persistent_context_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager._load_auth_cookies_to_persistent_context_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager.take_screenshot_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.take_screenshot_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager.start_periodic_screenshots_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.start_periodic_screenshots_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager.stop_periodic_screenshots_async"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.stop_periodic_screenshots_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/browser.html#scitex_scholar.browser.ScholarBrowserManager.close"><code class="docutils literal notranslate"><span class="pre">ScholarBrowserManager.close()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/config.html">scitex_scholar.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig"><code class="docutils literal notranslate"><span class="pre">ScholarConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.__getattr__"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.__getattr__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.__dir__"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.__dir__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.resolve"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.resolve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.get"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.print"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.clear_log"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.clear_log()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.load_yaml"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.load_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.load"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.ScholarConfig.paths"><code class="docutils literal notranslate"><span class="pre">ScholarConfig.paths</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.PublisherRules"><code class="docutils literal notranslate"><span class="pre">PublisherRules</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.PublisherRules.__init__"><code class="docutils literal notranslate"><span class="pre">PublisherRules.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.PublisherRules.get_config_for_url"><code class="docutils literal notranslate"><span class="pre">PublisherRules.get_config_for_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.PublisherRules.merge_with_config"><code class="docutils literal notranslate"><span class="pre">PublisherRules.merge_with_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.PublisherRules.is_valid_pdf_url"><code class="docutils literal notranslate"><span class="pre">PublisherRules.is_valid_pdf_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/config.html#scitex_scholar.config.PublisherRules.filter_pdf_urls"><code class="docutils literal notranslate"><span class="pre">PublisherRules.filter_pdf_urls()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/filters.html">scitex_scholar.filters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/filters.html#scitex_scholar.filters.apply_filters"><code class="docutils literal notranslate"><span class="pre">apply_filters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/formatting.html">scitex_scholar.formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.clean_text"><code class="docutils literal notranslate"><span class="pre">clean_text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.generate_cite_key"><code class="docutils literal notranslate"><span class="pre">generate_cite_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.paper_normalize"><code class="docutils literal notranslate"><span class="pre">paper_normalize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.paper_from_search_result"><code class="docutils literal notranslate"><span class="pre">paper_from_search_result()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.make_citation_key"><code class="docutils literal notranslate"><span class="pre">make_citation_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.sanitize_filename"><code class="docutils literal notranslate"><span class="pre">sanitize_filename()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.to_bibtex"><code class="docutils literal notranslate"><span class="pre">to_bibtex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.to_ris"><code class="docutils literal notranslate"><span class="pre">to_ris()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.to_endnote"><code class="docutils literal notranslate"><span class="pre">to_endnote()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.to_csv_row"><code class="docutils literal notranslate"><span class="pre">to_csv_row()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.to_text_citation"><code class="docutils literal notranslate"><span class="pre">to_text_citation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.clean_bibtex_for_arxiv"><code class="docutils literal notranslate"><span class="pre">clean_bibtex_for_arxiv()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/formatting.html#scitex_scholar.formatting.papers_to_format"><code class="docutils literal notranslate"><span class="pre">papers_to_format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/citation_graph.html">scitex_scholar.citation_graph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder._auto_detect"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder._auto_detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder.build"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.build()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder._create_paper_node"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder._create_paper_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder._build_citation_edges"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder._build_citation_edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder.build_from_dois"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.build_from_dois()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder.build_from_query"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.build_from_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder.export_json"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.export_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraphBuilder.get_paper_summary"><code class="docutils literal notranslate"><span class="pre">CitationGraphBuilder.get_paper_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode"><code class="docutils literal notranslate"><span class="pre">PaperNode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.doi"><code class="docutils literal notranslate"><span class="pre">PaperNode.doi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.title"><code class="docutils literal notranslate"><span class="pre">PaperNode.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.year"><code class="docutils literal notranslate"><span class="pre">PaperNode.year</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.authors"><code class="docutils literal notranslate"><span class="pre">PaperNode.authors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.journal"><code class="docutils literal notranslate"><span class="pre">PaperNode.journal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.citation_count"><code class="docutils literal notranslate"><span class="pre">PaperNode.citation_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.similarity_score"><code class="docutils literal notranslate"><span class="pre">PaperNode.similarity_score</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.is_seed"><code class="docutils literal notranslate"><span class="pre">PaperNode.is_seed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.metadata"><code class="docutils literal notranslate"><span class="pre">PaperNode.metadata</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.to_dict"><code class="docutils literal notranslate"><span class="pre">PaperNode.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.PaperNode.__init__"><code class="docutils literal notranslate"><span class="pre">PaperNode.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge"><code class="docutils literal notranslate"><span class="pre">CitationEdge</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge.source"><code class="docutils literal notranslate"><span class="pre">CitationEdge.source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge.target"><code class="docutils literal notranslate"><span class="pre">CitationEdge.target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge.edge_type"><code class="docutils literal notranslate"><span class="pre">CitationEdge.edge_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge.weight"><code class="docutils literal notranslate"><span class="pre">CitationEdge.weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge.to_dict"><code class="docutils literal notranslate"><span class="pre">CitationEdge.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationEdge.__init__"><code class="docutils literal notranslate"><span class="pre">CitationEdge.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph"><code class="docutils literal notranslate"><span class="pre">CitationGraph</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.seed_doi"><code class="docutils literal notranslate"><span class="pre">CitationGraph.seed_doi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.seed_dois"><code class="docutils literal notranslate"><span class="pre">CitationGraph.seed_dois</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.nodes"><code class="docutils literal notranslate"><span class="pre">CitationGraph.nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.edges"><code class="docutils literal notranslate"><span class="pre">CitationGraph.edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.metadata"><code class="docutils literal notranslate"><span class="pre">CitationGraph.metadata</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.to_dict"><code class="docutils literal notranslate"><span class="pre">CitationGraph.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.node_count"><code class="docutils literal notranslate"><span class="pre">CitationGraph.node_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.edge_count"><code class="docutils literal notranslate"><span class="pre">CitationGraph.edge_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.to_networkx"><code class="docutils literal notranslate"><span class="pre">CitationGraph.to_networkx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.CitationGraph.__init__"><code class="docutils literal notranslate"><span class="pre">CitationGraph.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.plot_citation_graph"><code class="docutils literal notranslate"><span class="pre">plot_citation_graph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/citation_graph.html#scitex_scholar.citation_graph.list_backends"><code class="docutils literal notranslate"><span class="pre">list_backends()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/impact_factor.html">scitex_scholar.impact_factor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine.__init__"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine._get_jcr_year"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine._get_jcr_year()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine._get_metrics_uncached"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine._get_metrics_uncached()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/impact_factor.html#scitex_scholar.impact_factor.ImpactFactorEngine.get_database_info"><code class="docutils literal notranslate"><span class="pre">ImpactFactorEngine.get_database_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/impact_factor.html#scitex_scholar.impact_factor.get_journal_metrics"><code class="docutils literal notranslate"><span class="pre">get_journal_metrics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/metadata_engines.html">scitex_scholar.metadata_engines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine"><code class="docutils literal notranslate"><span class="pre">ScholarEngine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarEngine.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._setup_cache"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._setup_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._load_cache"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._load_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._save_cache"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._save_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._get_cache_key"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._get_cache_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine.search_async"><code class="docutils literal notranslate"><span class="pre">ScholarEngine.search_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine.search_batch_async"><code class="docutils literal notranslate"><span class="pre">ScholarEngine.search_batch_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._search_engine_with_timeout"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._search_engine_with_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._extract_identifiers"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._extract_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._identifiers_match"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._identifiers_match()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._validate_paper_consistency"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._validate_paper_consistency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._validate_against_query"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._validate_against_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._combine_metadata"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._combine_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/metadata_engines.html#scitex_scholar.metadata_engines.ScholarEngine._merge_metadata_structures"><code class="docutils literal notranslate"><span class="pre">ScholarEngine._merge_metadata_structures()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/migration.html">scitex_scholar.migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/migration.html#scitex_scholar.migration.from_connected_papers"><code class="docutils literal notranslate"><span class="pre">from_connected_papers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/migration.html#scitex_scholar.migration.to_connected_papers"><code class="docutils literal notranslate"><span class="pre">to_connected_papers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pdf_download.html">scitex_scholar.pdf_download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.__init__"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_from_urls"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_from_urls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_open_access"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_open_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_smart"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_smart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/pdf_download.html#scitex_scholar.pdf_download.ScholarPDFDownloader.download_from_url"><code class="docutils literal notranslate"><span class="pre">ScholarPDFDownloader.download_from_url()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SciTeX Scholar</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../scitex_scholar.html">scitex_scholar</a></li>
+      <li class="breadcrumb-item active">scitex_scholar.url_finder.ScholarURLFinder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scitex_scholar.url_finder.ScholarURLFinder</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Timestamp: &quot;2025-10-26 17:04:54 (ywatanabe)&quot;</span>
+<span class="c1"># File: /home/ywatanabe/proj/scitex-code/src/scitex/scholar/url_finder/ScholarURLFinder.py</span>
+<span class="c1"># ----------------------------------------</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">__FILE__</span> <span class="o">=</span> <span class="s2">&quot;./src/scitex/scholar/url_finder/ScholarURLFinder.py&quot;</span>
+<span class="n">__DIR__</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__FILE__</span><span class="p">)</span>
+<span class="c1"># ----------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ScholarURLFinder - Find PDF URLs from web pages.</span>
+
+<span class="sd">Simple, focused responsibility: Given a page or URL, find PDF URLs.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">asynccontextmanager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_logging</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">playwright.async_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrowserContext</span><span class="p">,</span> <span class="n">Page</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scitex_browser.debugging</span><span class="w"> </span><span class="kn">import</span> <span class="n">browser_logger</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scitex_scholar.auth.gateway</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenURLResolver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scitex_scholar.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScholarConfig</span>
+
+<span class="c1"># Import strategies</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.strategies</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">find_pdf_urls_by_direct_links</span><span class="p">,</span>
+    <span class="n">find_pdf_urls_by_navigation</span><span class="p">,</span>
+    <span class="n">find_pdf_urls_by_publisher_patterns</span><span class="p">,</span>
+    <span class="n">find_pdf_urls_by_zotero_translators</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Strategy execution order (priority order)</span>
+<span class="n">STRATEGIES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 1. Zotero translators (most reliable)</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Python Zotero Translators&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">find_pdf_urls_by_zotero_translators</span><span class="p">,</span>
+        <span class="s2">&quot;source_label&quot;</span><span class="p">:</span> <span class="s2">&quot;zotero_translator&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="c1"># 2. Direct links (combined: href + dropdown)</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Direct Links&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">find_pdf_urls_by_direct_links</span><span class="p">,</span>
+        <span class="s2">&quot;source_label&quot;</span><span class="p">:</span> <span class="s2">&quot;direct_link&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="c1"># 3. Navigation (Elsevier only)</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Navigation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">find_pdf_urls_by_navigation</span><span class="p">,</span>
+        <span class="s2">&quot;source_label&quot;</span><span class="p">:</span> <span class="s2">&quot;navigation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;publisher_filter&quot;</span><span class="p">:</span> <span class="s2">&quot;elsevier&quot;</span><span class="p">,</span>  <span class="c1"># Only for Elsevier domains</span>
+    <span class="p">},</span>
+    <span class="c1"># 4. Publisher patterns (fallback)</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Publisher Patterns&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">find_pdf_urls_by_publisher_patterns</span><span class="p">,</span>
+        <span class="s2">&quot;source_label&quot;</span><span class="p">:</span> <span class="s2">&quot;publisher_pattern&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ScholarURLFinder">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScholarURLFinder</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find PDF URLs from web pages.</span>
+
+<span class="sd">    Simple, focused responsibility:</span>
+<span class="sd">    - Input: Page or URL string</span>
+<span class="sd">    - Output: List of PDF URLs</span>
+
+<span class="sd">    Authentication/DOI resolution should be handled BEFORE calling this.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">PAGE_LOAD_TIMEOUT</span> <span class="o">=</span> <span class="mi">30_000</span>
+
+<div class="viewcode-block" id="ScholarURLFinder.__init__">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">:</span> <span class="n">BrowserContext</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ScholarConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">ScholarConfig</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openurl_resolver</span> <span class="o">=</span> <span class="n">OpenURLResolver</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ==========================================================================</span>
+    <span class="c1"># Public API</span>
+    <span class="c1"># ==========================================================================</span>
+
+<div class="viewcode-block" id="ScholarURLFinder.find_pdf_urls">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder.find_pdf_urls">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">find_pdf_urls</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">page_or_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Page</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find PDF URLs from page or URL string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            page_or_url: Playwright Page object or URL string</span>
+<span class="sd">            base_url: Optional base URL for the page</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of PDF URL dicts: [{&quot;url&quot;: &quot;...&quot;, &quot;source&quot;: &quot;zotero_translator&quot;}]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">page_or_url</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_from_url_string</span><span class="p">(</span><span class="n">page_or_url</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_from_page</span><span class="p">(</span><span class="n">page_or_url</span><span class="p">,</span> <span class="n">base_url</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ==========================================================================</span>
+    <span class="c1"># PDF Finding Implementation</span>
+    <span class="c1"># ==========================================================================</span>
+
+<div class="viewcode-block" id="ScholarURLFinder._find_pdf_urls_with_strategies">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder._find_pdf_urls_with_strategies">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_find_pdf_urls_with_strategies</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Try strategies in priority order.&quot;&quot;&quot;</span>
+        <span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="ow">or</span> <span class="n">page</span><span class="o">.</span><span class="n">url</span>
+        <span class="n">n_strategies</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">STRATEGIES</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i_strategy</span><span class="p">,</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">STRATEGIES</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Check if strategy should run for this URL</span>
+            <span class="n">publisher_filter</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publisher_filter&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">publisher_filter</span> <span class="ow">and</span> <span class="n">publisher_filter</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">base_url</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="c1"># logger.debug(</span>
+                <span class="c1">#     f&quot;{self.name}: Skipping {strategy[&#39;name&#39;]} (filtered)&quot;</span>
+                <span class="c1"># )</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Log progress</span>
+            <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="n">page</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">i_strategy</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n_strategies</span><span class="si">}</span><span class="s2"> Trying </span><span class="si">{</span><span class="n">strategy</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Execute strategy</span>
+                <span class="n">urls</span> <span class="o">=</span> <span class="k">await</span> <span class="n">strategy</span><span class="p">[</span><span class="s2">&quot;function&quot;</span><span class="p">](</span><span class="n">page</span><span class="p">,</span> <span class="n">base_url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">urls</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_pdf_dicts</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">strategy</span><span class="p">[</span><span class="s2">&quot;source_label&quot;</span><span class="p">])</span>
+                    <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="n">page</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: ✓ </span><span class="si">{</span><span class="n">strategy</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="si">}</span><span class="s2"> URLs&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">return</span> <span class="n">result</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="n">page</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">strategy</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="ScholarURLFinder._extract_doi">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder._extract_doi">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_doi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract DOI from string if present.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url: URL string or DOI</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DOI string if found, None otherwise</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; _extract_doi(&quot;10.1038/nature12345&quot;)</span>
+<span class="sd">            &quot;10.1038/nature12345&quot;</span>
+<span class="sd">            &gt;&gt;&gt; _extract_doi(&quot;doi:10.1038/nature12345&quot;)</span>
+<span class="sd">            &quot;10.1038/nature12345&quot;</span>
+<span class="sd">            &gt;&gt;&gt; _extract_doi(&quot;https://example.com&quot;)</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># Already a valid URL - not a DOI</span>
+        <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="s2">&quot;https://&quot;</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Remove common DOI prefixes</span>
+        <span class="n">doi_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(?:doi:\s*|DOI:\s*)?(.+)$&quot;</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">doi_pattern</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">potential_doi</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="c1"># Check if it looks like a DOI (starts with 10.)</span>
+            <span class="k">if</span> <span class="n">potential_doi</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;10.&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">potential_doi</span>
+
+        <span class="c1"># If it starts with 10., assume it&#39;s a DOI</span>
+        <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;10.&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">url</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ScholarURLFinder._find_from_url_string">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder._find_from_url_string">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_find_from_url_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find PDFs from URL string or DOI.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Browser context required&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="c1"># Check if input is a DOI and resolve it to publisher URL</span>
+        <span class="n">doi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_doi</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">doi</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Detected DOI: </span><span class="si">{</span><span class="n">doi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managed_page</span><span class="p">()</span> <span class="k">as</span> <span class="n">page</span><span class="p">:</span>
+                <span class="n">resolved_url</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">openurl_resolver</span><span class="o">.</span><span class="n">resolve_doi</span><span class="p">(</span><span class="n">doi</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">resolved_url</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Resolved DOI to: </span><span class="si">{</span><span class="n">resolved_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">url</span> <span class="o">=</span> <span class="n">resolved_url</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Fallback to direct DOI URL (works for open access papers like arXiv)</span>
+                    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://doi.org/</span><span class="si">{</span><span class="n">doi</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: OpenURL failed, using direct DOI URL: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Finding PDFs from URL: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managed_page</span><span class="p">()</span> <span class="k">as</span> <span class="n">page</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span>
+                    <span class="n">url</span><span class="p">,</span>
+                    <span class="n">wait_until</span><span class="o">=</span><span class="s2">&quot;domcontentloaded&quot;</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">PAGE_LOAD_TIMEOUT</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">pdfs</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_pdf_urls_with_strategies</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pdfs</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="n">page</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: No PDFs from URL: </span><span class="si">{</span><span class="n">url</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="k">return</span> <span class="n">pdfs</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># logger.warning(f&quot;{self.name}: Failed to load page: {e}&quot;)</span>
+                <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Navigation Error </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="ScholarURLFinder._find_from_page">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder._find_from_page">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_find_from_page</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find PDFs from existing page.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pdfs</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_pdf_urls_with_strategies</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">base_url</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pdfs</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: No PDFs on page&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">pdfs</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># logger.error(f&quot;{self.name}: Error finding PDFs: {e}&quot;)</span>
+            <span class="k">await</span> <span class="n">browser_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: PDF Search Error </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
+    <span class="c1"># ==========================================================================</span>
+    <span class="c1"># Utilities</span>
+    <span class="c1"># ==========================================================================</span>
+
+<div class="viewcode-block" id="ScholarURLFinder._managed_page">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder._managed_page">[docs]</a>
+    <span class="nd">@asynccontextmanager</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_managed_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Context manager for page lifecycle.&quot;&quot;&quot;</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">page</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;_managed_page: page.close() failed (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ScholarURLFinder._as_pdf_dicts">
+<a class="viewcode-back" href="../../../api/index.html#scitex_scholar.ScholarURLFinder._as_pdf_dicts">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_as_pdf_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert URL strings to dict format with source.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="p">}</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">]</span></div>
+</div>
+
+
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># CLI</span>
+<span class="c1"># ==============================================================================</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse CLI arguments.&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Find PDF URLs from a publisher page or DOI&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--url&quot;</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;URL or DOI to search for PDFs (e.g., &#39;https://...&#39; or &#39;10.1038/...&#39; or &#39;doi:10.1038/...&#39;)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--browser-mode&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;interactive&quot;</span><span class="p">,</span> <span class="s2">&quot;stealth&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;interactive&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--chrome-profile&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;system_worker_0&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main_async</span><span class="p">():</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scitex_scholar</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScholarAuthManager</span><span class="p">,</span> <span class="n">ScholarBrowserManager</span>
+
+        <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+
+        <span class="c1"># Setup auth manager and browser</span>
+        <span class="n">auth_manager</span> <span class="o">=</span> <span class="n">ScholarAuthManager</span><span class="p">()</span>
+        <span class="n">browser_manager</span> <span class="o">=</span> <span class="n">ScholarBrowserManager</span><span class="p">(</span>
+            <span class="n">auth_manager</span><span class="o">=</span><span class="n">auth_manager</span><span class="p">,</span>
+            <span class="n">browser_mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">browser_mode</span><span class="p">,</span>
+            <span class="n">chrome_profile_name</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">chrome_profile</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">context</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser_manager</span><span class="o">.</span><span class="n">get_authenticated_browser_and_context_async</span><span class="p">()</span>
+        <span class="c1"># time.sleep(1)</span>
+
+        <span class="c1"># Find PDFs</span>
+        <span class="n">url_finder</span> <span class="o">=</span> <span class="n">ScholarURLFinder</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">pdfs</span> <span class="o">=</span> <span class="k">await</span> <span class="n">url_finder</span><span class="o">.</span><span class="n">find_pdf_urls</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pdfs</span><span class="p">)</span><span class="si">}</span><span class="s2"> PDF URLs:&quot;</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">pdfs</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">browser_manager</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main_async</span><span class="p">())</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"># With URL</span>
+<span class="sd">python -m scitex_scholar.url_finder.ScholarURLFinder \</span>
+<span class="sd">	--url &quot;https://arxiv.org/abs/2308.09312&quot; \</span>
+<span class="sd">	--browser-mode stealth</span>
+
+<span class="sd"># With DOI</span>
+<span class="sd">python -m scitex_scholar.url_finder.ScholarURLFinder \</span>
+<span class="sd">	--url &quot;10.1038/s41598-017-02626-y&quot; \</span>
+<span class="sd">	--browser-mode stealth</span>
+
+<span class="sd"># With doi: prefix</span>
+<span class="sd">python -m scitex_scholar.url_finder.ScholarURLFinder \</span>
+<span class="sd">	--url &quot;doi:10.3389/fnins.2024.1472747&quot; \</span>
+<span class="sd">	--browser-mode stealth</span>
+
+<span class="sd"># No doi prefix</span>
+<span class="sd">python -m scitex_scholar.url_finder.ScholarURLFinder \</span>
+<span class="sd">	--url &quot;10.1016/j.clinph.2024.09.017&quot; \</span>
+<span class="sd">	--browser-mode stealth</span>
+
+<span class="sd"># Found 1 PDF URLs:</span>
+<span class="sd"># [{&#39;source&#39;: &#39;zotero_translator&#39;,</span>
+<span class="sd">#   &#39;url&#39;: &#39;https://www.sciencedirect.com/science/article/pii/S1388245724002761/pdfft?download=true&#39;}]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># EOF</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yusuke Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

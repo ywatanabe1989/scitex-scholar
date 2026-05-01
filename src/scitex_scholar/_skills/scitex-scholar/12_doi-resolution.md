@@ -1,5 +1,7 @@
 ---
 description: Resolve DOIs from titles; resumable batches; rate-limit recovery.
+name: doi-resolution
+tags: [scitex-scholar, scitex-package]
 ---
 
 # DOI Resolution

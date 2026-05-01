@@ -1,13 +1,16 @@
 # SciTeX Scholar (`scitex-scholar`)
 
-<p align="center"><b>Scientific paper search, enrichment, PDF download, and library management for reproducible research.</b></p>
+<!-- scitex-badges:start -->
+[![PyPI](https://img.shields.io/pypi/v/scitex-scholar.svg)](https://pypi.org/project/scitex-scholar/)
+[![Python](https://img.shields.io/pypi/pyversions/scitex-scholar.svg)](https://pypi.org/project/scitex-scholar/)
+[![Tests](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/test.yml/badge.svg)](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/test.yml)
+[![Install Test](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/install-test.yml/badge.svg)](https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/install-test.yml)
+[![Coverage](https://codecov.io/gh/ywatanabe1989/scitex-scholar/graph/badge.svg)](https://codecov.io/gh/ywatanabe1989/scitex-scholar)
+[![Docs](https://readthedocs.org/projects/scitex-scholar/badge/?version=latest)](https://scitex-scholar.readthedocs.io/en/latest/)
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+<!-- scitex-badges:end -->
 
-<p align="center">
-  <a href="https://badge.fury.io/py/scitex-scholar"><img src="https://badge.fury.io/py/scitex-scholar.svg" alt="PyPI version"></a>
-  <a href="https://scitex-scholar.readthedocs.io/"><img src="https://readthedocs.org/projects/scitex-scholar/badge/?version=latest" alt="Documentation"></a>
-  <a href="https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/test.yml"><img src="https://github.com/ywatanabe1989/scitex-scholar/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
-  <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue.svg" alt="License: AGPL-3.0"></a>
-</p>
+<p align="center"><b>Scientific paper search, enrichment, PDF download, and library management for reproducible research.</b></p>
 
 <p align="center">
   <a href="https://scitex-scholar.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-scholar</code>
@@ -152,7 +155,9 @@ AGPL-3.0-only.
 
 ## Part of SciTeX
 
-`scitex-scholar` is part of [**SciTeX**](https://scitex.ai).
+`scitex-scholar` is part of [**SciTeX**](https://scitex.ai). Install via
+the umbrella with `pip install scitex[scholar]` to use as
+`scitex.scholar` (Python) or `scitex scholar ...` (CLI).
 
 > Four Freedoms for Research
 >

@@ -22,7 +22,10 @@ import argparse
 from typing import Optional
 
 import matplotlib.pyplot as plt
-import scitex
+try:
+    import scitex
+except ImportError:
+    scitex = None
 from torch.utils.data import DataLoader
 
 """Parameters"""

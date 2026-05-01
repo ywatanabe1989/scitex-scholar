@@ -1,5 +1,7 @@
 ---
 description: Search papers across local library and external databases.
+name: search
+tags: [scitex-scholar, scitex-package]
 ---
 
 # Search

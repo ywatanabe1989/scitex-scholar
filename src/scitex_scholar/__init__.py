@@ -12,7 +12,17 @@ Installation:
     pip install scitex-scholar
 """
 
-__version__ = "1.2.1"
+from __future__ import annotations
+
+try:
+    from importlib.metadata import version as _v, PackageNotFoundError
+    try:
+        __version__ = _v("scitex-scholar")
+    except PackageNotFoundError:
+        __version__ = "0.0.0+local"
+    del _v, PackageNotFoundError
+except ImportError:  # pragma: no cover — only on ancient Pythons
+    __version__ = "0.0.0+local"
 __author__ = "Yusuke Watanabe"
 __email__ = "ywatanabe@scitex.ai"
 
@@ -71,6 +81,7 @@ def clean_abstract(text: str) -> str:
 SCHOLAR_AVAILABLE = True
 
 __all__ = [
+    "__version__",
     "Scholar",
     "Paper",
     "Papers",

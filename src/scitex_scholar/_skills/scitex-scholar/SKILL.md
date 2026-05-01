@@ -3,6 +3,7 @@ name: scitex-scholar
 description: Scientific-paper search, metadata enrichment, PDF download, and BibTeX library management for the SciTeX ecosystem. Use when searching the literature, resolving DOIs, enriching citations, downloading PDFs through institutional access, or managing a reproducible paper library.
 type: reference
 allowed-tools: mcp__scitex__scholar_*
+tags: [scitex-scholar, scitex-package]
 ---
 
 # scitex-scholar
