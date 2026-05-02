@@ -58,3 +58,7 @@ rule and empirical verification table.
 ## Environment
 
 - [20_env-vars.md](20_env-vars.md) — SCITEX_* env vars read by scitex-scholar at runtime
+
+## Lessons learned
+
+- [30_extraction-lessons.md](30_extraction-lessons.md) — extraction edge cases, parser pitfalls, and accumulated bug-fix notes
