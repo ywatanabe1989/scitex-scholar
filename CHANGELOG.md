@@ -7,6 +7,17 @@ this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+- **The skills-quality gate had been skipping since 2026-05-01 and is now
+  executed.** `tests/skills/test_skills_quality.py` passed `parents[1]` as the
+  package root; that named the repository root while the file sat at
+  `tests/`, and named `tests/` after it moved to `tests/skills/` (c978ba3).
+  The scitex-dev helper answers an empty corpus with a lone `pytest.skip()`,
+  and pytest exits 0 when everything skips, so the check reported success
+  without grading anything for four months. The root is now found by walking
+  up to `pyproject.toml`, and a new test FAILS (rather than skips) when the
+  skill corpus cannot be found, so a future move goes red instead of quiet.
+
 ### Changed
 - **The citation graph and the standalone GUI now read the crossref-local
   endpoint from `SCITEX_SCHOLAR_CROSSREF_API_URL`**, the variable the metadata
