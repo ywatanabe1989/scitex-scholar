@@ -167,6 +167,33 @@ def _api_url() -> Optional[str]:
     return None
 
 
+# The citation-graph routes answer 503 when no crossref-local endpoint is
+# configured. That is the right STATUS; the body used to be the wrong ANSWER —
+# "CrossRef API not configured" states what broke and not what to do, which
+# leaves a first-time user stuck with no next step (measured 2026-09-02 as a
+# standalone first-run blocker). Built once and shared so the four routes
+# cannot drift into four different explanations.
+def _not_configured_payload() -> dict:
+    """The 503 body for 'no crossref-local endpoint', with the fix in it."""
+    return {
+        "error": "CrossRef API not configured",
+        "detail": (
+            "The citation graph reads its data from a crossref-local HTTP API; "
+            "scholar never opens the corpus files itself. No endpoint is "
+            "configured, so there is nothing to query."
+        ),
+        "fix": (
+            f"Set {CROSSREF_API_URL_SETTING} to a running crossref-local "
+            "endpoint (env var of the same name, or the Django setting when "
+            "scholar is mounted in a host project), then restart the server. "
+            "Installing the `crossref-local` package supplies a default "
+            "endpoint, which scholar falls back to when the variable is unset."
+        ),
+        "setting": CROSSREF_API_URL_SETTING,
+        "docs": "src/scitex_scholar/citation_graph/README.md",
+    }
+
+
 def _get_builder():
     """Get or create CitationGraphBuilder for the configured endpoint."""
     api_url = _api_url()
@@ -314,7 +341,7 @@ def graph_network(request):
     # Build network
     builder = _get_builder()
     if not builder:
-        return JsonResponse({"error": "CrossRef API not configured"}, status=503)
+        return JsonResponse(_not_configured_payload(), status=503)
 
     try:
         graph = builder.build(
@@ -354,7 +381,7 @@ def graph_related(request):
 
     builder = _get_builder()
     if not builder:
-        return JsonResponse({"error": "CrossRef API not configured"}, status=503)
+        return JsonResponse(_not_configured_payload(), status=503)
 
     try:
         graph = builder.build(seed_doi=doi, top_n=limit)
@@ -383,7 +410,7 @@ def graph_paper(request):
 
     builder = _get_builder()
     if not builder:
-        return JsonResponse({"error": "CrossRef API not configured"}, status=503)
+        return JsonResponse(_not_configured_payload(), status=503)
 
     try:
         summary = builder.get_paper_summary(doi)
@@ -402,7 +429,7 @@ def graph_health(request):
     api_url = _api_url()
     if not api_url:
         return JsonResponse(
-            {"status": "unhealthy", "error": "No CrossRef API configured"}, status=503
+            {"status": "unhealthy", **_not_configured_payload()}, status=503
         )
 
     try:
