@@ -841,4 +841,103 @@ def test_standalone_settings_define_only_the_namespaced_name():
     assert defined == (True, False)
 
 
+# --- the 503 body must carry the FIX, not only the symptom -------------------
+#
+# Measured 2026-09-02 as a standalone first-run blocker: the citation graph
+# answers 503 and the old body said only "CrossRef API not configured", so a
+# first-time user learned what broke and not what to do. The status was always
+# right; the body was half an answer.
+
+GRAPH_ROUTES_THAT_NEED_AN_ENDPOINT = (
+    ("graph_network", "/api/graph/network", {"doi": "10.1000/x"}),
+    ("graph_related", "/api/graph/related", {"doi": "10.1000/x"}),
+    ("graph_paper", "/api/graph/paper", {"doi": "10.1000/x"}),
+    ("graph_health", "/api/graph/health", {}),
+)
+
+
+def _unconfigured_response(view_name: str, path: str, params: dict):
+    """Call one graph view with no endpoint configured; return its parsed body."""
+    from django.test import override_settings
+
+    with override_settings(SCITEX_SCHOLAR_CROSSREF_API_URL=None, CROSSREF_API_URL=None):
+        request = RequestFactory().get(path, params)
+        response = getattr(views, view_name)(request)
+    return response, json.loads(response.content)
+
+
+@pytest.mark.parametrize("view_name,path,params", GRAPH_ROUTES_THAT_NEED_AN_ENDPOINT)
+def test_unconfigured_graph_route_names_the_setting_to_set(view_name, path, params):
+    """Every 503 must name the variable whose absence caused it."""
+    # Arrange
+    expected = views.CROSSREF_API_URL_SETTING
+    # Act
+    _, body = _unconfigured_response(view_name, path, params)
+    # Assert
+    assert expected in body.get("fix", ""), body
+
+
+@pytest.mark.parametrize("view_name,path,params", GRAPH_ROUTES_THAT_NEED_AN_ENDPOINT)
+def test_unconfigured_graph_route_says_what_to_do_next(view_name, path, params):
+    """A 503 that only states the symptom is half-written (constitution §2)."""
+    # Arrange
+    required_keys = {"error", "detail", "fix", "setting"}
+    # Act
+    _, body = _unconfigured_response(view_name, path, params)
+    # Assert
+    assert required_keys <= set(body), body
+
+
+@pytest.mark.parametrize("view_name,path,params", GRAPH_ROUTES_THAT_NEED_AN_ENDPOINT)
+def test_unconfigured_graph_route_still_answers_503(view_name, path, params):
+    """The status code is the contract consumers branch on; it must not move."""
+    # Arrange
+    expected = 503
+    # Act
+    response, _ = _unconfigured_response(view_name, path, params)
+    # Assert
+    assert response.status_code == expected
+
+
+def test_graph_health_keeps_its_status_field_alongside_the_fix():
+    """graph_health's own shape survives: callers read `status`, not `error`."""
+    # Arrange
+    expected = "unhealthy"
+    # Act
+    _, body = _unconfigured_response("graph_health", "/api/graph/health", {})
+    # Assert
+    assert body.get("status") == expected
+
+
+def test_the_four_routes_give_one_explanation_not_four():
+    """One shared payload: four routes must not drift into four stories."""
+    # Arrange
+    bodies = [
+        _unconfigured_response(name, path, params)[1]
+        for name, path, params in GRAPH_ROUTES_THAT_NEED_AN_ENDPOINT
+    ]
+    # Act
+    fixes = {body["fix"] for body in bodies}
+    # Assert
+    assert len(fixes) == 1, fixes
+
+
+def test_the_503_docs_pointer_names_a_file_that_exists():
+    """A pointer to documentation that is not there is the defect being fixed.
+
+    The first draft of this payload cited a README anchor (`#citation-graph`)
+    that no heading produced. Shipping it would have made the error message a
+    third instance of the week's pattern: an explanation that sends the reader
+    somewhere the thing is not.
+    """
+    # Arrange
+    repo_root = next(
+        p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").is_file()
+    )
+    # Act
+    referenced = repo_root / views._not_configured_payload()["docs"]
+    # Assert
+    assert referenced.is_file(), referenced
+
+
 # EOF

@@ -7,6 +7,18 @@ this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+- **The citation graph's 503 now says what to do about it.** All four
+  `/api/graph/*` routes answered `{"error": "CrossRef API not configured"}` —
+  the right status with half an answer, leaving a first-time user with no next
+  step (measured 2026-09-02 as a standalone first-run blocker). The body now
+  also carries `detail` (the graph reads a crossref-local HTTP API; scholar
+  never opens the corpus itself), `fix` (set `SCITEX_SCHOLAR_CROSSREF_API_URL`,
+  or install `crossref-local` for its default endpoint, then restart) and
+  `setting`. One shared payload, so the four routes cannot drift into four
+  explanations; `graph_health` keeps its `status` field and every route keeps
+  503.
+
 ### Fixed
 - **The skills-quality gate had been skipping since 2026-05-01 and is now
   executed.** `tests/skills/test_skills_quality.py` passed `parents[1]` as the
